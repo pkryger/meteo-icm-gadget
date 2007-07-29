@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="ICM Weather Forecast">
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/old/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/old/pl_ALL.xml"/> 
+  </ModulePrefs>
+  <Content type="html"><![CDATA[
+  <p>__MSG_new_location_message__</p>
+  <a href="http://fusion.google.com/add?moduleurl=http%3A//meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget.xml" target="_blank"><img src="http://buttons.googlesyndication.com/fusion/add.gif" width="104" height="17" border="0" alt="Add to Google"></a>
+  ]]></Content>
+</Module>
