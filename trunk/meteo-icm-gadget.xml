@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-  <ModulePrefs title="ICM Weather for __UP_cityName__"
+  <ModulePrefs title="__MSG_title__ __UP_cityName__"
 	       title_url="http://meteo.icm.edu.pl"
-	       description="Displays the weather forecast for a given city in a form of a meteorological plot. Plots are taken from meteo.icm.edu.pl."
+	       description="__MSG_description__"
 	       author="Przemysław Kryger"
 	       author_email="pkryger+icmweatherforecast@gmail.com"
-	       directory_title="ICM Weather Forecast"
+	       directory_title="__MSG_directory_title__"
 	       screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
 	       thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
 	       author_location="Kraków, Poland"
 	       scaling="true"
 	       height="300"
 	       width="520"
-               scrolling="true" />
+               scrolling="true">
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+  </ModulePrefs>
   <UserPref name="cityName"
-	    display_name="City"
+	    display_name="__MSG_city__"
 	    default_value="Kraków"
 	    datatype="enum">
     <EnumValue value="Aleksandrów Kujawski" />
@@ -422,13 +425,13 @@
     <EnumValue value="Żywiec" />
   </UserPref>
   <UserPref name="plotLanguage"
-	    display_name="Plot Language"
+	    display_name="__MSG_plot_language__"
 	    default_value="en"
 	    datatype="enum">
     <EnumValue value="pl"
-	       display_value="Polish" />
+	       display_value="__MSG_plot_language_polish__" />
     <EnumValue value="en"
-	       display_value="English" />
+	       display_value="__MSG_plot_language_english__" />
   </UserPref>
   <Content type="html">
     <![CDATA[
@@ -436,8 +439,6 @@
 	     var BASE_URL = "http://meteo.icm.edu.pl/"
 	     var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
-
-	     var FORECAST = "Forecast for ";
 
              var MONTHS_NAMES = new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
 
@@ -910,7 +911,8 @@
 	       document.write('<img border="0" width="540" heigth="560" src="'
 	         + getImageName(prefs)
 		 + '" title="'
-		 + FORECAST
+		 + prefs.getMsg("forecast_for")
+		 + ' '
 		 + prefs.getString("cityName") 
 		 + '" />');
                document.write('</a>');
