@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Module>
-  <ModulePrefs title="ICM Weather Forecast">
+  <ModulePrefs title="__MSG_title_">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/old/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/old/pl_ALL.xml"/> 
   </ModulePrefs>
