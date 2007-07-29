@@ -12,9 +12,10 @@
 	       scaling="true"
 	       height="300"
 	       width="520"
-               scrolling="true" />
-  <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/dev/ALL_ALL.xml"/> 
-  <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/dev/pl_ALL.xml"/>
+               scrolling="true">
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/dev/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/dev/pl_ALL.xml"/>
+  </ModulePrefs>
   <UserPref name="cityName"
 	    display_name="__MSG_city__"
 	    default_value="Kraków"
