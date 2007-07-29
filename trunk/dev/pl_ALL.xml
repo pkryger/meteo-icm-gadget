@@ -1,5 +1,5 @@
 <messagebundle>
-  <msg name="title">Prognoza ICM dla</msg>
+  <msg name="title">Prognoza Pogody ICM:</msg>
   <msg name="description">
     Wyświetla prognozę pogody w formie wykresów meteorologicznych. Wykresy pochodzą ze strony http://meteo.icm.edu.pl.
   </msg>
@@ -8,5 +8,5 @@
   <msg name="plot_language">Język wykresu</msg>
   <msg name="plot_language_polish">Polski</msg>
   <msg name="plot_language_english">Angielski</msg>
-  <msg name="forecast_for">Prognoza dla</msg>
+  <msg name="forecast_for">Prognoza pogody:</msg>
 </messagebundle>
