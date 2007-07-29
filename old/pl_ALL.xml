@@ -1,0 +1,5 @@
+<messagebundle>
+  <msg name="new_location_message">
+    Ten element został przeniesiony do nowej lokacji. Użyj przycisku poniżej, aby dodać ten element na nowo.
+  </msg>
+</messagebundle>
