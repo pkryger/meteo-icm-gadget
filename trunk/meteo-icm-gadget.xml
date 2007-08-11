@@ -436,7 +436,8 @@
   <Content type="html">
     <![CDATA[
 	     <script type="text/javascript">
-	     var BASE_URL = "http://meteo.icm.edu.pl/"
+	     var CACHE_TIME = 60 * 60 * 6;
+	     var BASE_URL = "http://meteo.icm.edu.pl/";
 	     var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
@@ -904,12 +905,13 @@
 	     }
 
 	     function main(prefs) {
+	       var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
 	       document.write('<div>');
                document.write('<a target="_blank" href="'
                  + getLinkName(prefs)
                  + '" >');
 	       document.write('<img border="0" width="540" heigth="560" src="'
-	         + getImageName(prefs)
+	         + cachedUrl
 		 + '" title="'
 		 + prefs.getMsg("forecast_for")
 		 + ' '
