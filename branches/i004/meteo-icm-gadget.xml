@@ -463,19 +463,17 @@ Logger.prototype._name;
 Logger.prototype.getName = function() {
     return this._name;
 }
-Logger.prototype.setName = function(name)
-{
+Logger.prototype.setName = function(name) {
     this._name = name;
 }
 
-// The logging level to use. It shall be redefined by the user
-// to get the user output
+// The logging level to use
 Logger.prototype._loggingLevel;
 Logger.prototype.getLoggingLevel = function() {
     return this._loggingLevel;
 }
 Logger.prototype.setLoggingLevel = function(loggingLevel) {
-    this._logginhLevel = loggingLevel;
+    this._loggingLevel = loggingLevel;
 }
 
 // The logging destination div. It shall be redefined by the user.
