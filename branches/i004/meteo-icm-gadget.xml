@@ -495,7 +495,7 @@ Logger.prototype._print = function(message, level) {
     var loggingLevel = this.getLoggingLevel();
     if (loggingLevel > this.LEVEL_NONE
 	&& loggingLevel >= level) {
-	var outputDIV = this.getOutputDIV();
+	var outputDIV = _gel(this.getOutputDIV());
 	var outputHTML = outputDIV.innerHTML;
 	outputHTML += message;
 	outputDIV.innerHTML = outputHTML;
@@ -603,7 +603,7 @@ function _testLogger(div) {
 	log.trace("Test trace message");
     }
 }
-	     _testLogger(_gel("logging_div"));
+	     _testLogger("logging_div");
 	     var CACHE_TIME = 60 * 60 * 6;
 	     var BASE_URL = "http://meteo.icm.edu.pl/";
 	     var IMAGE_URL = BASE_URL + "gpp/data/";
