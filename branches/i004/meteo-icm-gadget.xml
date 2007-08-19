@@ -448,7 +448,7 @@
 function Logger(loggerName, loggingLevel, outputDIV) {
     this.setName(loggerName);
     this.setLoggingLevel(logginLevel);
-    this.setOutputDIV(otputDIV);
+    this.setOutputDIV(outputDIV);
 }
 
 // Logging levels for the user
