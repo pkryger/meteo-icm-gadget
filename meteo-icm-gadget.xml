@@ -434,7 +434,10 @@
 	       display_value="__MSG_plot_language_english__" />
   </UserPref>
   <Content type="html">
+    <div id="logging_div" />
     <![CDATA[
+	     <script type="text/javascript" src="logging.js">
+	     _testLogger(_gel("logging_div"));
 	     <script type="text/javascript">
 	     var CACHE_TIME = 60 * 60 * 6;
 	     var BASE_URL = "http://meteo.icm.edu.pl/";
