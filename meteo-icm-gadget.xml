@@ -435,8 +435,8 @@
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <div id="logging_div" />
-	     <div id="meteogram_div" />
+	     <div id="logging_div"></div>
+	     <div id="meteogram_div"></div>
 	     <script type="text/javascript">
 // This is the logging module for a JavaScript application. It loggs the user messages
 // into the specified destination DIV. The user shall provide the following:
