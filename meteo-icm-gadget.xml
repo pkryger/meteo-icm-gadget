@@ -603,7 +603,6 @@ function _testLogger(div) {
 	log.trace("Test trace message");
     }
 }
-	     _testLogger("logging_div");
 	     var CACHE_TIME = 60 * 60 * 6;
 	     var BASE_URL = "http://meteo.icm.edu.pl/";
 	     var IMAGE_URL = BASE_URL + "gpp/data/";
@@ -1089,7 +1088,9 @@ function _testLogger(div) {
 	       document.write('</div>'); 
 	     }
              
-             main(new _IG_Prefs(__MODULE_ID__));
+             //main(new _IG_Prefs(__MODULE_ID__));
+	     _testLogger("logging_div");
+
 	     </script>
     ]]> 
   </Content> 
