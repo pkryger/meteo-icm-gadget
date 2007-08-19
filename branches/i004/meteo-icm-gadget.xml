@@ -492,14 +492,14 @@ Logger.prototype.setOutputDIV = function(outputDIV) {
 Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
-    //var loggingLevel = this.getLoggingLevel();
-    if (loggingLevel > this.LEVEL_NONE
-	&& loggingLevel >= level) {
+//    var loggingLevel = this.getLoggingLevel();
+//    if (loggingLevel > this.LEVEL_NONE
+//	&& loggingLevel >= level) {
 	var outputDIV = _gel(this.getOutputDIV());
 	var outputHTML = outputDIV.innerHTML;
 	outputHTML += message;
 	outputDIV.innerHTML = outputHTML;
-    }
+//    }
 }
 
 // Endline character
