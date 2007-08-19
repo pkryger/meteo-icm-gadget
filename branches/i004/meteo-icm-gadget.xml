@@ -490,14 +490,14 @@ Logger.prototype.setOutputDIV = function(outputDIV) {
 Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
-//    var loggingLevel = this.getLoggingLevel();
-//    if (loggingLevel > this.LEVEL_NONE
-//	&& loggingLevel >= level) {
+    var loggingLevel = this.getLoggingLevel();
+    if (loggingLevel > this.LEVEL_NONE
+	&& loggingLevel >= level) {
 	var outputDIV = _gel(this.getOutputDIV());
 	var outputHTML = outputDIV.innerHTML;
 	outputHTML += message;
 	outputDIV.innerHTML = outputHTML;
-//    }
+    }
 }
 
 // Endline character
@@ -595,15 +595,16 @@ function _testLogger(div) {
     // for each level.
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_TRACE; nLevel++) {
 	var log = new Logger("TestLogger" + nLevel, nLevel, div);
+	log._print("Test _print", 10);
 	log.error("Test error message");
 	log.waring("Test warning message");
 	log.notify("Test notify message");
 	log.trace("Test trace message");
     }
 }
-	     var CACHE_TIME = 60 * 60 * 6;
-	     var BASE_URL = "http://meteo.icm.edu.pl/";
-	     var IMAGE_URL = BASE_URL + "gpp/data/";
+             var CACHE_TIME = 60 * 60 * 6;
+             var BASE_URL = "http://meteo.icm.edu.pl/";
+             var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
              var MONTHS_NAMES = new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
@@ -1015,8 +1016,8 @@ function _testLogger(div) {
              CITY_X["Żywiec"] = 16; CITY_Y["Żywiec"] = 7;
 
              var PLOT_LANGUAGES = new Array();
-	     PLOT_LANGUAGES["pl"] = 0;
-	     PLOT_LANGUAGES["en"] = 1;
+             PLOT_LANGUAGES["pl"] = 0;
+             PLOT_LANGUAGES["en"] = 1;
 
              function getImageName(prefs) {
                var now = new Date();
