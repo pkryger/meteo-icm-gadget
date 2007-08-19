@@ -597,7 +597,7 @@ function _testLogger(div) {
 	var log = new Logger("TestLogger" + nLevel, nLevel, div);
 	log._print("Test _print", 0);
 	log.error("Test error message");
-	log.waring("Test warning message");
+	log.warning("Test warning message");
 	log.notify("Test notify message");
 	log.trace("Test trace message");
     }
