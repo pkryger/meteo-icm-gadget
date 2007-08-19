@@ -12,11 +12,11 @@ function Logger(loggerName, loggingLevel, outputDIV) {
 }
 
 // Logging levels for the user
-Logger.prototpe.LEVEL_NONE = 0;
-Logger.prototpe.LEVEL_ERROR = 1;
-Logger.prototpe.LEVEL_WARNING = 2;
-Logger.prototpe.LEVEL_NOTIFY = 3;
-Logger.prototpe.LEVEL_TRACE = 4;
+Logger.prototype.LEVEL_NONE = 0;
+Logger.prototype.LEVEL_ERROR = 1;
+Logger.prototype.LEVEL_WARNING = 2;
+Logger.prototype.LEVEL_NOTIFY = 3;
+Logger.prototype.LEVEL_TRACE = 4;
 
 // The logger name
 Logger.prototype._name;
