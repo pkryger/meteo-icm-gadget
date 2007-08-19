@@ -461,7 +461,7 @@ Logger.prototype.LEVEL_TRACE = 4;
 // The logger name
 Logger.prototype._name;
 Logger.prototype.getName = function() {
-    return this._name;
+    return "[" + this._name + "]";
 }
 Logger.prototype.setName = function(name) {
     this._name = name;
@@ -525,7 +525,7 @@ Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
 Logger.prototype.error = function(message) {
-    var msg = this.getErrorPrefix() + this.getName() + ":" + message + this.getErrorSuffix() + this.getEndl();
+    var msg = this.getErrorPrefix() + this.getName() + message + this.getErrorSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_ERROR);
 }
 
@@ -545,7 +545,7 @@ Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
 Logger.prototype.warning = function(message) {
-    var msg = this.getWarningPrefix() + this.getName() + ":" + message + this.getWarningSuffix() + this.getEndl();
+    var msg = this.getWarningPrefix() + this.getName() + message + this.getWarningSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_WARNING);
 }
 
@@ -565,7 +565,7 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message) {
-    var msg = this.getNotifyPrefix() + this.getName() + ":" + message + this.getNotifySuffix() + this.getEndl();
+    var msg = this.getNotifyPrefix() + this.getName() + message + this.getNotifySuffix() + this.getEndl();
     this._print(msg, this.LEVEL_NOTIFY);
 }
 
@@ -585,7 +585,7 @@ Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
 Logger.prototype.trace = function(message) {
-    var msg = this.getTracePrefix() + this.getName() + ":" + message + this.getTraceSuffix() + this.getEndl();
+    var msg = this.getTracePrefix() + this.getName() + message + this.getTraceSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_TRACE);
 }
 
@@ -595,7 +595,6 @@ function _testLogger(div) {
     // for each level.
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	var log = new Logger("TestLogger" + nLevel, nLevel, div);
-	log._print("Test _print", 0);
 	log.error("Test error message");
 	log.warning("Test warning message");
 	log.notify("Test notify message");
