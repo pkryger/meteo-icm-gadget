@@ -434,8 +434,8 @@
 	       display_value="__MSG_plot_language_english__" />
   </UserPref>
   <Content type="html">
-    <div id="logging_div" />
     <![CDATA[
+	     <div id="logging_div" />
 	     <script type="text/javascript" src="logging.js">
 	     _testLogger(_gel("logging_div"));
 	     <script type="text/javascript">
