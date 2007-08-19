@@ -605,7 +605,7 @@ function _testLogger(div) {
     var log = new Logger("Plain", 10, div);
     var outputDIV = log.getOutputDIV();
     var outputHTML = outputDIV.innerHTML;
-    outputHTML += message;
+    outputHTML += "Plain message";
     outputDIV.innerHTML = outputHTML;
     
 }
