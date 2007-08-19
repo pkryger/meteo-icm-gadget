@@ -593,8 +593,8 @@ Logger.prototype.trace = function(message) {
 function _testLogger(div) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_TRACE; nLevel++) {
-	var log = new Logger("TestLogger", nLevel, div);
+    for (var nLevel = 0; nLevel <= 4; nLevel++) {
+	var log = new Logger("TestLogger" + nLevel, nLevel, div);
 	log._print("Test _print", 0);
 	log.error("Test error message");
 	log.waring("Test warning message");
@@ -603,7 +603,6 @@ function _testLogger(div) {
     }
     
     var log = new Logger("Plain", 10, div);
-    log._print("Test print", 0);
 }
 
 _testLogger(_gel("logging_div"));
