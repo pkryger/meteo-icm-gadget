@@ -435,8 +435,8 @@
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <div id="logging_div" />
-	     <script type="text/javascript" src="logging.js">
+	     <div id="logging_div"/>
+	     <script type="text/javascript" src="http://meteo-icm-gadget.googlecode.com/svn/branches/i004/logging.js" />
 	     _testLogger(_gel("logging_div"));
 	     <script type="text/javascript">
 	     var CACHE_TIME = 60 * 60 * 6;
