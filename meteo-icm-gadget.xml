@@ -1090,7 +1090,11 @@ function _testLogger(div) {
              
              //main(new _IG_Prefs(__MODULE_ID__));
 	     _testLogger("logging_div");
-
+	var outputDIV = _gel("logging_div");
+	var outputHTML = outputDIV.innerHTML;
+	outputHTML += "aa";
+	outputDIV.innerHTML = outputHTML;
+	     
 	     </script>
     ]]> 
   </Content> 
