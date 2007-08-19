@@ -1,5 +1,5 @@
 <messagebundle>
-  <msg name="title">ICM Weather for</msg>
+  <msg name="title">ICM Weather Forecast for</msg>
   <msg name="description">
     Displays the weather forecast for a given city in a form of a meteorograms. Meteorograms are taken from http://meteo.icm.edu.pl.
   </msg>
@@ -8,5 +8,5 @@
   <msg name="plot_language">Meteorogram Language</msg>
   <msg name="plot_language_polish">Polish</msg>
   <msg name="plot_language_english">English</msg>
-  <msg name="forecast_for">Weather forecast for</msg>
+  <msg name="forecast_for">Weather Forecast for</msg>
 </messagebundle>
