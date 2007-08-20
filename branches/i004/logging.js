@@ -51,9 +51,9 @@ Logger.prototype._print = function(message, level) {
     if (Logger.outputDIV != null
         && Logger.loggingLevel > Logger.LEVEL_NONE
 	&& Logger.loggingLevel >= level) {
-	_messageNumber++;
+	Logger._messageNumber++;
 	var outputHTML = Logger.outputDIV.innerHTML;
-	outputHTML += _messageNumber + ": " + message;
+	outputHTML += Logger._messageNumber + ": " + message;
 	Logger.outputDIV.innerHTML = outputHTML;
     }
 }
