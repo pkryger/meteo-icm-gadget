@@ -5,18 +5,18 @@
 // - the loggingLevel. One shall use defined LEVEL_... below.
 // - the HTML <div> where the output shall be redirected.
 
-// factory
-// numbering
 
 function Logger(loggerName) {
     this.setName(loggerName);
 }
 
-//function getLogger(loggerName, loggingDIV) {
-//    var loggingLevel = getLoggingLevel();
-//    var logger = new Logger(loggerName, loggingDIV);
-//    return logger;
-//}
+Logger._loggers = new Array();
+Logger.getLogger = function(loggerName) {
+    if (null == Logger._loggers[loggerName]) {
+	Logger._loggers[loggerName] = new Logger(loggerName);
+    }
+    return Logger._loggers[loggerName];
+}
 
 // Logging levels for the user
 Logger.LEVEL_NONE = 0;
@@ -154,7 +154,7 @@ function _testLogger(div) {
     Logger.outputDIV = div;
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	Logger.loggingLevel = nLevel;
-	var log = new Logger("TestLogger" + nLevel);
+	var log = getLogger("TestLogger" + nLevel);
 	log.error("Test error message");
 	log.warning("Test warning message");
 	log.notify("Test notify message");
