@@ -79,7 +79,7 @@ Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
 Logger.prototype.error = function(message) {
-    var msg = this.getErrorPrefix() + this.getName() + message + this.getErrorSuffix() + this.getEndl();
+    var msg = this.getErrorPrefix() + message + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_ERROR);
 }
 
@@ -99,7 +99,7 @@ Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
 Logger.prototype.warning = function(message) {
-    var msg = this.getWarningPrefix() + this.getName() + message + this.getWarningSuffix() + this.getEndl();
+    var msg = this.getWarningPrefix() + message + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_WARNING);
 }
 
@@ -119,7 +119,7 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message) {
-    var msg = this.getNotifyPrefix() + this.getName() + message + this.getNotifySuffix() + this.getEndl();
+    var msg = this.getNotifyPrefix() + message + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_NOTIFY);
 }
 
@@ -139,7 +139,7 @@ Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
 Logger.prototype.trace = function(message) {
-    var msg = this.getTracePrefix() + this.getName() + message + this.getTraceSuffix() + this.getEndl();
+    var msg = this.getTracePrefix() + message + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_TRACE);
 }
 
