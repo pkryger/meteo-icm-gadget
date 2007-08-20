@@ -12,7 +12,7 @@ function Logger(loggerName) {
 
 Logger._loggers = new Array();
 Logger.getLogger = function(loggerName) {
-    if (null != Logger._loggers[loggerName]) {
+    if (null == Logger._loggers[loggerName]) {
 	Logger._loggers[loggerName] = new Logger(loggerName);
     }
     return Logger._loggers[loggerName];
@@ -154,7 +154,7 @@ function _testLogger(div) {
     Logger.outputDIV = div;
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	Logger.loggingLevel = nLevel;
-	var log = getLogger("TestLogger" + nLevel);
+	var log = Logger.getLogger("TestLogger" + nLevel);
 	log.error("Test error message");
 	log.warning("Test warning message");
 	log.notify("Test notify message");
