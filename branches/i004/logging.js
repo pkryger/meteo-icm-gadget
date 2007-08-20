@@ -78,7 +78,7 @@ Logger.prototype.setErrorSuffix = function(suffix) {
 }
 Logger.prototype.error = function(message) {
     var msg = this.getErrorPrefix() + this.getName() + message + this.getErrorSuffix() + this.getEndl();
-    this._print(msg, this.LEVEL_ERROR);
+    this._print(msg, Logger.LEVEL_ERROR);
 }
 
 // Warning
@@ -98,7 +98,7 @@ Logger.prototype.setWarningSuffix = function(suffix) {
 }
 Logger.prototype.warning = function(message) {
     var msg = this.getWarningPrefix() + this.getName() + message + this.getWarningSuffix() + this.getEndl();
-    this._print(msg, this.LEVEL_WARNING);
+    this._print(msg, Logger.LEVEL_WARNING);
 }
 
 // Notify
@@ -118,7 +118,7 @@ Logger.prototype.setNotifySuffix = function(suffix) {
 }
 Logger.prototype.notify = function(message) {
     var msg = this.getNotifyPrefix() + this.getName() + message + this.getNotifySuffix() + this.getEndl();
-    this._print(msg, this.LEVEL_NOTIFY);
+    this._print(msg, Logger.LEVEL_NOTIFY);
 }
 
 // Trace
@@ -138,7 +138,7 @@ Logger.prototype.setTraceSuffix = function(suffix) {
 }
 Logger.prototype.trace = function(message) {
     var msg = this.getTracePrefix() + this.getName() + message + this.getTraceSuffix() + this.getEndl();
-    this._print(msg, this.LEVEL_TRACE);
+    this._print(msg, Logger.LEVEL_TRACE);
 }
 
 // Logger tests
