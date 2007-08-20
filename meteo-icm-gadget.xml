@@ -435,7 +435,7 @@
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <div id="logging_div"></div>
+	     <div id="logging_div" style="font-size:9pt; padding:5px;"></div>
 	     <div id="meteogram_div"></div>
 	     <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i004/logging.js"></script>
