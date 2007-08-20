@@ -1,15 +1,51 @@
-// This is the logging module for a JavaScript application. It loggs the user messages
-// into the specified destination DIV. The user shall provide the following:
-// - the Logger name (there can be multiple loggers for one application). The name
-//   will be added to logging output.
-// - the loggingLevel. One shall use defined LEVEL_... below.
-// - the HTML <div> where the output shall be redirected.
+/*
+This is the logging module for a JavaScript application. It loggs the user messages
+into the specified destination element innerHTML. The user shall use factory method Logger.getLogger()
+in order to instantiate a logger.
+
+*** User API:
++ static methods:
+
+- getLogger(loggerName) - returns a Logger instance with a specified loggerName
+
++ static fields:
+
+- loggingLevel - the current logging level. It could be dynamically changed while application is running. The
+level change affects all further logging calls.
+
+- output - the HTML element where the output shall be directed. The logger appends its messages in HTML style
+to the output's innerHTML 
+
+- LEVEL_NONE - do not log at all
+- LEVEL_ERROR - log only error messages
+- LEVEL_WARNING - log errors and warnings
+- LEVEL_NOTIFY - log errors, warnings and notices
+- LEVEL_TRACE - log errors, warnings, notices and traces
+
++ methods
+
+- getName() - returns the logger instance name
+
+- error(message) - logs specified message as an error
+
+- warning(message) - logs specified message as a warning
+
+- notify(message) - logs specified message as a notice
+
+- trace(message) - logs specified message as a trace
+
++ functions
+
+_testLogger(out) - sandbox for Logger class.
+*/
 
 
+// The constructor
 function Logger(loggerName) {
-    this.setName(loggerName);
+    this._setName(loggerName);
 }
 
+// Factory method
 Logger._loggers = new Array();
 Logger.getLogger = function(loggerName) {
     if (null == Logger._loggers[loggerName]) {
@@ -18,7 +54,7 @@ Logger.getLogger = function(loggerName) {
     return Logger._loggers[loggerName];
 }
 
-// Logging levels for the user
+// Logging levels
 Logger.LEVEL_NONE = 0;
 Logger.LEVEL_ERROR = 1;
 Logger.LEVEL_WARNING = 2;
@@ -28,15 +64,15 @@ Logger.LEVEL_TRACE = 4;
 // The logging level to use
 Logger.loggingLevel = Logger.LEVEL_NONE;
 
-// The logging destination div. It shall be redefined by the user.
-Logger.outputDIV = null;
+// The logging destination output element. It shall be redefined by the user.
+Logger.output = null;
 
 // The logger name
 Logger.prototype._name;
 Logger.prototype.getName = function() {
     return "[" + this._name + "]";
 }
-Logger.prototype.setName = function(name) {
+Logger.prototype._setName = function(name) {
     this._name = name;
 }
 
@@ -48,13 +84,13 @@ Logger._messageNumber = 0;
 Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
-    if (Logger.outputDIV != null
+    if (Logger.output != null
         && Logger.loggingLevel > Logger.LEVEL_NONE
 	&& Logger.loggingLevel >= level) {
 	Logger._messageNumber++;
-	var outputHTML = Logger.outputDIV.innerHTML;
+	var outputHTML = Logger.output.innerHTML;
 	outputHTML += Logger._messageNumber + ": " + message;
-	Logger.outputDIV.innerHTML = outputHTML;
+	Logger.output.innerHTML = outputHTML;
     }
 }
 
@@ -151,7 +187,7 @@ Logger.prototype.trace = function(message) {
 function _testLogger(div) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    Logger.outputDIV = div;
+    Logger.output = div;
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	Logger.loggingLevel = nLevel;
 	var log = Logger.getLogger("TestLogger" + nLevel);
@@ -159,6 +195,5 @@ function _testLogger(div) {
 	log.warning("Test warning message");
 	log.notify("Test notify message");
 	log.trace("Test trace message");
-    }
-    
+    }    
 }
