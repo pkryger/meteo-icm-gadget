@@ -40,6 +40,9 @@ Logger.prototype.setName = function(name) {
     this._name = name;
 }
 
+// One message number for all Loggers. It will be added for all messages
+Logger._messageNumber = 0;
+
 // If the current logging level is sufficient, appends the message
 // to the current output DIV innerHTML
 Logger.prototype._print = function(message, level) {
@@ -48,8 +51,9 @@ Logger.prototype._print = function(message, level) {
     if (Logger.outputDIV != null
         && Logger.loggingLevel > Logger.LEVEL_NONE
 	&& Logger.loggingLevel >= level) {
+	_messageNumber++;
 	var outputHTML = Logger.outputDIV.innerHTML;
-	outputHTML += message;
+	outputHTML += _messageNumber + ": " + message;
 	Logger.outputDIV.innerHTML = outputHTML;
     }
 }
