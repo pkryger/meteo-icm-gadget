@@ -5,18 +5,29 @@
 // - the loggingLevel. One shall use defined LEVEL_... below.
 // - the HTML <div> where the output shall be redirected.
 
-function Logger(loggerName, loggingLevel, outputDIV) {
+
+function Logger(loggerName) {
     this.setName(loggerName);
-    this.setLoggingLevel(loggingLevel);
-    this.setOutputDIV(outputDIV);
 }
 
+//function getLogger(loggerName, loggingDIV) {
+//    var loggingLevel = getLoggingLevel();
+//    var logger = new Logger(loggerName, loggingDIV);
+//    return logger;
+//}
+
 // Logging levels for the user
-Logger.prototype.LEVEL_NONE = 0;
-Logger.prototype.LEVEL_ERROR = 1;
-Logger.prototype.LEVEL_WARNING = 2;
-Logger.prototype.LEVEL_NOTIFY = 3;
-Logger.prototype.LEVEL_TRACE = 4;
+Logger.LEVEL_NONE = 0;
+Logger.LEVEL_ERROR = 1;
+Logger.LEVEL_WARNING = 2;
+Logger.LEVEL_NOTIFY = 3;
+Logger.LEVEL_TRACE = 4;
+
+// The logging level to use
+Logger.loggingLevel = Logger.LEVEL_NONE;
+
+// The logging destination div. It shall be redefined by the user.
+Logger.outputDIV = null;
 
 // The logger name
 Logger.prototype._name;
@@ -27,36 +38,17 @@ Logger.prototype.setName = function(name) {
     this._name = name;
 }
 
-// The logging level to use
-Logger.prototype._loggingLevel;
-Logger.prototype.getLoggingLevel = function() {
-    return this._loggingLevel;
-}
-Logger.prototype.setLoggingLevel = function(loggingLevel) {
-    this._loggingLevel = loggingLevel;
-}
-
-// The logging destination div. It shall be redefined by the user.
-Logger.prototype._outputDIV;
-Logger.prototype.getOutputDIV = function() {
-    return this._outputDIV;
-}
-Logger.prototype.setOutputDIV = function(outputDIV) {
-    this._outputDIV = outputDIV;
-}
-
 // If the current logging level is sufficient, appends the message
 // to the current output DIV innerHTML
 Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
-    var loggingLevel = this.getLoggingLevel();
-    if (loggingLevel > this.LEVEL_NONE
-	&& loggingLevel >= level) {
-	var outputDIV = this.getOutputDIV();
-	var outputHTML = outputDIV.innerHTML;
+    if (Logger.outputDIV != null
+        && Logger.loggingLevel > this.LEVEL_NONE
+	&& Logger.loggingLevel >= level) {
+	var outputHTML = Logger.outputDIV.innerHTML;
 	outputHTML += message;
-	outputDIV.innerHTML = outputHTML;
+	Logger.outputDIV.innerHTML = outputHTML;
     }
 }
 
@@ -153,8 +145,10 @@ Logger.prototype.trace = function(message) {
 function _testLogger(div) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
+    Logger.outputDIV = div;
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
-	var log = new Logger("TestLogger" + nLevel, nLevel, div);
+	Logger.loggingLevel = nLevel;
+	var log = new Logger("TestLogger" + nLevel);
 	log.error("Test error message");
 	log.warning("Test warning message");
 	log.notify("Test notify message");
