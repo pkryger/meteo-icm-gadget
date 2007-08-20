@@ -5,6 +5,8 @@
 // - the loggingLevel. One shall use defined LEVEL_... below.
 // - the HTML <div> where the output shall be redirected.
 
+// factory
+// numbering
 
 function Logger(loggerName) {
     this.setName(loggerName);
@@ -44,7 +46,7 @@ Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
     if (Logger.outputDIV != null
-        && Logger.loggingLevel > this.LEVEL_NONE
+        && Logger.loggingLevel > Logger.LEVEL_NONE
 	&& Logger.loggingLevel >= level) {
 	var outputHTML = Logger.outputDIV.innerHTML;
 	outputHTML += message;
