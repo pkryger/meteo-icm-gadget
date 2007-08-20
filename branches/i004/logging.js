@@ -7,8 +7,8 @@
 
 function Logger(loggerName, loggingLevel, outputDIV) {
     this.setName(loggerName);
-    this.setLoggingLevel(logginLevel);
-    this.setOutputDIV(otputDIV);
+    this.setLoggingLevel(loggingLevel);
+    this.setOutputDIV(outputDIV);
 }
 
 // Logging levels for the user
@@ -21,21 +21,19 @@ Logger.prototype.LEVEL_TRACE = 4;
 // The logger name
 Logger.prototype._name;
 Logger.prototype.getName = function() {
-    return this._name;
+    return "[" + this._name + "]";
 }
-Logger.prototype.setName = function(name)
-{
+Logger.prototype.setName = function(name) {
     this._name = name;
 }
 
-// The logging level to use. It shall be redefined by the user
-// to get the user output
+// The logging level to use
 Logger.prototype._loggingLevel;
 Logger.prototype.getLoggingLevel = function() {
     return this._loggingLevel;
 }
 Logger.prototype.setLoggingLevel = function(loggingLevel) {
-    this._logginhLevel = loggingLevel;
+    this._loggingLevel = loggingLevel;
 }
 
 // The logging destination div. It shall be redefined by the user.
@@ -87,7 +85,7 @@ Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
 Logger.prototype.error = function(message) {
-    var msg = this.getErrorPrefix() + this.getName() + ":" + message + this.getErrorSuffix() + this.getEndl();
+    var msg = this.getErrorPrefix() + this.getName() + message + this.getErrorSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_ERROR);
 }
 
@@ -107,7 +105,7 @@ Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
 Logger.prototype.warning = function(message) {
-    var msg = this.getWarningPrefix() + this.getName() + ":" + message + this.getWarningSuffix() + this.getEndl();
+    var msg = this.getWarningPrefix() + this.getName() + message + this.getWarningSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_WARNING);
 }
 
@@ -127,7 +125,7 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message) {
-    var msg = this.getNotifyPrefix() + this.getName() + ":" + message + this.getNotifySuffix() + this.getEndl();
+    var msg = this.getNotifyPrefix() + this.getName() + message + this.getNotifySuffix() + this.getEndl();
     this._print(msg, this.LEVEL_NOTIFY);
 }
 
@@ -147,7 +145,7 @@ Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
 Logger.prototype.trace = function(message) {
-    var msg = this.getTracePrefix() + this.getName() + ":" + message + this.getTraceSuffix() + this.getEndl();
+    var msg = this.getTracePrefix() + this.getName() + message + this.getTraceSuffix() + this.getEndl();
     this._print(msg, this.LEVEL_TRACE);
 }
 
@@ -155,11 +153,12 @@ Logger.prototype.trace = function(message) {
 function _testLogger(div) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_TRACE; nLevel++) {
+    for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	var log = new Logger("TestLogger" + nLevel, nLevel, div);
 	log.error("Test error message");
-	log.waring("Test warning message");
+	log.warning("Test warning message");
 	log.notify("Test notify message");
 	log.trace("Test trace message");
     }
+    
 }
