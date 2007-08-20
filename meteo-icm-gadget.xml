@@ -435,13 +435,16 @@
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <div id="logging_div" style="font-size:9pt; padding:5px;"></div>
+	     <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 	     <div id="meteogram_div"></div>
 	     <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i004/logging.js"></script>
 	     <script type="text/javascript">
 
-             _testLogger(_gel("logging_div"));
+             // The logging stuff
+             var log = Logger.getLogger("meteo-icm-main");
+	     Logger.output = _gel("logging_div");
+	     Logger.loggingLevel = Logger.LEVEL_TRACE;
 
              var CACHE_TIME = 60 * 60 * 6;
              var BASE_URL = "http://meteo.icm.edu.pl/";
@@ -928,7 +931,7 @@
 	       document.write('</div>'); 
 	     }
              
-             //main(new _IG_Prefs(__MODULE_ID__));
+             main(new _IG_Prefs(__MODULE_ID__));
 	     
 	     </script>
     ]]> 
