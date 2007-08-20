@@ -12,7 +12,7 @@ function Logger(loggerName) {
 
 Logger._loggers = new Array();
 Logger.getLogger = function(loggerName) {
-    if (null == Logger._loggers[loggerName]) {
+    if (null != Logger._loggers[loggerName]) {
 	Logger._loggers[loggerName] = new Logger(loggerName);
     }
     return Logger._loggers[loggerName];
