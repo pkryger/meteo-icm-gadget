@@ -139,7 +139,7 @@ Logger.prototype.error = function(message) {
     this._print(msg, Logger.LEVEL_ERROR);
 }
 Logger.prototype.error = function(message, parameters) {
-    var msg = message + ": " + this.parseArray(parameters);
+    var msg = message + ": " + this._parseArray(parameters);
     this.error(msg);
 }
 
@@ -163,7 +163,7 @@ Logger.prototype.warning = function(message) {
     this._print(msg, Logger.LEVEL_WARNING);
 }
 Logger.prototype.warning = function(message, parameters) {
-    var msg = message + ": " + this.parseArray(parameters);
+    var msg = message + ": " + this._parseArray(parameters);
     this.warning(msg);
 }
 
@@ -187,7 +187,7 @@ Logger.prototype.notify = function(message) {
     this._print(msg, Logger.LEVEL_NOTIFY);
 }
 Logger.prototype.notify = function(message, parameters) {
-    var msg = message + ": " + this.parseArray(parameters);
+    var msg = message + ": " + this._parseArray(parameters);
     this.notify(msg);
 }
 
@@ -211,7 +211,7 @@ Logger.prototype.trace = function(message) {
     this._print(msg, Logger.LEVEL_TRACE);
 }
 Logger.prototype.trace = function(message, parameters) {
-    var msg = message + ": " + this.parseArray(parameters);
+    var msg = message + ": " + this._parseArray(parameters);
     this.trace(msg);
 }
 
