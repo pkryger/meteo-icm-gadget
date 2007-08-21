@@ -108,6 +108,7 @@ Logger.prototype._parseArray = function(array) {
     }
     retString = retString.substring(0, retString.lastIndexOf(","));
     retString += "}";
+    return retString;
 }
 
 // Endline character
