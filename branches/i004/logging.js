@@ -134,14 +134,18 @@ Logger.prototype.getErrorSuffix = function() {
 Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
-Logger.prototype.error = function(message) {
-    var msg = this.getErrorPrefix() + message + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
+Logger.prototype.error = function(message, parameters) {
+    var params = "";
+    if (null != parameters) {
+	params = ": " + this._parseArray(parameters);
+    }
+    var msg = this.getErrorPrefix() + message + params + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_ERROR);
 }
-Logger.prototype.error = function(message, parameters) {
-    var msg = message + ": " + this._parseArray(parameters);
-    this.error(msg);
-}
+//Logger.prototype.error = function(message, parameters) {
+//    var msg = message + ": " + this._parseArray(parameters);
+//    this.error(msg);
+//}
 
 // Warning
 Logger.prototype._warningPrefix = "<b>Warning: ";
