@@ -182,7 +182,7 @@ Logger.prototype.getNotifySuffix = function() {
 Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
-Logger.prototype.notify = function(message) {
+Logger.prototype.notify = function(message, parameters) {
     var params = "";
     if (null != parameters) {
 	params = ": " + this._parseArray(parameters);
