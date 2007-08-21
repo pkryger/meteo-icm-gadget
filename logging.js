@@ -142,10 +142,6 @@ Logger.prototype.error = function(message, parameters) {
     var msg = this.getErrorPrefix() + message + params + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_ERROR);
 }
-//Logger.prototype.error = function(message, parameters) {
-//    var msg = message + ": " + this._parseArray(parameters);
-//    this.error(msg);
-//}
 
 // Warning
 Logger.prototype._warningPrefix = "<b>Warning: ";
@@ -162,13 +158,13 @@ Logger.prototype.getWarningSuffix = function() {
 Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
-Logger.prototype.warning = function(message) {
-    var msg = this.getWarningPrefix() + message + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_WARNING);
-}
 Logger.prototype.warning = function(message, parameters) {
-    var msg = message + ": " + this._parseArray(parameters);
-    this.warning(msg);
+    var params = "";
+    if (null != parameters) {
+	params = ": " + this._parseArray(parameters);
+    }
+    var msg = this.getWarningPrefix() + message + params + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
+    this._print(msg, Logger.LEVEL_WARNING);
 }
 
 // Notify
@@ -187,12 +183,12 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message) {
-    var msg = this.getNotifyPrefix() + message + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
+    var params = "";
+    if (null != parameters) {
+	params = ": " + this._parseArray(parameters);
+    }
+    var msg = this.getNotifyPrefix() + message + params + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_NOTIFY);
-}
-Logger.prototype.notify = function(message, parameters) {
-    var msg = message + ": " + this._parseArray(parameters);
-    this.notify(msg);
 }
 
 // Trace
@@ -210,13 +206,13 @@ Logger.prototype.getTraceSuffix = function() {
 Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
-Logger.prototype.trace = function(message) {
-    var msg = this.getTracePrefix() + message + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_TRACE);
-}
 Logger.prototype.trace = function(message, parameters) {
-    var msg = message + ": " + this._parseArray(parameters);
-    this.trace(msg);
+    var params = "";
+    if (null != parameters) {
+	params = ": " + this._parseArray(parameters);
+    }
+    var msg = this.getTracePrefix() + message + params + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
+    this._print(msg, Logger.LEVEL_TRACE);
 }
 
 // Logger tests
