@@ -27,12 +27,16 @@ to the output's innerHTML
 - getName() - returns the logger instance name
 
 - error(message) - logs specified message as an error
+- error(message, parameters) - logs specified message with a array parameters as an error
 
 - warning(message) - logs specified message as a warning
+- warning(message) - logs specified message with a array parameters as a warning
 
 - notify(message) - logs specified message as a notice
+- notify(message) - logs specified message with a array parameters as a notice
 
 - trace(message) - logs specified message as a trace
+- trace(message) - logs specified message with a array parameters as a trace
 
 + functions
 
@@ -94,6 +98,18 @@ Logger.prototype._print = function(message, level) {
     }
 }
 
+// Parses the given array and returns its string represenatation
+// The output is in the following form:
+// {key1:value1, key2:value2}
+Logger.prototype._parseArray(array) {
+    var retString = "{";
+    for (key in array) {
+	retString += key + ":" + array[key] + ", ";
+    }
+    retString = retString.substring(0, retString.lastIndexOf(","));
+    retString += "}";
+}
+
 // Endline character
 Logger.prototype._endl = "<br />";
 Logger.prototype.getEndl = function() {
@@ -122,6 +138,10 @@ Logger.prototype.error = function(message) {
     var msg = this.getErrorPrefix() + message + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_ERROR);
 }
+Logger.prototype.error = function(message, parameters) {
+    var msg = message + ": " + this.parseArray(parameters);
+    this.error(msg);
+}
 
 // Warning
 Logger.prototype._warningPrefix = "<b>Warning: ";
@@ -141,6 +161,10 @@ Logger.prototype.setWarningSuffix = function(suffix) {
 Logger.prototype.warning = function(message) {
     var msg = this.getWarningPrefix() + message + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_WARNING);
+}
+Logger.prototype.warning = function(message, parameters) {
+    var msg = message + ": " + this.parseArray(parameters);
+    this.warning(msg);
 }
 
 // Notify
@@ -162,6 +186,10 @@ Logger.prototype.notify = function(message) {
     var msg = this.getNotifyPrefix() + message + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_NOTIFY);
 }
+Logger.prototype.notify = function(message, parameters) {
+    var msg = message + ": " + this.parseArray(parameters);
+    this.notify(msg);
+}
 
 // Trace
 Logger.prototype._tracePrefix = "<font color=\"blue\">";
@@ -182,18 +210,27 @@ Logger.prototype.trace = function(message) {
     var msg = this.getTracePrefix() + message + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
     this._print(msg, Logger.LEVEL_TRACE);
 }
+Logger.prototype.trace = function(message, parameters) {
+    var msg = message + ": " + this.parseArray(parameters);
+    this.trace(msg);
+}
 
 // Logger tests
 function _testLogger(div) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
     Logger.output = div;
+    var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = 0; nLevel <= 4; nLevel++) {
 	Logger.loggingLevel = nLevel;
 	var log = Logger.getLogger("TestLogger" + nLevel);
 	log.error("Test error message");
+	log.error("Test error message with array", array);
 	log.warning("Test warning message");
+	log.warning("Test warning message with array", array);
 	log.notify("Test notify message");
+	log.notify("Test notify message with array", array);
 	log.trace("Test trace message");
+	log.trace("Test trace message with array", array);
     }    
 }

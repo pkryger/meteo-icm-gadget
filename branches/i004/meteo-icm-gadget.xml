@@ -931,8 +931,8 @@
 	       document.write('</div>'); 
 	     }
              
-             main(new _IG_Prefs(__MODULE_ID__));
-	     
+             //main(new _IG_Prefs(__MODULE_ID__));
+	     _testLogger(_gel("logging_div"));
 	     </script>
     ]]> 
   </Content> 
