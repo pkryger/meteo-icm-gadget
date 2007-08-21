@@ -101,7 +101,7 @@ Logger.prototype._print = function(message, level) {
 // Parses the given array and returns its string represenatation
 // The output is in the following form:
 // {key1:value1, key2:value2}
-Logger.prototype._parseArray(array) {
+Logger.prototype._parseArray = function(array) {
     var retString = "{";
     for (key in array) {
 	retString += key + ":" + array[key] + ", ";
