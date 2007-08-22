@@ -11,32 +11,29 @@ in order to instantiate a logger.
 + static fields:
 
 - loggingLevel - the current logging level. It could be dynamically changed while application is running. The
-level change affects all further logging calls.
+level change affects all further logging calls. It is calculated as a bit mask.
 
 - output - the HTML element where the output shall be directed. The logger appends its messages in HTML style
 to the output's innerHTML 
 
 - LEVEL_NONE - do not log at all
-- LEVEL_ERROR - log only error messages
-- LEVEL_WARNING - log errors and warnings
-- LEVEL_NOTIFY - log errors, warnings and notices
-- LEVEL_TRACE - log errors, warnings, notices and traces
+- LEVEL_ERROR - log error messages
+- LEVEL_WARNING - log warnings
+- LEVEL_NOTIFY - log notices
+- LEVEL_TRACE - log traces
+- LEVEL_ALL - log everything
 
 + methods
 
 - getName() - returns the logger instance name
 
-- error(message) - logs specified message as an error
-- error(message, parameters) - logs specified message with a array parameters as an error
+- error(message, parameters) - logs specified message with an optional array parameters as an error
 
-- warning(message) - logs specified message as a warning
-- warning(message) - logs specified message with a array parameters as a warning
+- warning(message,parameters) - logs specified message with an optionsl array parameters as a warning
 
-- notify(message) - logs specified message as a notice
-- notify(message) - logs specified message with a array parameters as a notice
+- notify(message, parameters) - logs specified message with an optional  array parameters as a notice
 
-- trace(message) - logs specified message as a trace
-- trace(message) - logs specified message with a array parameters as a trace
+- trace(messagem, parameters) - logs specified message with an optional array parameters as a trace
 
 + functions
 
@@ -60,10 +57,14 @@ Logger.getLogger = function(loggerName) {
 
 // Logging levels
 Logger.LEVEL_NONE = 0;
-Logger.LEVEL_ERROR = 1;
-Logger.LEVEL_WARNING = 2;
-Logger.LEVEL_NOTIFY = 3;
-Logger.LEVEL_TRACE = 4;
+Logger.LEVEL_ERROR = 1 << 0;
+Logger.LEVEL_WARNING = 1 << 1;
+Logger.LEVEL_NOTIFY = 1 << 2;
+Logger.LEVEL_TRACE = 1 << 3;
+Logger.LEVEL_ALL = Logger.LEVEL_ERROR
+    | Logger.LEVEL_WARNING
+    | Logger.LEVEL_NOTIFY
+    | Logger.LEVEL_TRACE;
 
 // The logging level to use
 Logger.loggingLevel = Logger.LEVEL_NONE;
@@ -89,8 +90,8 @@ Logger.prototype._print = function(message, level) {
     // Print only if _loggingLevel is higher than LEVEL_NONE
     // and level is is lower or equal to _loggingLevel
     if (Logger.output != null
-        && Logger.loggingLevel > Logger.LEVEL_NONE
-	&& Logger.loggingLevel >= level) {
+        && Logger.loggingLevel != Logger.LEVEL_NONE
+	&& (Logger.loggingLevel & level) == level) {
 	Logger._messageNumber++;
 	var outputHTML = Logger.output.innerHTML;
 	outputHTML += Logger._messageNumber + ": " + message;
@@ -139,7 +140,7 @@ Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
 Logger.prototype.error = function(message, parameters) {
-    if (Logger.loggingLevel >= Logger.LEVEL_ERROR) {
+    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
 	var params = ": " + this._parseArray(parameters);
 	var msg = this.getErrorPrefix() + message + params + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
 	this._print(msg, Logger.LEVEL_ERROR);
@@ -162,7 +163,7 @@ Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
 Logger.prototype.warning = function(message, parameters) {
-    if (Logger.loggingLevel >= Logger.LEVEL_WARNING) {
+    if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
 	var params = ": " + this._parseArray(parameters);
 	var msg = this.getWarningPrefix() + message + params + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
 	this._print(msg, Logger.LEVEL_WARNING);
@@ -185,7 +186,7 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message, parameters) {
-    if (Logger.loggingLevel >= Logger.LEVEL_NOTIFY) {
+    if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
 	var params = ": " + this._parseArray(parameters);
 	var msg = this.getNotifyPrefix() + message + params + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
 	this._print(msg, Logger.LEVEL_NOTIFY);
@@ -208,7 +209,7 @@ Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
 Logger.prototype.trace = function(message, parameters) {
-        if (Logger.loggingLevel >= Logger.LEVEL_TRACE) {
+        if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
 	    var params = ": " + this._parseArray(parameters);
 	    var msg = this.getTracePrefix() + message + params + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
 	    this._print(msg, Logger.LEVEL_TRACE);
@@ -221,9 +222,9 @@ function _testLogger(div) {
     // for each level.
     Logger.output = div;
     var array = {"key1":"value1", "key2":"value2"};
-    for (var nLevel = 0; nLevel <= 4; nLevel++) {
+    for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
 	Logger.loggingLevel = nLevel;
-	var log = Logger.getLogger("TestLogger" + nLevel);
+	var log = Logger.getLogger("TestLogger: level = " + nLevel);
 	log.error("Test error message");
 	log.error("Test error message with array", array);
 	log.warning("Test warning message");
