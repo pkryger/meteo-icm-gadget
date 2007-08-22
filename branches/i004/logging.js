@@ -102,12 +102,15 @@ Logger.prototype._print = function(message, level) {
 // The output is in the following form:
 // {key1:value1, key2:value2}
 Logger.prototype._parseArray = function(array) {
-    var retString = "{";
-    for (key in array) {
-	retString += key + ":" + array[key] + ", ";
+    var retString = "";
+    if (null != array) {
+	retString = "{";
+	for (key in array) {
+	    retString += key.toString() + ":" + array[key].toString() + ", ";
+	}
+	retString = retString.substring(0, retString.lastIndexOf(","));
+	retString += "}";
     }
-    retString = retString.substring(0, retString.lastIndexOf(","));
-    retString += "}";
     return retString;
 }
 
@@ -136,12 +139,11 @@ Logger.prototype.setErrorSuffix = function(suffix) {
     this._errorSuffix = suffix;
 }
 Logger.prototype.error = function(message, parameters) {
-    var params = "";
-    if (null != parameters) {
-	params = ": " + this._parseArray(parameters);
+    if (Logger.loggingLevel >= Logger.LEVEL_ERROR) {
+	var params = ": " + this._parseArray(parameters);
+	var msg = this.getErrorPrefix() + message + params + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
+	this._print(msg, Logger.LEVEL_ERROR);
     }
-    var msg = this.getErrorPrefix() + message + params + this.getErrorSuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_ERROR);
 }
 
 // Warning
@@ -160,12 +162,11 @@ Logger.prototype.setWarningSuffix = function(suffix) {
     this._warningSuffix = suffix;
 }
 Logger.prototype.warning = function(message, parameters) {
-    var params = "";
-    if (null != parameters) {
-	params = ": " + this._parseArray(parameters);
+    if (Logger.loggingLevel >= Logger.LEVEL_WARNING) {
+	var params = ": " + this._parseArray(parameters);
+	var msg = this.getWarningPrefix() + message + params + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
+	this._print(msg, Logger.LEVEL_WARNING);
     }
-    var msg = this.getWarningPrefix() + message + params + this.getWarningSuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_WARNING);
 }
 
 // Notify
@@ -184,12 +185,11 @@ Logger.prototype.setNotifySuffix = function(suffix) {
     this._notifySuffix = suffix;
 }
 Logger.prototype.notify = function(message, parameters) {
-    var params = "";
-    if (null != parameters) {
-	params = ": " + this._parseArray(parameters);
+    if (Logger.loggingLevel >= Logger.LEVEL_NOTIFY) {
+	var params = ": " + this._parseArray(parameters);
+	var msg = this.getNotifyPrefix() + message + params + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
+	this._print(msg, Logger.LEVEL_NOTIFY);
     }
-    var msg = this.getNotifyPrefix() + message + params + this.getNotifySuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_NOTIFY);
 }
 
 // Trace
@@ -208,12 +208,11 @@ Logger.prototype.setTraceSuffix = function(suffix) {
     this._traceSuffix = suffix;
 }
 Logger.prototype.trace = function(message, parameters) {
-    var params = "";
-    if (null != parameters) {
-	params = ": " + this._parseArray(parameters);
-    }
-    var msg = this.getTracePrefix() + message + params + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
-    this._print(msg, Logger.LEVEL_TRACE);
+        if (Logger.loggingLevel >= Logger.LEVEL_TRACE) {
+	    var params = ": " + this._parseArray(parameters);
+	    var msg = this.getTracePrefix() + message + params + this.getTraceSuffix() + this.getName() + " " + this.getEndl();
+	    this._print(msg, Logger.LEVEL_TRACE);
+	}
 }
 
 // Logger tests
