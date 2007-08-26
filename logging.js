@@ -105,7 +105,7 @@ var Logger = (function() {
 	 *   message - the message to be logged
 	 *   parameters - the Array of parameters to be logged
 	 */
-	this.error = function(message, parameters) {
+	_Logger.prototype.error = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
 		var params = ": " + parseArray(parameters);
 		var msg = getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
