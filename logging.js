@@ -176,7 +176,7 @@ var Logger = (function() {
      */
     _Logger.getLogger = function(loggerName) {
 	if (null == _loggers[loggerName]) {
-	    _loggers[loggerName] = _Logger(loggerName);
+	    _loggers[loggerName] = new Logger(loggerName);
 	}
 	return _loggers[loggerName];
     };
