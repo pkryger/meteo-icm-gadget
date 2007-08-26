@@ -158,7 +158,7 @@ var Logger = (function() {
 	    }
 	};
 
-    } // End of constuctor
+    }; // End of constuctor
 
     /**
      * The array of loggers for factory method
