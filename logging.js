@@ -107,7 +107,7 @@ var Logger = (function() {
 	 */
 	this.error = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
-		var params = ": " + parseArray(parameters);
+		var params = ": " + _parseArray(parameters);
 		var msg = getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_ERROR);
 	    }
@@ -122,7 +122,7 @@ var Logger = (function() {
 	 */
 	this.warning = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
-		var params = ": " + parseArray(parameters);
+		var params = ": " + _parseArray(parameters);
 		var msg = getWarningPrefix() + message + params + getWarningSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_WARNING);
 	    }
@@ -137,7 +137,7 @@ var Logger = (function() {
 	 */
 	this.notify = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
-		var params = ": " + parseArray(parameters);
+		var params = ": " + _parseArray(parameters);
 		var msg = getNotifyPrefix() + message + params + getNotifySuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_NOTIFY);
 	    }
@@ -152,7 +152,7 @@ var Logger = (function() {
 	 */
 	this.trace = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
-		var params = ": " + parseArray(parameters);
+		var params = ": " + _parseArray(parameters);
 		var msg = getTracePrefix() + message + params + getTraceSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_TRACE);
 	    }
