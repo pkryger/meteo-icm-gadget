@@ -53,9 +53,9 @@ var Logger = (function() {
      *   loggerName  the object to identify the logger name.
      */
     function _Logger(loggerName) {
-	if (_Logger.caller != _Logger.getLogger) {
-	    throw new Error("Only Logger.getLogger can create a Logger instance!" + _Logger.caller);
-	}
+	//if (_Logger.caller != _Logger.getLogger) {
+	//    throw new Error("Only Logger.getLogger can create a Logger instance!" + _Logger.caller);
+	//}
 	/**
 	 * By convention, we make a private self parameter. This is used to make the object
 	 * available to the private methods.
@@ -105,7 +105,7 @@ var Logger = (function() {
 	 *   message - the message to be logged
 	 *   parameters - the Array of parameters to be logged
 	 */
-	_Logger.prototype.error = function(message, parameters) {
+	this.error = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
 		var params = ": " + parseArray(parameters);
 		var msg = getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
