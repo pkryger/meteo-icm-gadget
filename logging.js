@@ -52,8 +52,7 @@ var Logger = (function() {
      * Parameters:
      *   loggerName  the object to identify the logger name.
      */
-    function constructor(loggerName)
-    {
+    function constructor(loggerName) {
 	if (constructor.caller != constructor.getLogger) {
 	    throw new Error("Only Logger.getLogger can create a Logger instance!" + constructor.caller);
 	}
@@ -78,7 +77,7 @@ var Logger = (function() {
 	 */
 	this.getName = function() {
 	    return "[" + self._name.toString() + "]";
-	}
+	};
 	
 	/**
 	 * Appends the message to the output.innerHTML if lefel is sufficient.
@@ -97,7 +96,7 @@ var Logger = (function() {
 		outputHTML += _incrementMessageNumber() + ": " + message.toString();
 		Logger.output.innerHTML = outputHTML;
 	    }
-	}
+	};
 
 	/**
 	 * Logs the error message with specified parameters to the output
@@ -112,7 +111,7 @@ var Logger = (function() {
 		var msg = getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_ERROR);
 	    }
-	}
+	};
 
 	/**
 	 * Logs the warning message with specified parameters to the output
@@ -127,7 +126,7 @@ var Logger = (function() {
 		var msg = getWarningPrefix() + message + params + getWarningSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_WARNING);
 	    }
-	}
+	};
 
 	/**
 	 * Logs the notify message with specified parameters to the output
@@ -142,7 +141,7 @@ var Logger = (function() {
 		var msg = getNotifyPrefix() + message + params + getNotifySuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_NOTIFY);
 	    }
-	}
+	};
 
 	/**
 	 * Logs the trace message with specified parameters to the output
@@ -157,7 +156,7 @@ var Logger = (function() {
 		var msg = getTracePrefix() + message + params + getTraceSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_TRACE);
 	    }
-	}
+	};
 
     } // End of constuctor
 
@@ -180,7 +179,7 @@ var Logger = (function() {
 	    _loggers[loggerName] = constructor(loggerName);
 	}
 	return _loggers[loggerName];
-    }
+    };
 
     /**
      * One message number for all Loggers. It will be added for all messages
@@ -195,7 +194,7 @@ var Logger = (function() {
      */
     function _incrementMessageNumber() {
 	return _messageNumber++;
-    }
+    };
     
     /**
      * Parses the given array and returns its string represenatation
@@ -216,7 +215,7 @@ var Logger = (function() {
 	    retString += "}";
 	}
 	return retString;
-    }
+    };
     
     /**
      * The sequence to be used as an end line
@@ -231,7 +230,7 @@ var Logger = (function() {
      */
     constructor.getEndl = function() {
 	return _endl.toString();
-    }
+    };
 
     /**
      * The end line sequence setter
@@ -241,7 +240,7 @@ var Logger = (function() {
      */
     constructor.setEndl = function(endl) {
 	_endl = endl;
-    }
+    };
     
     /**
      * The sequence to be used as an error prefix
@@ -256,7 +255,7 @@ var Logger = (function() {
      */
     constructor.getErrorPrefix = function() {
 	return _errorPrefix.toString();
-    }
+    };
 
     /**
      * The error prefix setter
@@ -266,7 +265,7 @@ var Logger = (function() {
      */
     constructor.setErrorPrefix = function(prefix) {
 	_errorPrefix = prefix;
-    }
+    };
 
     /**
      * The sequence to be used as an error suffix
@@ -281,7 +280,7 @@ var Logger = (function() {
      */
     constructor.getErrorSuffix = function() {
 	return _errorSuffix.toString();
-    }
+    };
 
     /**
      * The error suffix setter
@@ -291,7 +290,7 @@ var Logger = (function() {
      */
     constructor.setErrorSuffix = function(suffix) {
 	_errorSuffix = suffix;
-    }
+    };
 
     /**
      * The sequence to be used as an warning prefix
@@ -306,7 +305,7 @@ var Logger = (function() {
      */
     constructor.getWarningPrefix = function() {
 	return _warningPrefix.toString();
-    }
+    };
 
     /**
      * The warning prefix setter
@@ -316,7 +315,7 @@ var Logger = (function() {
      */
     constructor.setWarningPrefix = function(prefix) {
 	_warningPrefix = prefix;
-    }
+    };
 
     /**
      * The sequence to be used as an warning suffix
@@ -331,8 +330,8 @@ var Logger = (function() {
      */
     constructor.getWarningSuffix = function() {
 	return _warningSuffix.toString();
-    }
-
+    };
+    
     /**
      * The warning suffix setter
      *
@@ -341,7 +340,7 @@ var Logger = (function() {
      */
     constructor.setWarningSuffix = function(suffix) {
 	_warningSuffix = suffix;
-    }
+    };
 
     /**
      * The sequence to be used as an notify prefix
@@ -356,7 +355,7 @@ var Logger = (function() {
      */
     constructor.getNotifyPrefix = function() {
 	return _notifyPrefix.toString();
-    }
+    };
 
     /**
      * The notify prefix setter
@@ -366,7 +365,7 @@ var Logger = (function() {
      */
     constructor.setNotifyPrefix = function(prefix) {
 	_notifyPrefix = prefix;
-    }
+    };
 
     /**
      * The sequence to be used as an notify suffix
@@ -381,7 +380,7 @@ var Logger = (function() {
      */
     constructor.getNotifySuffix = function() {
 	return _notifySuffix.toString();
-    }
+    };
 
     /**
      * The notify suffix setter
@@ -391,7 +390,7 @@ var Logger = (function() {
      */
     constructor.setNotifySuffix = function(suffix) {
 	_notifySuffix = suffix;
-    }
+    };
 
     /**
      * The sequence to be used as an trace prefix
@@ -406,7 +405,7 @@ var Logger = (function() {
      */
     constructor.getTracePrefix = function() {
 	return _tracePrefix.toString();
-    }
+    };
 
     /**
      * The trace prefix setter
@@ -416,7 +415,7 @@ var Logger = (function() {
      */
     constructor.setTracePrefix = function(prefix) {
 	_tracePrefix = prefix;
-    }
+    };
 
     /**
      * The sequence to be used as an trace suffix
@@ -431,7 +430,7 @@ var Logger = (function() {
      */
     constructor.getTraceSuffix = function() {
 	return _traceSuffix.toString();
-    }
+    };
 
     /**
      * The trace suffix setter
@@ -441,7 +440,7 @@ var Logger = (function() {
      */
     constructor.setTraceSuffix = function(suffix) {
 	_traceSuffix = suffix;
-    }
+    };
     
     // Return an instance
     return constructor;
@@ -470,7 +469,8 @@ Logger.LEVEL_TRACE = 1 << 3;
 /**
  * Special logging level that causes all messages to appear
  */
-Logger.LEVEL_ALL = Logger.LEVEL_ERROR
+Logger.LEVEL_ALL =
+    Logger.LEVEL_ERROR
     | Logger.LEVEL_WARNING
     | Logger.LEVEL_NOTIFY
     | Logger.LEVEL_TRACE;
@@ -508,4 +508,4 @@ function _testLogger(div) {
 	log.trace("Test trace message");
 	log.trace("Test trace message with array", array);
     }    
-}
+};
