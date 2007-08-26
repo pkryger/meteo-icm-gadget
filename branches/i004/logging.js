@@ -109,7 +109,7 @@ var Logger = (function() {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
 		var params = ": " + _parseArray(parameters);
 		var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName() + " " + _Logger.getEndl();
-		self._print(msg, Logger.LEVEL_ERROR);
+		_print(msg, Logger.LEVEL_ERROR);
 	    }
 	};
 
