@@ -130,7 +130,7 @@ var Logger = (function() {
 	    if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
 		var params = ": " + _parseArray(parameters);
 		var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName() + " " + _Logger.getEndl();
-		self._print(msg, Logger.LEVEL_WARNING);
+		_print(msg, Logger.LEVEL_WARNING);
 	    }
 	};
 
@@ -145,7 +145,7 @@ var Logger = (function() {
 	    if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
 		var params = ": " + _parseArray(parameters);
 		var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName() + " " + _Logger.getEndl();
-		self._print(msg, Logger.LEVEL_NOTIFY);
+		_print(msg, Logger.LEVEL_NOTIFY);
 	    }
 	};
 
@@ -160,7 +160,7 @@ var Logger = (function() {
 	    if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
 		var params = ": " + _parseArray(parameters);
 		var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName() + " " + _Logger.getEndl();
-		self._print(msg, Logger.LEVEL_TRACE);
+		_print(msg, Logger.LEVEL_TRACE);
 	    }
 	};
 
