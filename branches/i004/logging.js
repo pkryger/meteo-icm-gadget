@@ -108,7 +108,7 @@ var Logger = (function() {
 	this.error = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
 		var params = ": " + _parseArray(parameters);
-		var msg = getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
+		var msg = _Logger.getErrorPrefix() + message + params + getErrorSuffix() + self.getName() + " " + getEndl();
 		self._print(msg, Logger.LEVEL_ERROR);
 	    }
 	};
