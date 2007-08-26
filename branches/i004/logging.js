@@ -6,34 +6,34 @@ in order to instantiate a logger.
 *** User API:
 ** static methods:
 
-- getLogger(loggerName) - returns a Logger instance with a specified loggerName
+- Logger.getLogger(loggerName) - returns a Logger instance with a specified loggerName
 
 ** static fields:
 
-- loggingLevel - the current logging level. It could be dynamically changed while application is running. The
+- Logger.loggingLevel - the current logging level. It could be dynamically changed while application is running. The
 level change affects all further logging calls. It is calculated as a bit mask.
 
-- output - the HTML element where the output shall be directed. The logger appends its messages in HTML style
+- Logger.output - the HTML element where the output shall be directed. The logger appends its messages in HTML style
 to the output's innerHTML 
 
-- LEVEL_NONE - do not log at all
-- LEVEL_ERROR - log error messages
-- LEVEL_WARNING - log warnings
-- LEVEL_NOTIFY - log notices
-- LEVEL_TRACE - log traces
-- LEVEL_ALL - log everything
+- Logger.LEVEL_NONE - do not log at all
+- Logger.LEVEL_ERROR - log error messages
+- Logger.LEVEL_WARNING - log warnings
+- Logger.LEVEL_NOTIFY - log notices
+- Logger.LEVEL_TRACE - log traces
+- Logger.LEVEL_ALL - log everything
 
 ** methods
 
-- getName() - returns the logger instance name
+- Logger.getName() - returns the logger instance name
 
-- error(message, parameters) - logs specified message with an optional array parameters as an error
+- Logger.error(message, parameters) - logs specified message with an optional array parameters as an error
 
-- warning(message,parameters) - logs specified message with an optionsl array parameters as a warning
+- Logger.warning(message,parameters) - logs specified message with an optionsl array parameters as a warning
 
-- notify(message, parameters) - logs specified message with an optional  array parameters as a notice
+- Logger.notify(message, parameters) - logs specified message with an optional  array parameters as a notice
 
-- trace(messagem, parameters) - logs specified message with an optional array parameters as a trace
+- Logger.trace(messagem, parameters) - logs specified message with an optional array parameters as a trace
 
 ** functions
 
@@ -53,116 +53,116 @@ var Logger = (function() {
      *   loggerName  the object to identify the logger name.
      */
     function _Logger(loggerName) {
-	if (_Logger.caller != _Logger.getLogger) {
-	    throw new Error("Only Logger.getLogger can create a Logger instance!");
-	}
-	/**
-	 * By convention, we make a private self parameter. This is used to make the object
-	 * available to the private methods.
-	 * This is a workaround for an error in the ECMAScript Language Specification which
-	 * causes this to be set incorrectly for inner functions.
-	 */
-	var self = this;
+        if (_Logger.caller != _Logger.getLogger) {
+            throw new Error("Only Logger.getLogger can create a Logger instance!");
+        }
+        /**
+         * By convention, we make a private self parameter. This is used to make the object
+         * available to the private methods.
+         * This is a workaround for an error in the ECMAScript Language Specification which
+         * causes this to be set incorrectly for inner functions.
+         */
+        var self = this;
 
-	/**
-	 * The object that represents the name of the Logger instance
-	 */
-	var _name = loggerName;
+        /**
+         * The object that represents the name of the Logger instance
+         */
+        var _name = loggerName;
 
-	/** 
-	 * The Logger instance name getter. The name is returned as a String.
-	 *
-	 * Return:
-	 *   The instance name as a String 
-	 */
-	this.getName = function() {
-	    var retValue;
-	    if (null != _name) {
-		retValue = " Logger: " + _name.toString();
-	    } else {
-		retValue = " Logger: /no name/";
-	    }
-	    return _name;
-	};
-	
-	/**
-	 * Appends the message to the output.innerHTML if lefel is sufficient.
-	 *
-	 * Parameters:
-	 *   message - a messate to be logged
-	 *   level - the level of the message; it will be checked against loggingLevel
-	 */
-	function _print(message, level) {
-	    // Print only if loggingLevel is different than LEVEL_NONE
-	    // and level matches loggingLevel
-	    if (Logger.output != null
-		&& Logger.loggingLevel != Logger.LEVEL_NONE
-		&& (Logger.loggingLevel & level) == level) {
-		var outputHTML = Logger.output.innerHTML;
-		outputHTML += _incrementMessageNumber() + ": " + message.toString();
-		Logger.output.innerHTML = outputHTML;
-	    }
-	};
+        /** 
+         * The Logger instance name getter. The name is returned as a String.
+         *
+         * Return:
+         *   The instance name as a String 
+         */
+        this.getName = function() {
+            var retValue;
+            if (null != _name) {
+                retValue = " Logger: " + _name.toString();
+            } else {
+                retValue = " Logger: /no name/";
+            }
+            return _name;
+        };
+        
+        /**
+         * Appends the message to the output.innerHTML if lefel is sufficient.
+         *
+         * Parameters:
+         *   message - a messate to be logged
+         *   level - the level of the message; it will be checked against loggingLevel
+         */
+        function _print(message, level) {
+            // Print only if loggingLevel is different than LEVEL_NONE
+            // and level matches loggingLevel
+            if (Logger.output != null
+                && Logger.loggingLevel != Logger.LEVEL_NONE
+                && (Logger.loggingLevel & level) == level) {
+                var outputHTML = Logger.output.innerHTML;
+                outputHTML += _incrementMessageNumber() + ": " + message.toString();
+                Logger.output.innerHTML = outputHTML;
+            }
+        };
 
-	/**
-	 * Logs the error message with specified parameters to the output
-	 *
-	 * Parameters:
-	 *   message - the message to be logged
-	 *   parameters - the Array of parameters to be logged
-	 */
-	this.error = function(message, parameters) {
-	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
-		var params = _parseArray(parameters);
-		var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName() + " " + _Logger.getEndl();
-		_print(msg, Logger.LEVEL_ERROR);
-	    }
-	};
+        /**
+         * Logs the error message with specified parameters to the output
+         *
+         * Parameters:
+         *   message - the message to be logged
+         *   parameters - the Array of parameters to be logged
+         */
+        this.error = function(message, parameters) {
+            if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
+                var params = _parseArray(parameters);
+                var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName() + " " + _Logger.getEndl();
+                _print(msg, Logger.LEVEL_ERROR);
+            }
+        };
 
-	/**
-	 * Logs the warning message with specified parameters to the output
-	 *
-	 * Parameters:
-	 *   message - the message to be logged
-	 *   parameters - the Array of parameters to be logged
-	 */
-	this.warning = function(message, parameters) {
-	    if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
-		var params = ": " + _parseArray(parameters);
-		var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName() + " " + _Logger.getEndl();
-		_print(msg, Logger.LEVEL_WARNING);
-	    }
-	};
+        /**
+         * Logs the warning message with specified parameters to the output
+         *
+         * Parameters:
+         *   message - the message to be logged
+         *   parameters - the Array of parameters to be logged
+         */
+        this.warning = function(message, parameters) {
+            if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
+                var params = ": " + _parseArray(parameters);
+                var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName() + " " + _Logger.getEndl();
+                _print(msg, Logger.LEVEL_WARNING);
+            }
+        };
 
-	/**
-	 * Logs the notify message with specified parameters to the output
-	 *
-	 * Parameters:
-	 *   message - the message to be logged
-	 *   parameters - the Array of parameters to be logged
-	 */
-	this.notify = function(message, parameters) {
-	    if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
-		var params = ": " + _parseArray(parameters);
-		var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName() + " " + _Logger.getEndl();
-		_print(msg, Logger.LEVEL_NOTIFY);
-	    }
-	};
+        /**
+         * Logs the notify message with specified parameters to the output
+         *
+         * Parameters:
+         *   message - the message to be logged
+         *   parameters - the Array of parameters to be logged
+         */
+        this.notify = function(message, parameters) {
+            if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
+                var params = ": " + _parseArray(parameters);
+                var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName() + " " + _Logger.getEndl();
+                _print(msg, Logger.LEVEL_NOTIFY);
+            }
+        };
 
-	/**
-	 * Logs the trace message with specified parameters to the output
-	 *
-	 * Parameters:
-	 *   message - the message to be logged
-	 *   parameters - the Array of parameters to be logged
-	 */
-	this.trace = function(message, parameters) {
-	    if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
-		var params = ": " + _parseArray(parameters);
-		var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName() + " " + _Logger.getEndl();
-		_print(msg, Logger.LEVEL_TRACE);
-	    }
-	};
+        /**
+         * Logs the trace message with specified parameters to the output
+         *
+         * Parameters:
+         *   message - the message to be logged
+         *   parameters - the Array of parameters to be logged
+         */
+        this.trace = function(message, parameters) {
+            if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
+                var params = ": " + _parseArray(parameters);
+                var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName() + " " + _Logger.getEndl();
+                _print(msg, Logger.LEVEL_TRACE);
+            }
+        };
 
     }; // End of constuctor
 
@@ -181,10 +181,10 @@ var Logger = (function() {
      *   The Logger instance for a given loggerName
      */
     _Logger.getLogger = function(loggerName) {
-	if (null == _loggers[loggerName]) {
-	    _loggers[loggerName] = new Logger(loggerName);
-	}
-	return _loggers[loggerName];
+        if (null == _loggers[loggerName]) {
+            _loggers[loggerName] = new Logger(loggerName);
+        }
+        return _loggers[loggerName];
     };
 
     /**
@@ -199,7 +199,7 @@ var Logger = (function() {
      *   The message number to be used
      */
     function _incrementMessageNumber() {
-	return _messageNumber++;
+        return _messageNumber++;
     };
     
     /**
@@ -211,16 +211,16 @@ var Logger = (function() {
      *  The String in the following form: {key1:value1, key2:value2}
      */
     function _parseArray(array) {
-	var retString = "";
-	if (null != array) {
-	    retString = ": {";
-	    for (key in array) {
-		retString += key.toString() + ":" + array[key].toString() + ", ";
-	    }
-	    retString = retString.substring(0, retString.lastIndexOf(","));
-	    retString += "}";
-	}
-	return retString;
+        var retString = "";
+        if (null != array) {
+            retString = ": {";
+            for (key in array) {
+                retString += key.toString() + ":" + array[key].toString() + ", ";
+            }
+            retString = retString.substring(0, retString.lastIndexOf(","));
+            retString += "}";
+        }
+        return retString;
     };
     
     /**
@@ -235,7 +235,7 @@ var Logger = (function() {
      *   The String representation of end line
      */
     _Logger.getEndl = function() {
-	return _endl.toString();
+        return _endl.toString();
     };
 
     /**
@@ -245,7 +245,7 @@ var Logger = (function() {
      *   endl - the sequence to be used as end line
      */
     _Logger.setEndl = function(endl) {
-	_endl = endl;
+        _endl = endl;
     };
     
     /**
@@ -260,7 +260,7 @@ var Logger = (function() {
      *    The String represenataion of error prefix
      */
     _Logger.getErrorPrefix = function() {
-	return _errorPrefix.toString();
+        return _errorPrefix.toString();
     };
 
     /**
@@ -270,7 +270,7 @@ var Logger = (function() {
      *    prefix - the sequence to be used as error prefix
      */
     _Logger.setErrorPrefix = function(prefix) {
-	_errorPrefix = prefix;
+        _errorPrefix = prefix;
     };
 
     /**
@@ -285,7 +285,7 @@ var Logger = (function() {
      *   The String representation of error suffix
      */
     _Logger.getErrorSuffix = function() {
-	return _errorSuffix.toString();
+        return _errorSuffix.toString();
     };
 
     /**
@@ -295,7 +295,7 @@ var Logger = (function() {
      *    suffix - the sequence to be used as error suffix
      */
     _Logger.setErrorSuffix = function(suffix) {
-	_errorSuffix = suffix;
+        _errorSuffix = suffix;
     };
 
     /**
@@ -310,7 +310,7 @@ var Logger = (function() {
      *    The String represenataion of warning prefix
      */
     _Logger.getWarningPrefix = function() {
-	return _warningPrefix.toString();
+        return _warningPrefix.toString();
     };
 
     /**
@@ -320,7 +320,7 @@ var Logger = (function() {
      *    prefix - the sequence to be used as warning prefix
      */
     _Logger.setWarningPrefix = function(prefix) {
-	_warningPrefix = prefix;
+        _warningPrefix = prefix;
     };
 
     /**
@@ -335,7 +335,7 @@ var Logger = (function() {
      *   The String representation of warning suffix
      */
     _Logger.getWarningSuffix = function() {
-	return _warningSuffix.toString();
+        return _warningSuffix.toString();
     };
     
     /**
@@ -345,7 +345,7 @@ var Logger = (function() {
      *    suffix - the sequence to be used as warning suffix
      */
     _Logger.setWarningSuffix = function(suffix) {
-	_warningSuffix = suffix;
+        _warningSuffix = suffix;
     };
 
     /**
@@ -360,7 +360,7 @@ var Logger = (function() {
      *    The String represenataion of notify prefix
      */
     _Logger.getNotifyPrefix = function() {
-	return _notifyPrefix.toString();
+        return _notifyPrefix.toString();
     };
 
     /**
@@ -370,7 +370,7 @@ var Logger = (function() {
      *    prefix - the sequence to be used as notify prefix
      */
     _Logger.setNotifyPrefix = function(prefix) {
-	_notifyPrefix = prefix;
+        _notifyPrefix = prefix;
     };
 
     /**
@@ -385,7 +385,7 @@ var Logger = (function() {
      *   The String representation of notify suffix
      */
     _Logger.getNotifySuffix = function() {
-	return _notifySuffix.toString();
+        return _notifySuffix.toString();
     };
 
     /**
@@ -395,7 +395,7 @@ var Logger = (function() {
      *    suffix - the sequence to be used as notify suffix
      */
     _Logger.setNotifySuffix = function(suffix) {
-	_notifySuffix = suffix;
+        _notifySuffix = suffix;
     };
 
     /**
@@ -410,7 +410,7 @@ var Logger = (function() {
      *    The String represenataion of trace prefix
      */
     _Logger.getTracePrefix = function() {
-	return _tracePrefix.toString();
+        return _tracePrefix.toString();
     };
 
     /**
@@ -420,7 +420,7 @@ var Logger = (function() {
      *    prefix - the sequence to be used as trace prefix
      */
     _Logger.setTracePrefix = function(prefix) {
-	_tracePrefix = prefix;
+        _tracePrefix = prefix;
     };
 
     /**
@@ -435,7 +435,7 @@ var Logger = (function() {
      *   The String representation of trace suffix
      */
     _Logger.getTraceSuffix = function() {
-	return _traceSuffix.toString();
+        return _traceSuffix.toString();
     };
 
     /**
@@ -445,7 +445,7 @@ var Logger = (function() {
      *    suffix - the sequence to be used as trace suffix
      */
     _Logger.setTraceSuffix = function(suffix) {
-	_traceSuffix = suffix;
+        _traceSuffix = suffix;
     };
     
     // Return an instance
@@ -496,32 +496,38 @@ Logger.loggingLevel = Logger.LEVEL_NONE;
 Logger.output = null;
 
 
-// Logger tests
-function _testLogger(div) {
+/**
+ * Performs the Logger class unit tests. The caller is responsiple for preparing the output
+ * and passing it to this function.
+ * 
+ * Parameters:
+ *   element - the HTML element where the output shall be stored
+ */
+function _testLogger(element) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    Logger.output = div;
+    Logger.output = element;
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
-	Logger.loggingLevel = nLevel;
-	var log = Logger.getLogger("TestLogger: level = " + nLevel);
-	log.error("Test error message");
-	log.error("Test error message with array", array);
-	log.warning("Test warning message");
-	log.warning("Test warning message with array", array);
-	log.notify("Test notify message");
-	log.notify("Test notify message with array", array);
-	log.trace("Test trace message");
-	log.trace("Test trace message with array", array);
+        Logger.loggingLevel = nLevel;
+        var log = Logger.getLogger("TestLogger: level = " + nLevel);
+        log.error("Test error message");
+        log.error("Test error message with array", array);
+        log.warning("Test warning message");
+        log.warning("Test warning message with array", array);
+        log.notify("Test notify message");
+        log.notify("Test notify message with array", array);
+        log.trace("Test trace message");
+        log.trace("Test trace message with array", array);
     }
     // Check that anyone can create a Logger instance by itself
     var log = Logger.getLogger("Factory Method Testing");
     Logger.loggingLevel = Logger.LEVEL_ALL;
     try {
-	var tmp = new Logger("Failure");
-	tmp.error("Factory access vaiolated!");
-	log.error("Factory access vaiolated!");
+        var tmp = new Logger("Failure");
+        tmp.error("Factory access vaiolated!");
+        log.error("Factory access vaiolated!");
     } catch (error) {
-	log.notify("Factory access OK");
+        log.notify("Factory access OK");
     }
 };
