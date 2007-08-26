@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
   <ModulePrefs title="__MSG_title__ __UP_cityName__"
-	       title_url="http://meteo.icm.edu.pl"
-	       description="__MSG_description__"
-	       author="Przemysław Kryger"
-	       author_email="pkryger+icmweatherforecast@gmail.com"
-	       directory_title="__MSG_directory_title__"
-	       screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
-	       thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
-	       author_location="Kraków, Poland"
-	       scaling="true"
-	       height="300"
-	       width="520"
+               title_url="http://meteo.icm.edu.pl"
+               description="__MSG_description__"
+               author="Przemysław Kryger"
+               author_email="pkryger+icmweatherforecast@gmail.com"
+               directory_title="__MSG_directory_title__"
+               screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
+               thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
+               author_location="Kraków, Poland"
+               scaling="true"
+               height="300"
+               width="520"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
   </ModulePrefs>
   <UserPref name="cityName"
-	    display_name="__MSG_city__"
-	    default_value="Kraków"
-	    datatype="enum">
+            display_name="__MSG_city__"
+            default_value="Kraków"
+            datatype="enum">
     <EnumValue value="Aleksandrów Kujawski" />
     <EnumValue value="Augustów" />
     <EnumValue value="Bartoszyce" />
@@ -425,26 +425,26 @@
     <EnumValue value="Żywiec" />
   </UserPref>
   <UserPref name="plotLanguage"
-	    display_name="__MSG_plot_language__"
-	    default_value="en"
-	    datatype="enum">
+            display_name="__MSG_plot_language__"
+            default_value="en"
+            datatype="enum">
     <EnumValue value="pl"
-	       display_value="__MSG_plot_language_polish__" />
+               display_value="__MSG_plot_language_polish__" />
     <EnumValue value="en"
-	       display_value="__MSG_plot_language_english__" />
+               display_value="__MSG_plot_language_english__" />
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
-	     <div id="meteogram_div"></div>
-	     <script type="text/javascript"
+             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
+             <div id="meteogram_div"></div>
+             <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i004/logging.js"></script>
-	     <script type="text/javascript">
+             <script type="text/javascript">
 
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
-	     Logger.output = _gel("logging_div");
-	     Logger.loggingLevel = Logger.LEVEL_TRACE;
+             Logger.output = _gel("logging_div");
+             Logger.loggingLevel = Logger.LEVEL_TRACE;
 
              var CACHE_TIME = 60 * 60 * 6;
              var BASE_URL = "http://meteo.icm.edu.pl/";
@@ -865,13 +865,13 @@
 
              function getImageName(prefs) {
                var now = new Date();
-	       var year = now.getUTCFullYear();
-	       var nMonth = now.getUTCMonth();
+               var year = now.getUTCFullYear();
+               var nMonth = now.getUTCMonth();
                var month = MONTHS_NAMES[nMonth];
-	       var nDay = now.getUTCDate();
+               var nDay = now.getUTCDate();
                var day = nDay;
                if (nDay < 10) {
-	         day = "0" + nDay;
+                 day = "0" + nDay;
                }
                var nHour = now.getUTCHours();
                var hour = 0;
@@ -879,31 +879,31 @@
                  hour = 18;
                } else if (nHour > 3 && nHour < 10) {
                  hour = 0;
-	       } else if (nHour > 9 && nHour < 16) {
+               } else if (nHour > 9 && nHour < 16) {
                  hour = 6;
                } else if (nHour > 15 && nHour < 22) {
                  hour = 12;
-	       }
+               }
                if (hour < 10) {
                  hour = "0" + hour;
                }
-	       var plotLanguage = prefs.getString("plotLanguage");
-	       var col = "col" + CITY_X[prefs.getString("cityName")];
+               var plotLanguage = prefs.getString("plotLanguage");
+               var col = "col" + CITY_X[prefs.getString("cityName")];
                var nRow = 43 - CITY_Y[prefs.getString("cityName")];
                if (nRow < 10) {
-	         nRow = "0" + nRow;
-	       }
+                 nRow = "0" + nRow;
+               }
                var row = "row" + nRow;
-	       var name = IMAGE_URL
-	         + year + month + day 
+               var name = IMAGE_URL
+                 + year + month + day 
                  + '_' + hour + '_'
                  + row + '_' + col + '_'
-		 + plotLanguage + '.png';
+                 + plotLanguage + '.png';
                return name;
-	     }
+             }
 
              function getLinkName(prefs) {
-	       var x = CITY_X[prefs.getString("cityName")];
+               var x = CITY_X[prefs.getString("cityName")];
                var y = CITY_Y[prefs.getString("cityName")];
                var plotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
                var name = LINK_URL
@@ -912,28 +912,28 @@
                  + '&lang=' + plotLanguage
                  + '&ver=&ikonka=1';
                return name;
-	     }
+             }
 
-	     function main(prefs) {
-	       var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
-	       document.write('<div>');
+             function main(prefs) {
+               var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
+               document.write('<div>');
                document.write('<a target="_blank" href="'
                  + getLinkName(prefs)
                  + '" >');
-	       document.write('<img border="0" width="540" heigth="560" src="'
-	         + cachedUrl
-		 + '" title="'
-		 + prefs.getMsg("forecast_for")
-		 + ' '
-		 + prefs.getString("cityName") 
-		 + '" />');
+               document.write('<img border="0" width="540" heigth="560" src="'
+                 + cachedUrl
+                 + '" title="'
+                 + prefs.getMsg("forecast_for")
+                 + ' '
+                 + prefs.getString("cityName") 
+                 + '" />');
                document.write('</a>');
-	       document.write('</div>'); 
-	     }
+               document.write('</div>'); 
+             }
              
              //main(new _IG_Prefs(__MODULE_ID__));
-	     _testLogger(_gel("logging_div"));
-	     </script>
+             _testLogger(_gel("logging_div"));
+             </script>
     ]]> 
   </Content> 
 </Module>
