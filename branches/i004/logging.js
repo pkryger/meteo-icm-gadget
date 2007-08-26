@@ -128,7 +128,7 @@ var Logger = (function() {
          */
         this.warning = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
-                var params = ": " + _parseArray(parameters);
+                var params = _parseArray(parameters);
                 var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName() + " " + _Logger.getEndl();
                 _print(msg, Logger.LEVEL_WARNING);
             }
@@ -143,7 +143,7 @@ var Logger = (function() {
          */
         this.notify = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
-                var params = ": " + _parseArray(parameters);
+                var params = _parseArray(parameters);
                 var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName() + " " + _Logger.getEndl();
                 _print(msg, Logger.LEVEL_NOTIFY);
             }
@@ -158,7 +158,7 @@ var Logger = (function() {
          */
         this.trace = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
-                var params = ": " + _parseArray(parameters);
+                var params = _parseArray(parameters);
                 var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName() + " " + _Logger.getEndl();
                 _print(msg, Logger.LEVEL_TRACE);
             }
@@ -528,6 +528,6 @@ function _testLogger(element) {
         tmp.error("Factory access vaiolated!");
         log.error("Factory access vaiolated!");
     } catch (error) {
-        log.notify("Factory access OK");
+        log.notify("Factory access OK: " + error.message);
     }
 };
