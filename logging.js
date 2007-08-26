@@ -522,6 +522,6 @@ function _testLogger(div) {
 	tmp.error("Factory access vaiolated!");
 	log.error("Factory access vaiolated!");
     } catch (error) {
-	log.info("Factory acces OK");
+	log.notify("Factory access OK");
     }
 };
