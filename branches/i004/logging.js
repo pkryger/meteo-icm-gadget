@@ -76,7 +76,13 @@ var Logger = (function() {
 	 *   The instance name as a String 
 	 */
 	this.getName = function() {
-	    return "[" + self._name + "]";
+	    var retValue;
+	    if (null != _name) {
+		retValue = "[" + _name.toString() + "]";
+	    } else {
+		retValue = "no name";
+	    }
+	    return _name;
 	};
 	
 	/**
