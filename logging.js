@@ -76,7 +76,7 @@ var Logger = (function() {
 	 *   The instance name as a String 
 	 */
 	this.getName = function() {
-	    return "[" + self._name.toString() + "]";
+	    return "[" + self._name + "]";
 	};
 	
 	/**
