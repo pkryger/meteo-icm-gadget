@@ -53,9 +53,9 @@ var Logger = (function() {
      *   loggerName  the object to identify the logger name.
      */
     function _Logger(loggerName) {
-	//if (_Logger.caller != _Logger.getLogger) {
-	//    throw new Error("Only Logger.getLogger can create a Logger instance!" + _Logger.caller);
-	//}
+	if (_Logger.caller != _Logger.getLogger) {
+	    throw new Error("Only Logger.getLogger can create a Logger instance!");
+	}
 	/**
 	 * By convention, we make a private self parameter. This is used to make the object
 	 * available to the private methods.
@@ -78,9 +78,9 @@ var Logger = (function() {
 	this.getName = function() {
 	    var retValue;
 	    if (null != _name) {
-		retValue = "[" + _name.toString() + "]";
+		retValue = " Logger: " + _name.toString();
 	    } else {
-		retValue = "no name";
+		retValue = " Logger: /no name/";
 	    }
 	    return _name;
 	};
@@ -113,7 +113,7 @@ var Logger = (function() {
 	 */
 	this.error = function(message, parameters) {
 	    if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
-		var params = ": " + _parseArray(parameters);
+		var params = _parseArray(parameters);
 		var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName() + " " + _Logger.getEndl();
 		_print(msg, Logger.LEVEL_ERROR);
 	    }
@@ -213,7 +213,7 @@ var Logger = (function() {
     function _parseArray(array) {
 	var retString = "";
 	if (null != array) {
-	    retString = "{";
+	    retString = ": {";
 	    for (key in array) {
 		retString += key.toString() + ":" + array[key].toString() + ", ";
 	    }
