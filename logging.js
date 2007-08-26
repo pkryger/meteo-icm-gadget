@@ -52,9 +52,9 @@ var Logger = (function() {
      * Parameters:
      *   loggerName  the object to identify the logger name.
      */
-    function constructor(loggerName) {
-	if (constructor.caller != constructor.getLogger) {
-	    throw new Error("Only Logger.getLogger can create a Logger instance!" + constructor.caller);
+    function _Logger(loggerName) {
+	if (_Logger.caller != _Logger.getLogger) {
+	    throw new Error("Only Logger.getLogger can create a Logger instance!" + _Logger.caller);
 	}
 	/**
 	 * By convention, we make a private self parameter. This is used to make the object
@@ -174,9 +174,9 @@ var Logger = (function() {
      * Return:
      *   The Logger instance for a given loggerName
      */
-    constructor.getLogger(loggerName) {
+    _Logger.getLogger = function(loggerName) {
 	if (null == _loggers[loggerName]) {
-	    _loggers[loggerName] = constructor(loggerName);
+	    _loggers[loggerName] = _Logger(loggerName);
 	}
 	return _loggers[loggerName];
     };
@@ -228,7 +228,7 @@ var Logger = (function() {
      * Return:
      *   The String representation of end line
      */
-    constructor.getEndl = function() {
+    _Logger.getEndl = function() {
 	return _endl.toString();
     };
 
@@ -238,7 +238,7 @@ var Logger = (function() {
      * Parameters:
      *   endl - the sequence to be used as end line
      */
-    constructor.setEndl = function(endl) {
+    _Logger.setEndl = function(endl) {
 	_endl = endl;
     };
     
@@ -253,7 +253,7 @@ var Logger = (function() {
      * Return:
      *    The String represenataion of error prefix
      */
-    constructor.getErrorPrefix = function() {
+    _Logger.getErrorPrefix = function() {
 	return _errorPrefix.toString();
     };
 
@@ -263,7 +263,7 @@ var Logger = (function() {
      * Parameters:
      *    prefix - the sequence to be used as error prefix
      */
-    constructor.setErrorPrefix = function(prefix) {
+    _Logger.setErrorPrefix = function(prefix) {
 	_errorPrefix = prefix;
     };
 
@@ -278,7 +278,7 @@ var Logger = (function() {
      * Return:
      *   The String representation of error suffix
      */
-    constructor.getErrorSuffix = function() {
+    _Logger.getErrorSuffix = function() {
 	return _errorSuffix.toString();
     };
 
@@ -288,7 +288,7 @@ var Logger = (function() {
      * Parameters:
      *    suffix - the sequence to be used as error suffix
      */
-    constructor.setErrorSuffix = function(suffix) {
+    _Logger.setErrorSuffix = function(suffix) {
 	_errorSuffix = suffix;
     };
 
@@ -303,7 +303,7 @@ var Logger = (function() {
      * Return:
      *    The String represenataion of warning prefix
      */
-    constructor.getWarningPrefix = function() {
+    _Logger.getWarningPrefix = function() {
 	return _warningPrefix.toString();
     };
 
@@ -313,7 +313,7 @@ var Logger = (function() {
      * Parameters:
      *    prefix - the sequence to be used as warning prefix
      */
-    constructor.setWarningPrefix = function(prefix) {
+    _Logger.setWarningPrefix = function(prefix) {
 	_warningPrefix = prefix;
     };
 
@@ -328,7 +328,7 @@ var Logger = (function() {
      * Return:
      *   The String representation of warning suffix
      */
-    constructor.getWarningSuffix = function() {
+    _Logger.getWarningSuffix = function() {
 	return _warningSuffix.toString();
     };
     
@@ -338,7 +338,7 @@ var Logger = (function() {
      * Parameters:
      *    suffix - the sequence to be used as warning suffix
      */
-    constructor.setWarningSuffix = function(suffix) {
+    _Logger.setWarningSuffix = function(suffix) {
 	_warningSuffix = suffix;
     };
 
@@ -353,7 +353,7 @@ var Logger = (function() {
      * Return:
      *    The String represenataion of notify prefix
      */
-    constructor.getNotifyPrefix = function() {
+    _Logger.getNotifyPrefix = function() {
 	return _notifyPrefix.toString();
     };
 
@@ -363,7 +363,7 @@ var Logger = (function() {
      * Parameters:
      *    prefix - the sequence to be used as notify prefix
      */
-    constructor.setNotifyPrefix = function(prefix) {
+    _Logger.setNotifyPrefix = function(prefix) {
 	_notifyPrefix = prefix;
     };
 
@@ -378,7 +378,7 @@ var Logger = (function() {
      * Return:
      *   The String representation of notify suffix
      */
-    constructor.getNotifySuffix = function() {
+    _Logger.getNotifySuffix = function() {
 	return _notifySuffix.toString();
     };
 
@@ -388,7 +388,7 @@ var Logger = (function() {
      * Parameters:
      *    suffix - the sequence to be used as notify suffix
      */
-    constructor.setNotifySuffix = function(suffix) {
+    _Logger.setNotifySuffix = function(suffix) {
 	_notifySuffix = suffix;
     };
 
@@ -403,7 +403,7 @@ var Logger = (function() {
      * Return:
      *    The String represenataion of trace prefix
      */
-    constructor.getTracePrefix = function() {
+    _Logger.getTracePrefix = function() {
 	return _tracePrefix.toString();
     };
 
@@ -413,7 +413,7 @@ var Logger = (function() {
      * Parameters:
      *    prefix - the sequence to be used as trace prefix
      */
-    constructor.setTracePrefix = function(prefix) {
+    _Logger.setTracePrefix = function(prefix) {
 	_tracePrefix = prefix;
     };
 
@@ -428,7 +428,7 @@ var Logger = (function() {
      * Return:
      *   The String representation of trace suffix
      */
-    constructor.getTraceSuffix = function() {
+    _Logger.getTraceSuffix = function() {
 	return _traceSuffix.toString();
     };
 
@@ -438,12 +438,12 @@ var Logger = (function() {
      * Parameters:
      *    suffix - the sequence to be used as trace suffix
      */
-    constructor.setTraceSuffix = function(suffix) {
+    _Logger.setTraceSuffix = function(suffix) {
 	_traceSuffix = suffix;
     };
     
     // Return an instance
-    return constructor;
+    return _Logger;
 })();
 
 /**
