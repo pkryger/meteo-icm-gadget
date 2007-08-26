@@ -513,5 +513,15 @@ function _testLogger(div) {
 	log.notify("Test notify message with array", array);
 	log.trace("Test trace message");
 	log.trace("Test trace message with array", array);
-    }    
+    }
+    // Check that anyone can create a Logger instance by itself
+    var log = Logger.getLogger("Factory Method Testing");
+    Logger.loggingLevel = Logger.LEVEL_ALL;
+    try {
+	var tmp = new Logger("Failure");
+	tmp.error("Factory access vaiolated!");
+	log.error("Factory access vaiolated!");
+    } catch (error) {
+	log.info("Factory acces OK");
+    }
 };
