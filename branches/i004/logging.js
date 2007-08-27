@@ -98,8 +98,8 @@ var Logger = (function() {
             if (_outputs.length > 0
                 && Logger.loggingLevel != Logger.LEVEL_NONE
                 && (Logger.loggingLevel & level) == level) {
-                for (var output in _outputs) {
-                    output.append(message);
+                for (index in _outputs) {
+                    outputs[index].append(message);
                 }
             }
         };
