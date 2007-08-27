@@ -677,7 +677,7 @@ function _testLogger(element) {
         loggerOutput.append("Test");
         outputLog.error("OutputLogger.append() access vaiolated!");
     } catch (error) {
-        outoutLog.notify("OutputLogger.append() access OK: " + error.message);
+        outputLog.notify("OutputLogger.append() access OK: " + error.message);
     }
     // Test the PlainLoggerOutput
     var plainLoggerOutput = new PlainLoggerOutput(element);
