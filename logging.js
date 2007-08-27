@@ -680,7 +680,7 @@ function _testLogger(element) {
         outoutLog.notify("OutputLogger.append() access OK: " + error.message);
     }
     // Test the PlainLoggerOutput
-    var plainLoggerOutput = new PlainLoggerOutput(div);
+    var plainLoggerOutput = new PlainLoggerOutput(element);
     plainLoggerOutput.append("Test message 1");
     plainLoggerOutput.append("Test message 2");
 };
