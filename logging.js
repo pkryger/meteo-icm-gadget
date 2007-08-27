@@ -622,7 +622,7 @@ function PlainLoggerOutput(element) {
     this.append = function(message) {
         if (null != message) {
             var outputHTML = _element.innerHTML;
-            outputHTML += _incrementMessageNumber() + ": " + message.toString() + getEndl();
+            outputHTML += _incrementMessageNumber() + ": " + message.toString() + this.getEndl();
             _element.innerHTML = outputHTML;
         }
     };
