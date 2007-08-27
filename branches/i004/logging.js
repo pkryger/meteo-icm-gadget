@@ -662,7 +662,7 @@ function _testLogger(element) {
     plainLoggerOutput.append("Test message 2");
     // Check the LoggerOutput addition and removal
     Logger.addLoggerOutput(plainLoggerOutput);
-    var multipleOutputsLog = getLogger("Multiple Outputs");
+    var multipleOutputsLog = Logger.getLogger("Multiple Outputs");
     multipleOutputsLog.notify("Many times");
     Logger.removeLoggerOutput(plainLoggerOutput);
     multipleOutputsLog.notify("One time");
