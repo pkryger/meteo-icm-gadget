@@ -78,11 +78,11 @@ var Logger = (function() {
         this.getName = function() {
             var retValue;
             if (null != _name) {
-                retValue = " Logger: " + _name.toString();
+                retValue = " [" + _name.toString() + "]";
             } else {
-                retValue = " Logger: /no name/";
+                retValue = " [/no name/]";
             }
-            return _name;
+            return retValue;
         };
         
         /**
