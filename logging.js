@@ -99,7 +99,7 @@ var Logger = (function() {
                 && Logger.loggingLevel != Logger.LEVEL_NONE
                 && (Logger.loggingLevel & level) == level) {
                 for (index in _outputs) {
-                    outputs[index].append(message);
+                    _outputs[index].append(message);
                 }
             }
         };
