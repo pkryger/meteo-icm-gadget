@@ -95,12 +95,12 @@ var Logger = (function() {
         function _print(message, level) {
             // Print only if loggingLevel is different than LEVEL_NONE
             // and level matches loggingLevel
-            if (Logger.output != null
+            if (_outputs.length > 0
                 && Logger.loggingLevel != Logger.LEVEL_NONE
                 && (Logger.loggingLevel & level) == level) {
-                var outputHTML = Logger.output.innerHTML;
-                outputHTML += _incrementMessageNumber() + ": " + message.toString();
-                Logger.output.innerHTML = outputHTML;
+                for (var output in _outputs) {
+                    output.append(message);
+                }
             }
         };
 
@@ -114,7 +114,7 @@ var Logger = (function() {
         this.error = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
                 var params = _parseArray(parameters);
-                var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName() + " " + _Logger.getEndl();
+                var msg = _Logger.getErrorPrefix() + message + params + _Logger.getErrorSuffix() + self.getName();
                 _print(msg, Logger.LEVEL_ERROR);
             }
         };
@@ -129,7 +129,7 @@ var Logger = (function() {
         this.warning = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
                 var params = _parseArray(parameters);
-                var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName() + " " + _Logger.getEndl();
+                var msg = _Logger.getWarningPrefix() + message + params + _Logger.getWarningSuffix() + self.getName();
                 _print(msg, Logger.LEVEL_WARNING);
             }
         };
@@ -144,7 +144,7 @@ var Logger = (function() {
         this.notify = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
                 var params = _parseArray(parameters);
-                var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName() + " " + _Logger.getEndl();
+                var msg = _Logger.getNotifyPrefix() + message + params + _Logger.getNotifySuffix() + self.getName();
                 _print(msg, Logger.LEVEL_NOTIFY);
             }
         };
@@ -159,7 +159,7 @@ var Logger = (function() {
         this.trace = function(message, parameters) {
             if ((Logger.loggingLevel & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
                 var params = _parseArray(parameters);
-                var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName() + " " + _Logger.getEndl();
+                var msg = _Logger.getTracePrefix() + message + params + _Logger.getTraceSuffix() + self.getName();
                 _print(msg, Logger.LEVEL_TRACE);
             }
         };
@@ -215,7 +215,7 @@ var Logger = (function() {
     };
 
     /**
-     * Removes the give outpu instance from the array of output handlers.
+     * Removes the given output instance from the array of output handlers.
      *
      * Parameters:
      *   output - the output instance to be removed
@@ -229,6 +229,14 @@ var Logger = (function() {
                 }
             }
         }
+    };
+
+    
+    /**
+     * Removes all registered outputs.
+     */
+    _Logger.removeAllLoggerOutputs = function() {
+        _outputs.splice(0, _outputs.length);
     };
 
     /**
@@ -260,31 +268,6 @@ var Logger = (function() {
             retString += "}";
         }
         return retString;
-    };
-    
-    /**
-     * The sequence to be used as an end line
-     */
-    var _endl = "<br />";
-
-    /**
-     * The end line sequence getter
-     *
-     * Return:
-     *   The String representation of end line
-     */
-    _Logger.getEndl = function() {
-        return _endl.toString();
-    };
-
-    /**
-     * The end line sequence setter
-     *
-     * Parameters:
-     *   endl - the sequence to be used as end line
-     */
-    _Logger.setEndl = function(endl) {
-        _endl = endl;
     };
     
     /**
@@ -529,12 +512,6 @@ Logger.LEVEL_ALL =
 Logger.loggingLevel = Logger.LEVEL_NONE;
 
 /**
- * The logging destination output element. It shall be redefined by the user
- * in order to display logging messages
- */
-Logger.output = null;
-
-/**
  * The interface for Logger that allows output he messages
  */
 function LoggerOutput() {
@@ -576,7 +553,7 @@ function PlainLoggerOutput(element) {
     /**
      * One message number for all Loggers. It will be added for all messages
      */
-    var _messageNumber = 0;
+    var _messageNumber = 1;
         
     /**
      * Gives the message number and increments it.
@@ -622,7 +599,7 @@ function PlainLoggerOutput(element) {
     this.append = function(message) {
         if (null != message) {
             var outputHTML = _element.innerHTML;
-            outputHTML += _incrementMessageNumber() + ": " + message.toString() + this.getEndl();
+            outputHTML += _incrementMessageNumber() + ": " + message.toString() + self.getEndl();
             _element.innerHTML = outputHTML;
         }
     };
@@ -643,7 +620,8 @@ PlainLoggerOutput.prototype = new LoggerOutput();
 function _testLogger(element) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    Logger.output = element;
+    Logger.removeAllLoggerOutputs();
+    Logger.addLoggerOutput(new PlainLoggerOutput(element));
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
         Logger.loggingLevel = nLevel;
@@ -667,7 +645,6 @@ function _testLogger(element) {
     } catch (error) {
         factoryLog.notify("Factory access OK: " + error.message);
     }
-    // Check the LoggerOutput addition and removal
     
     // Test the LoggerOutput
     var outputLog = Logger.getLogger("LoggerOutput");
@@ -683,4 +660,10 @@ function _testLogger(element) {
     var plainLoggerOutput = new PlainLoggerOutput(element);
     plainLoggerOutput.append("Test message 1");
     plainLoggerOutput.append("Test message 2");
+    // Check the LoggerOutput addition and removal
+    Logger.addLoggerOutput(plainLoggerOutput);
+    var multipleOutputsLog = getLogger("Multiple Outputs");
+    multipleOutputsLog.notify("Many times");
+    Logger.removeLoggerOutput(plainLoggerOutput);
+    multipleOutputsLog.notify("One time");
 };

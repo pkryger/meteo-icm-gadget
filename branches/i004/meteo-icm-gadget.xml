@@ -443,7 +443,7 @@
 
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
-             Logger.output = _gel("logging_div");
+             Logger.addLoggerOutput(new PlainLoggerOutput(_gel("logging_div")));
              Logger.loggingLevel = Logger.LEVEL_TRACE;
 
              var CACHE_TIME = 60 * 60 * 6;
