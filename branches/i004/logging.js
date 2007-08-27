@@ -191,7 +191,46 @@ var Logger = (function() {
      * One message number for all Loggers. It will be added for all messages
      */
     var _messageNumber = 0;
-    
+
+    /**
+     * The array that contains all output handlers
+     */
+    var _outputs = new Array()
+
+    /**
+     * Adds the given output instance to the array of output handlers.
+     * The otput instance must extend the LoggerOutput class.
+     *
+     * Parameters:
+     *   output - the LoggerOutput instance to be added
+     */
+    _Logger.addLoggerOutput = function(output) {
+        if (null != output) {
+            if (output instanceof LoggerOutput) {
+                _outputs.push(output);
+            } else {
+                throw new Error("Cannot register the not LoggerOutput instance!");
+            }
+        }
+    };
+
+    /**
+     * Removes the give outpu instance from the array of output handlers.
+     *
+     * Parameters:
+     *   output - the output instance to be removed
+     */
+    _Logger.removeLoggerOutput = function(output) {
+        if (null != output && output instanceof LoggerOutput) {
+            for (var i = 0; i < _outputs.length; i++) {
+                if (_outputs[i] == output) {
+                    _outputs.splice(i, 1);
+                    break;
+                }
+            }
+        }
+    };
+
     /**
      * Gives the message number and increments it.
      * 
@@ -495,6 +534,104 @@ Logger.loggingLevel = Logger.LEVEL_NONE;
  */
 Logger.output = null;
 
+/**
+ * The interface for Logger that allows output he messages
+ */
+function LoggerOutput() {
+};
+
+/**
+ * Appends the given message to the LoggerOutput instance attached output
+ * 
+ * Parameters:
+ *   message - the message to be appended to the output
+ */
+LoggerOutput.prototype.append = function(message) {
+    throw new Error("This is abstract method");
+};
+
+/**
+ * The PlainLoggerOutput class appends the messages to the specified output elements
+ * as a plain HTML text. It adds the message number (specific for the instance) and
+ * the endl sequence to the message and prints it into the element.
+ *
+ * Parameters:
+ *   element - the HTML element where the messages shall be added
+ */
+function PlainLoggerOutput(element) {
+    
+    /**
+     * By convention, we make a private self parameter. This is used to make the object
+     * available to the private methods.
+     * This is a workaround for an error in the ECMAScript Language Specification which
+     * causes this to be set incorrectly for inner functions.
+     */
+    var self = this;
+
+    /**
+     * The output element to be used for adding the output
+     */
+    var _element = element;
+
+    /**
+     * One message number for all Loggers. It will be added for all messages
+     */
+    var _messageNumber = 0;
+        
+    /**
+     * Gives the message number and increments it.
+     * 
+     * Return:
+     *   The message number to be used
+     */
+    function _incrementMessageNumber() {
+        return _messageNumber++;
+    };
+    
+    /**
+     * The sequence to be used as an end line
+     */
+    var _endl = "<br />";
+
+    /**
+     * The end line sequence getter
+     *
+     * Return:
+     *   The String representation of end line
+     */
+    this.getEndl = function() {
+        return _endl.toString();
+    };
+
+    /**
+     * The end line sequence setter
+     *
+     * Parameters:
+     *   endl - the sequence to be used as end line
+     */
+    this.setEndl = function(endl) {
+        _endl = endl;
+    };
+
+    /**
+     * Appends the given message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   message - the message to be appended to the output
+     */
+    this.append = function(message) {
+        if (null != message) {
+            var outputHTML = _element.innerHTML;
+            outputHTML += _incrementMessageNumber() + ": " + message.toString() + getEndl();
+            _element.innerHTML = outputHTML;
+        }
+    };
+};
+
+/**
+ * PlainLggerOutput extends the LoggerOutput
+ */
+PlainLoggerOutput.prototype = new LoggerOutput();
 
 /**
  * Performs the Logger class unit tests. The caller is responsiple for preparing the output
@@ -521,13 +658,29 @@ function _testLogger(element) {
         log.trace("Test trace message with array", array);
     }
     // Check that anyone can create a Logger instance by itself
-    var log = Logger.getLogger("Factory Method Testing");
+    var factoryLog = Logger.getLogger("Factory Method Testing");
     Logger.loggingLevel = Logger.LEVEL_ALL;
     try {
         var tmp = new Logger("Failure");
         tmp.error("Factory access vaiolated!");
-        log.error("Factory access vaiolated!");
+        factoryLog.error("Factory access vaiolated!");
     } catch (error) {
-        log.notify("Factory access OK: " + error.message);
+        factoryLog.notify("Factory access OK: " + error.message);
     }
+    // Check the LoggerOutput addition and removal
+    
+    // Test the LoggerOutput
+    var outputLog = Logger.getLogger("LoggerOutput");
+    Logger.loggingLevel = Logger.LEVEL_ALL;
+    var loggerOutput = new LoggerOutput();
+    try {
+        loggerOutput.append("Test");
+        outputLog.error("OutputLogger.append() access vaiolated!");
+    } catch (error) {
+        outoutLog.notify("OutputLogger.append() access OK: " + error.message);
+    }
+    // Test the PlainLoggerOutput
+    var plainLoggerOutput = new PlainLoggerOutput(div);
+    plainLoggerOutput.append("Test message 1");
+    plainLoggerOutput.append("Test message 2");
 };
