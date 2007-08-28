@@ -441,9 +441,9 @@
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i004/logging.js"></script>
              <script type="text/javascript">
 
-             // The logging stuff
+             // The logging stuff - change Logger.LEVEL_NONE to Logger.LEVEL_ALL to see output messages
              var log = Logger.getLogger("meteo-icm-main");
-             Logger.addLoggerOutput(new PlainLoggerOutput(_gel("logging_div")), Logger.LEVEL_NONE);
+             Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_NONE);
              
              var CACHE_TIME = 60 * 60 * 6;
              var BASE_URL = "http://meteo.icm.edu.pl/";
