@@ -153,13 +153,25 @@ var Logger = (function() {
     }; // End of constuctor
 
     /**
+     * The wrapper for a key value pair
+     *
+     * Parameters:
+     *   k - the key
+     *   v - the value
+     */
+    function KeyValue(k, v) {
+        this.key = k;
+        this.value = v;
+    };
+
+    /**
      * The array of loggers for factory method
      */
     var _loggers = new Array();
 
     /**
      * Gives a Logger instance to be used by the user. This factory method shall be used to
-     * obtain a instance of a logger.
+     * obtain a instance of Logger class.
      *
      * Parameters:
      *   loggerName the object that represents the Logger name
@@ -167,22 +179,18 @@ var Logger = (function() {
      *   The Logger instance for a given loggerName
      */
     _Logger.getLogger = function(loggerName) {
-        if (undefined == _loggers[loggerName]) {
-            _loggers[loggerName] = new Logger(loggerName);
+        var instance = undefined;
+        for (var i = 0; i < _loggers.length; i++) {
+            if (_loggers[i].key == loggerName) {
+                instance = _loggers[i].value;
+                break;
+            }
         }
-        return _loggers[loggerName];
-    };
-
-    /**
-     * The wrapper to tie LoggerOutput to corressponding logging level
-     *
-     * Parameters:
-     *   loggerOutput - the LoggerOutput instance to be a key
-     *   loggingLevel - the level to be a instance value
-     */
-    function LoggerOutputLoggingLevel(loggerOutput, loggingLevel) {
-        this.key = loggerOutput;
-        this.value = loggingLevel;
+        if (undefined == instance) {
+            instance = new Logger(loggerName);
+            _loggers.push(new KeyValue(loggerName, instance) ;
+        }
+        return instance;
     };
     
     /**
@@ -202,11 +210,19 @@ var Logger = (function() {
     _Logger.addLoggerOutput = function(output, level) {
         if (undefined != output && output instanceof LoggerOutput
             && typeof level != "undefined") {
-            if (output instanceof LoggerOutput) {
-                _outputs[_outputs.length] = new LoggerOutputLoggingLevel(output, level);
-            } else {
-                throw new Error("Cannot register the non LoggerOutput instance!");
+            var found = false;
+            for (var i = 0; i < _outputs.length; i++) {
+                if (_outputs[i].key == output) {
+                    _ouptuts[i].value = level;
+                    found = true;
+                    break;
+                }
             }
+            if (false == found) {
+                _outputs.push(new KeyValue(output, level));
+            }
+        } else {
+            throw new Error("Cannot register the non LoggerOutput instance!");
         }
     };
 
