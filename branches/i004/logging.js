@@ -13,7 +13,7 @@ in order to instantiate a logger.
    One logger output may be registered multiple times.
 
 ** static fields:
-
+- Logger.LEVEL_NONE - to not log
 - Logger.LEVEL_ERROR - log error messages
 - Logger.LEVEL_WARNING - log warnings
 - Logger.LEVEL_NOTIFY - log notices
@@ -237,6 +237,10 @@ var Logger = (function() {
     return _Logger;
 })();
 
+/**
+ * Special logging level that causes nothing ot be logger
+ */
+Logger.LEVEL_NONE = 0;
 /**
  * Logging level that causes the error messages to appear
  */
