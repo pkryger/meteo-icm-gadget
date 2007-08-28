@@ -598,7 +598,7 @@ function PlainLoggerOutput(element) {
 
     // TODO - investigate this approach
     Message.prototype.format = function() {
-        var loggingMessage = getLoggingMessage();
+        var loggingMessage = this.getLoggingMessage();
         return prefix
             + _incrementMessageNumber() + ": "
             + loggingMessage.getMessage()
