@@ -421,7 +421,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendError = function(message) {
-        _append(_formatMessage(new ErrorMessage(message)));
+        _append(_formatMessage(new PlainLoggerOutput.ErrorMessage(message)));
     };
 
     /**
@@ -431,7 +431,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendWarning = function(message) {
-        _append(_formatMessage(new WarningMessage(message)));
+        _append(_formatMessage(new PlainLoggerOutput.WarningMessage(message)));
     };
 
     /**
@@ -441,7 +441,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendNotify = function(message) {
-        _append(_formatMessage(new NotifyMessage(message)));
+        _append(_formatMessage(new PlainLoggerOutput.NotifyMessage(message)));
     };
 
     /**
@@ -451,7 +451,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */    
     this.appendTrace = function(message) {
-        _append(_formatMessage(new TraceMessage(message)));
+        _append(_formatMessage(new PlainLoggerOutput.TraceMessage(message)));
     };
 
     /**
