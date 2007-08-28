@@ -202,7 +202,7 @@ var Logger = (function() {
         if (undefined != output && output instanceof LoggerOutput
             && typeof level != "undefined") {
             if (output instanceof LoggerOutput) {
-                _outputs[_outputs.length] = new LoggerOutputLoggingLevel(output, loggingLevel);
+                _outputs[_outputs.length] = new LoggerOutputLoggingLevel(output, level);
             } else {
                 throw new Error("Cannot register the non LoggerOutput instance!");
             }
