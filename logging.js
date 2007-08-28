@@ -1,7 +1,21 @@
 /*
 This is the logging module for a JavaScript application. It loggs the user messages
-into the specified destination element innerHTML. The user shall use factory method Logger.getLogger()
-in order to instantiate a logger.
+into the specified destination.
+
+Example:
+// Prepare the logging output
+<div id="error_log" />
+<div id="log" />
+// Define where and what kind of output shall be redirected
+Logger.addLoggerOutput(new ColorHTMLLoggerOutput(getElementById("error_log")), Logger.LEVEL_ERROR);
+Logger.addLoggerOutput(new ColorHTMLLoggerOutput(getElementById("log")), Logger.LEVEL_ALL ^ Logger.LEVEL_ERROR);
+// Obtain a Logger instance
+var log = Logger.gerLogger("my-module");
+// Log your messages
+log.error("Ooops");
+log.warning("Almost in Heaven");
+log.notify("I'm ready");
+log.trace("...");
 
 *** User API:
 ** static methods:
@@ -9,11 +23,11 @@ in order to instantiate a logger.
 - Logger.getLogger(loggerName) - returns a Logger instance with a specified loggerName
 
 - Logger.addLoggerOutput(loggerOutput, loggingLevel) - adds given LoggerOutput, to receive ad specified
-   logging level. The logging level is in form of binary mask.
+   logging level. The logging level is in form of binary mask of Logger.LEVEL_.... constants.
    One logger output may be registered multiple times.
 
 ** static fields:
-- Logger.LEVEL_NONE - to not log
+- Logger.LEVEL_NONE - do not log (useful to turn logging off)
 - Logger.LEVEL_ERROR - log error messages
 - Logger.LEVEL_WARNING - log warnings
 - Logger.LEVEL_NOTIFY - log notices
