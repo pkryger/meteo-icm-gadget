@@ -443,9 +443,8 @@
 
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
-             Logger.addLoggerOutput(new PlainLoggerOutput(_gel("logging_div")));
-             Logger.loggingLevel = Logger.LEVEL_TRACE;
-
+             Logger.addLoggerOutput(new PlainLoggerOutput(_gel("logging_div")), Logger.LEVEL_NONE);
+             
              var CACHE_TIME = 60 * 60 * 6;
              var BASE_URL = "http://meteo.icm.edu.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
