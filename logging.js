@@ -97,7 +97,7 @@ var Logger = (function() {
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
-                    _outputs[o].appendError(loggingMessage);
+                    o.appendError(loggingMessage);
                 }
             }
         };
@@ -114,7 +114,7 @@ var Logger = (function() {
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
-                    _outputs[o].appendWarning(loggingMessage);
+                    o.appendWarning(loggingMessage);
                 }
             }
         };
@@ -131,7 +131,7 @@ var Logger = (function() {
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
-                    _outputs[o].appendNotify(loggingMessage);
+                    o.appendNotify(loggingMessage);
                 }
             }
         };
@@ -148,7 +148,7 @@ var Logger = (function() {
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
-                    _outputs[o].appendTrace(loggingMessage);
+                    o.appendTrace(loggingMessage);
                 }
             }
         };
