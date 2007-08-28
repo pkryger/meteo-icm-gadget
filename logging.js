@@ -596,7 +596,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    function ErrorMessage(loggingMessage) {
+    PlainLoggerOutput.ErrorMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -654,7 +654,7 @@ function PlainLoggerOutput(element) {
     /**
      * ErrorMessage extends the Message
      */
-    ErrorMessage.prototype = new Message();
+    PlainLoggerOutput.ErrorMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a warning logging message.
@@ -662,7 +662,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    function WarningMessage(loggingMessage) {
+    PlainLoggerOutput.WarningMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -720,7 +720,7 @@ function PlainLoggerOutput(element) {
     /**
      * WarningMessage extends the Message
      */
-    WarningMessage.prototype = new Message();
+    PlainLoggerOutput.WarningMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a notify logging message.
@@ -728,7 +728,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    function NotifyMessage(loggingMessage) {
+    PlainLoggerOutput.NotifyMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -786,7 +786,7 @@ function PlainLoggerOutput(element) {
     /**
      * NotifyMessage extends the Message
      */
-    NotifyMessage.prototype = new Message();
+    PlainLoggerOutput.NotifyMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a trace logging message.
@@ -794,7 +794,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    function TraceMessage(loggingMessage) {
+    PlainLoggerOutput.TraceMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -852,7 +852,7 @@ function PlainLoggerOutput(element) {
     /**
      * TraceMessage extends the Message
      */
-    TraceMessage.prototype = new Message();
+    PlainLoggerOutput.TraceMessage.prototype = new Message();
 
 };
 
