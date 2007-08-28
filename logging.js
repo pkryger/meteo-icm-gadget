@@ -158,7 +158,7 @@ var Logger = (function() {
     /**
      * The array of loggers for factory method
      */
-    var _loggers = new Object();
+    var _loggers = new Array();
 
     /**
      * Gives a Logger instance to be used by the user. This factory method shall be used to
@@ -179,7 +179,7 @@ var Logger = (function() {
     /**
      * The array that contains all output handlers
      */
-    var _outputs = new Object();
+    var _outputs = new Array();
 
     /**
      * Adds the given output instance to the array of output handlers.
@@ -221,7 +221,7 @@ var Logger = (function() {
      * Removes all registered outputs.
      */
     _Logger.removeAllLoggerOutputs = function() {
-        _outputs = new Object();
+        _outputs = new Array();
     };
         
     // Return an instance
