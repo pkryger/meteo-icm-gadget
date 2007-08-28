@@ -871,6 +871,15 @@ PlainLoggerOutput.prototype = new LoggerOutput();
 function _testLogger(element) {
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
+    
+    // Test the PlainLoggerOutput
+    var plainLogger = Logger.getLogger("Plain Logger");
+    var plainLoggerOutput = new PlainLoggerOutput(element);
+    plainLoggerOutput.appendError(new LoggingMessage(plainLogger, "Error message"));
+    plainLoggerOutput.appendWarning(new LoggingMessage(plainLogger, "Warning message"));
+    plainLoggerOutput.appendNotify(new LoggingMessage(plainLogger, "Notify message"));
+    plainLoggerOutput.appendTrace(new LoggingMessage(plainLogger, "Trace message"));
+
     Logger.removeAllLoggerOutputs();
     var loggerOutput = new PlainLoggerOutput(element);
     var array = {"key1":"value1", "key2":"value2"};
@@ -898,14 +907,6 @@ function _testLogger(element) {
         factoryLog.notify("Factory access OK: " + error.message);
     }
     
-    // Test the PlainLoggerOutput
-    var plainLogger = Logger.getLogger("Plain Logger");
-    var plainLoggerOutput = new PlainLoggerOutput(element);
-    plainLoggerOutput.appendError(new LoggingMessage(plainLogger, "Error message"));
-    plainLoggerOutput.appendWarning(new LoggingMessage(plainLogger, "Warning message"));
-    plainLoggerOutput.appendNotify(new LoggingMessage(plainLogger, "Notify message"));
-    plainLoggerOutput.appendTrace(new LoggingMessage(plainLogger, "Trace message"));
-
     // Test the LoggerOutput addition and removal
     Logger.addLoggerOutput(plainLoggerOutput, Logger.LEVEL_ALL);
     var multipleOutputsLog = Logger.getLogger("Multiple Outputs");
