@@ -204,7 +204,7 @@ var Logger = (function() {
         }
         if (undefined == instance) {
             instance = new Logger(loggerName);
-            _loggers.push(new KeyValue(loggerName, instance) ;
+            _loggers.push(new KeyValue(loggerName, instance));
         }
         return instance;
     };
