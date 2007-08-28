@@ -422,10 +422,6 @@ function PlainLoggerOutput(element) {
         _element.innerHTML += messageHTML;
     };
 
-    function _a(message) {
-        _element.innerHTML += message.format();
-    };
-
 
     /**
      * Appends the given error message to the LoggerOutput instance attached output
@@ -434,7 +430,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendError = function(message) {
-        _a(new PlainLoggerOutput.ErrorMessage(message));
+        _append(_formatMessage(new PlainLoggerOutput.ErrorMessage(message)));
     };
 
     /**
