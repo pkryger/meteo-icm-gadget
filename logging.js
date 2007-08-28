@@ -218,7 +218,7 @@ var Logger = (function() {
     _Logger.removeLoggerOutput = function(output) {
         if (null != output && output instanceof LoggerOutput) {
             for (var i = _outputs.length - 1; i >= 0; i--) {
-                if (_outputs[i] == output) {
+                if (_outputs[i].key == output) {
                     _outputs.splice(i, 1);
                 }
             }
