@@ -886,10 +886,10 @@ function _testLogger(element) {
     plainLoggerOutput.appendNotify(new LoggingMessage(plainLogger, "Notify message"));
     plainLoggerOutput.appendTrace(new LoggingMessage(plainLogger, "Trace message"));
 
-    Logger.removeAllLoggerOutputs();
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
     var loggerOutput = new PlainLoggerOutput(element);
+    Logger.removeAllLoggerOutputs();
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
         Logger.addLoggerOutput(loggerOutput, nLevel);
@@ -906,6 +906,7 @@ function _testLogger(element) {
 
     // Check that anyone can create a Logger instance by itself
     var factoryLog = Logger.getLogger("Factory Method Testing");
+    Logger.removeAllLoggerOutputs();
     Logger.addLoggerOutput(loggerOutput, Logger.LEVEL_ALL);
     try {
         var tmp = new Logger("Creation Failure");
@@ -916,8 +917,10 @@ function _testLogger(element) {
     }
     
     // Test the LoggerOutput addition and removal
-    Logger.addLoggerOutput(plainLoggerOutput, Logger.LEVEL_ALL);
     var multipleOutputsLog = Logger.getLogger("Multiple Outputs");
+    Logger.removeAllLoggerOutputs();
+    Logger.addLoggerOutput(loggerOutput, Logger.LEVEL_ALL);
+    Logger.addLoggerOutput(plainLoggerOutput, Logger.LEVEL_ALL);
     multipleOutputsLog.notify("Many times");
     Logger.removeLoggerOutput(plainLoggerOutput);
     multipleOutputsLog.notify("One time");
