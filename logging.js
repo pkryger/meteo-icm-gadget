@@ -619,8 +619,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.ErrorMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
-        this.prefix = this.getPrefix();
-        this.suffix = this.getSuffix();
+        this.prefix = _prefix;
+        this.suffix = _suffix;
 
         /**
          * The sequence to be used as an error prefix
@@ -687,8 +687,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.WarningMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
-        this.prefix = this.getPrefix();
-        this.suffix = this.getSuffix();
+        this.prefix = _prefix;
+        this.suffix = _suffix;
 
         /**
          * The sequence to be used as an warning prefix
@@ -755,8 +755,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.NotifyMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
-        this.prefix = this.getPrefix();
-        this.suffix = this.getSuffix();
+        this.prefix = _prefix;
+        this.suffix = _suffix;
 
         /**
          * The sequence to be used as an notify prefix
@@ -823,8 +823,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.TraceMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
-        this.prefix = this.getPrefix();
-        this.suffix = this.getSuffix();
+        this.prefix = _prefix;
+        this.suffix = _suffix;
 
         /**
          * The sequence to be used as an trace prefix
