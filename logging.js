@@ -93,7 +93,7 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.error = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(this, message, parameters);
+            var loggingMessage = new LoggingMessage(self, message, parameters);
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
@@ -110,7 +110,7 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.warning = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(this, message, parameters);
+            var loggingMessage = new LoggingMessage(self, message, parameters);
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
@@ -127,7 +127,7 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.notify = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(this, message, parameters);
+            var loggingMessage = new LoggingMessage(self, message, parameters);
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
@@ -144,7 +144,7 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.trace = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(this, message, parameters);
+            var loggingMessage = new LoggingMessage(self, message, parameters);
             for (o in _outputs) {
                 if (_outputs[o] != undefined
                     && (_outputs[o] & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
@@ -484,7 +484,7 @@ function PlainLoggerOutput(element) {
             + _parseArray(loggingMessage.getParameters())
             + " [" + loggingMessage.getSource().getName() + "]"
             + message.getSuffix()
-            + getEndl();
+            + self.getEndl();
     };
 
     /**
