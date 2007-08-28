@@ -484,7 +484,7 @@ function PlainLoggerOutput(element) {
             + _parseArray(loggingMessage.getParameters())
             + " [" + loggingMessage.getSource().getName() + "]"
             + message.getSuffix()
-            + this.getEndl();
+            + getEndl();
     };
 
     /**
@@ -869,8 +869,6 @@ PlainLoggerOutput.prototype = new LoggerOutput();
  *   element - the HTML element where the output shall be stored
  */
 function _testLogger(element) {
-    // For all avaliabel levels, create a logger instance, then log messages
-    // for each level.
     
     // Test the PlainLoggerOutput
     var plainLogger = Logger.getLogger("Plain Logger");
@@ -881,6 +879,8 @@ function _testLogger(element) {
     plainLoggerOutput.appendTrace(new LoggingMessage(plainLogger, "Trace message"));
 
     Logger.removeAllLoggerOutputs();
+    // For all avaliabel levels, create a logger instance, then log messages
+    // for each level.
     var loggerOutput = new PlainLoggerOutput(element);
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
