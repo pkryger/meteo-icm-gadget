@@ -4,10 +4,9 @@ into the specified destination.
 
 Example:
 // Prepare the logging output
-<div id="error_log" />
 <div id="log" />
 // Define where and what kind of output shall be redirected
-Logger.addLoggerOutput(new ColorHTMLLoggerOutput(getElementById("error_log")), Logger.LEVEL_ERROR);
+Logger.addLoggerOutput(new AlertLoggerOutput(), Logger.LEVEL_ERROR);
 Logger.addLoggerOutput(new ColorHTMLLoggerOutput(getElementById("log")), Logger.LEVEL_ALL ^ Logger.LEVEL_ERROR);
 // Obtain a Logger instance
 var log = Logger.gerLogger("my-module");
