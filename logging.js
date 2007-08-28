@@ -599,12 +599,12 @@ function PlainLoggerOutput(element) {
     // TODO - investigate this approach
     Message.prototype.format = function() {
         var loggingMessage = this.getLoggingMessage();
-        return prefix
+        return this.prefix
             + _incrementMessageNumber() + ": "
             + loggingMessage.getMessage()
             + _parseArray(loggingMessage.getParameters())
             + " [" + loggingMessage.getSource().getName() + "]"
-            + suffix
+            + this.suffix
             + self.getEndl();
     };
 
