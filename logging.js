@@ -49,6 +49,8 @@ log.trace("...");
 - ColorHTMLLoggerOutput(element) - creates the ColorHTMLLoggerOutput that redirects all recieved
     LoggingMessages to the specified DOM element.
 
+- AlertLoggerOutput() - creates the AlertLoggerOutput that redirects all received messages to popup.
+
 ** functions
 
 _testLogger(element) - sandbox for Logger class. All output is redirected to the given DOM element
@@ -899,6 +901,113 @@ function ColorHTMLLoggerOutput(element) {
  */
 ColorHTMLLoggerOutput.prototype = new LoggerOutput();
 
+
+/**
+ * The AlertLoggerOutput class alerts the messages to the popup.
+ */
+function AlertLoggerOutput() {
+    
+    /**
+     * By convention, we make a private self parameter. This is used to make the object
+     * available to the private methods.
+     * This is a workaround for an error in the ECMAScript Language Specification which
+     * causes this to be set incorrectly for inner functions.
+     */
+    var self = this;
+    
+    /**
+     * Appends the given message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   messageHTML - the message to be appended to the output
+     */
+    function _alert(message) {
+        alert(message);
+    };
+
+
+    /**
+     * Appends the given error message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   message - the LoggingMessage to be appended to the output
+     */
+    this.appendError = function(message) {
+        _alert(_formatMessage("Error: ", message));
+    };
+
+    /**
+     * Appends the given warning message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   message - the LoggingMessage to be appended to the output
+     */
+    this.appendWarning = function(message) {
+        _alert(_formatMessage("Warning: ", message));
+    };
+
+    /**
+     * Appends the given notify message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   message - the LoggingMessage to be appended to the output
+     */
+    this.appendNotify = function(message) {
+        _alert(_formatMessage("Notify: ", message));
+    };
+
+    /**
+     * Appends the given trace message to the LoggerOutput instance attached output
+     * 
+     * Parameters:
+     *   message - the LoggingMessage to be appended to the output
+     */    
+    this.appendTrace = function(message) {
+        _alert(_formatMessage("Trace: ", message));
+    };
+
+    /**
+     * Parses the given array and returns its string represenatation
+     * 
+     * Parameters:
+     *   array - the array object to be parsed
+     * Return:
+     *  The String in the following form: {key1:value1, key2:value2}
+     */
+    function _parseArray(array) {
+        var retString = "";
+        if (undefined != array) {
+            retString = ": {";
+            for (key in array) {
+                retString += key.toString() + ":" + array[key].toString() + ", ";
+            }
+            retString = retString.substring(0, retString.lastIndexOf(","));
+            retString += "}";
+        }
+        return retString;
+    };
+
+    /**
+     * Parses the give LoggingMessage to the form to directed to user popup
+     *
+     * Parameters:
+     *   prefix - the prefix to be added to the message
+     *   message - the LoggingMessage to be formated
+     */
+    function _formatMessage(prefix, message) {
+        return prefix
+            + message.getMessage()
+            + _parseArray(message.getParameters())
+            + "\nLogged by: " + message.getSource().getName();
+    };
+};
+
+/**
+ * AlertLoggerOutput extends the LoggerOutput
+ */
+AlertLoggerOutput.prototype = new LoggerOutput();
+
+
 /**
  * Performs the classes unit tests. The caller is responsiple for preparing the output
  * and passing it to this function.
@@ -915,6 +1024,11 @@ function _testLogger(element) {
     colorHTMLLoggerOutput.appendWarning(new LoggingMessage(colorHTMLLogger, "Warning message"));
     colorHTMLLoggerOutput.appendNotify(new LoggingMessage(colorHTMLLogger, "Notify message"));
     colorHTMLLoggerOutput.appendTrace(new LoggingMessage(colorHTMLLogger, "Trace message"));
+    
+    // Test the AlertLoggerOutput
+    var alertLogger = Logger.getLogger("Alert Logger");
+    var alertLoggerOutput = new AlertLoggerOutput();
+    alertLoggerOutput.appendError(new LoggingMessage(alertLogger, "AlertLoggerOutput test OK"));
 
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
