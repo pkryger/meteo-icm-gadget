@@ -8,15 +8,12 @@ in order to instantiate a logger.
 
 - Logger.getLogger(loggerName) - returns a Logger instance with a specified loggerName
 
+- Logger.addLoggerOutput(loggerOutput, loggingLevel) - adds given LoggerOutput, to receive ad specified
+   logging level. The logging level is in form of binary mask.
+   One logger output may be registered multiple times.
+
 ** static fields:
 
-- Logger.loggingLevel - the current logging level. It could be dynamically changed while application is running. The
-level change affects all further logging calls. It is calculated as a bit mask.
-
-- Logger.output - the HTML element where the output shall be directed. The logger appends its messages in HTML style
-to the output's innerHTML 
-
-- Logger.LEVEL_NONE - do not log at all
 - Logger.LEVEL_ERROR - log error messages
 - Logger.LEVEL_WARNING - log warnings
 - Logger.LEVEL_NOTIFY - log notices
@@ -35,14 +32,19 @@ to the output's innerHTML
 
 - Logger.trace(messagem, parameters) - logs specified message with an optional array parameters as a trace
 
+- ColorHTMLLoggerOutput(element) - creates the ColorHTMLLoggerOutput that redirects all recieved
+    LoggingMessages to the specified DOM element.
+
 ** functions
 
-_testLogger(out) - sandbox for Logger class.
+_testLogger(element) - sandbox for Logger class. All output is redirected to the given DOM element
+
 */
 
 
 /**
- * The Logger class.
+ * The Logger class. The Logger instance receives user messages and multiplex them among registered
+ * LoggerOutputs.
  */
 var Logger = (function() {
     /**
@@ -237,10 +239,6 @@ var Logger = (function() {
 })();
 
 /**
- * Special logging level that prevents any logs to be shown
- */
-Logger.LEVEL_NONE = 0;
-/**
  * Logging level that causes the error messages to appear
  */
 Logger.LEVEL_ERROR = 1 << 0;
@@ -329,7 +327,7 @@ function LoggingMessage(source, message, parameters) {
 
 
 /**
- * The interface for Logger that allows output he messages
+ * The interface for Logger that allows output messages
  */
 function LoggerOutput() {
 };
@@ -375,14 +373,14 @@ LoggerOutput.prototype.appendTrace = function(message) {
 };
 
 /**
- * The PlainLoggerOutput class appends the messages to the specified output elements
- * as a plain HTML text. It adds the message number (specific for the instance) and
+ * The ColorHTMLLoggerOutput class appends the messages to the specified output elements
+ * as a colored HTML text. It adds the message number (specific for the instance) and
  * the endl sequence to the message and prints it into the element.
  *
  * Parameters:
  *   element - the HTML element where the messages shall be added
  */
-function PlainLoggerOutput(element) {
+function ColorHTMLLoggerOutput(element) {
     
     /**
      * By convention, we make a private self parameter. This is used to make the object
@@ -430,7 +428,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendError = function(message) {
-        _append(_formatMessage(new PlainLoggerOutput.ErrorMessage(message)));
+        _append(_formatMessage(new ColorHTMLLoggerOutput.ErrorMessage(message)));
     };
 
     /**
@@ -440,7 +438,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendWarning = function(message) {
-        _append(_formatMessage(new PlainLoggerOutput.WarningMessage(message)));
+        _append(_formatMessage(new ColorHTMLLoggerOutput.WarningMessage(message)));
     };
 
     /**
@@ -450,7 +448,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */
     this.appendNotify = function(message) {
-        _append(_formatMessage(new PlainLoggerOutput.NotifyMessage(message)));
+        _append(_formatMessage(new ColorHTMLLoggerOutput.NotifyMessage(message)));
     };
 
     /**
@@ -460,7 +458,7 @@ function PlainLoggerOutput(element) {
      *   message - the LoggingMessage to be appended to the output
      */    
     this.appendTrace = function(message) {
-        _append(_formatMessage(new PlainLoggerOutput.TraceMessage(message)));
+        _append(_formatMessage(new ColorHTMLLoggerOutput.TraceMessage(message)));
     };
 
     /**
@@ -603,7 +601,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    PlainLoggerOutput.ErrorMessage = function(loggingMessage) {
+    ColorHTMLLoggerOutput.ErrorMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -661,7 +659,7 @@ function PlainLoggerOutput(element) {
     /**
      * ErrorMessage extends the Message
      */
-    PlainLoggerOutput.ErrorMessage.prototype = new Message();
+    ColorHTMLLoggerOutput.ErrorMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a warning logging message.
@@ -669,7 +667,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    PlainLoggerOutput.WarningMessage = function(loggingMessage) {
+    ColorHTMLLoggerOutput.WarningMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -727,7 +725,7 @@ function PlainLoggerOutput(element) {
     /**
      * WarningMessage extends the Message
      */
-    PlainLoggerOutput.WarningMessage.prototype = new Message();
+    ColorHTMLLoggerOutput.WarningMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a notify logging message.
@@ -735,7 +733,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    PlainLoggerOutput.NotifyMessage = function(loggingMessage) {
+    ColorHTMLLoggerOutput.NotifyMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -793,7 +791,7 @@ function PlainLoggerOutput(element) {
     /**
      * NotifyMessage extends the Message
      */
-    PlainLoggerOutput.NotifyMessage.prototype = new Message();
+    ColorHTMLLoggerOutput.NotifyMessage.prototype = new Message();
 
     /**
      * This is a wrapper for a trace logging message.
@@ -801,7 +799,7 @@ function PlainLoggerOutput(element) {
      * Parameters:
      *   loggingMessage - the logging message to be wrapped.
      */
-    PlainLoggerOutput.TraceMessage = function(loggingMessage) {
+    ColorHTMLLoggerOutput.TraceMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
 
         /**
@@ -859,14 +857,14 @@ function PlainLoggerOutput(element) {
     /**
      * TraceMessage extends the Message
      */
-    PlainLoggerOutput.TraceMessage.prototype = new Message();
+    ColorHTMLLoggerOutput.TraceMessage.prototype = new Message();
 
 };
 
 /**
  * PlainLggerOutput extends the LoggerOutput
  */
-PlainLoggerOutput.prototype = new LoggerOutput();
+ColorHTMLLoggerOutput.prototype = new LoggerOutput();
 
 /**
  * Performs the Logger class unit tests. The caller is responsiple for preparing the output
@@ -877,17 +875,17 @@ PlainLoggerOutput.prototype = new LoggerOutput();
  */
 function _testLogger(element) {
     
-    // Test the PlainLoggerOutput
-    var plainLogger = Logger.getLogger("Plain Logger");
-    var plainLoggerOutput = new PlainLoggerOutput(element);
-    plainLoggerOutput.appendError(new LoggingMessage(plainLogger, "Error message"));
-    plainLoggerOutput.appendWarning(new LoggingMessage(plainLogger, "Warning message"));
-    plainLoggerOutput.appendNotify(new LoggingMessage(plainLogger, "Notify message"));
-    plainLoggerOutput.appendTrace(new LoggingMessage(plainLogger, "Trace message"));
+    // Test the ColorHTMLLoggerOutput
+    var colorHTMLLogger = Logger.getLogger("Color HTML Logger");
+    var colorHTMLLoggerOutput = new ColorHTMLLoggerOutput(element);
+    colorHTMLLoggerOutput.appendError(new LoggingMessage(colorHTMLLogger, "Error message"));
+    colorHTMLLoggerOutput.appendWarning(new LoggingMessage(colorHTMLLogger, "Warning message"));
+    colorHTMLLoggerOutput.appendNotify(new LoggingMessage(colorHTMLLogger, "Notify message"));
+    colorHTMLLoggerOutput.appendTrace(new LoggingMessage(colorHTMLLogger, "Trace message"));
 
     // For all avaliabel levels, create a logger instance, then log messages
     // for each level.
-    var loggerOutput = new PlainLoggerOutput(element);
+    var loggerOutput = new ColorHTMLLoggerOutput(element);
     Logger.removeAllLoggerOutputs();
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
@@ -920,8 +918,8 @@ function _testLogger(element) {
     var multipleOutputsLog = Logger.getLogger("Multiple Outputs");
     Logger.removeAllLoggerOutputs();
     Logger.addLoggerOutput(loggerOutput, Logger.LEVEL_ALL);
-    Logger.addLoggerOutput(plainLoggerOutput, Logger.LEVEL_ALL);
+    Logger.addLoggerOutput(colorHTMLLoggerOutput, Logger.LEVEL_ALL);
     multipleOutputsLog.notify("Many times");
-    Logger.removeLoggerOutput(plainLoggerOutput);
+    Logger.removeLoggerOutput(colorHTMLLoggerOutput);
     multipleOutputsLog.notify("One time");
 };
