@@ -93,11 +93,10 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.error = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(self, message, parameters);
-            for (o in _outputs) {
-                if (_outputs[o] != undefined
-                    && (_outputs[o] & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
-                    o.appendError(loggingMessage);
+            for (var i = 0; i < _outputs.length; i++) {
+                if ((_outputs[i].value & Logger.LEVEL_ERROR) == Logger.LEVEL_ERROR) {
+                    var loggingMessage = new LoggingMessage(self, message, parameters);
+                    _outputs[i].key.appendError(loggingMessage);
                 }
             }
         };
@@ -110,11 +109,10 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.warning = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(self, message, parameters);
-            for (o in _outputs) {
-                if (_outputs[o] != undefined
-                    && (_outputs[o] & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
-                    o.appendWarning(loggingMessage);
+            for (var i = 0; i < _outputs.length; i++) {
+                if ((_outputs[i].value & Logger.LEVEL_WARNING) == Logger.LEVEL_WARNING) {
+                    var loggingMessage = new LoggingMessage(self, message, parameters);
+                    _outputs[i].key.appendWarning(loggingMessage);
                 }
             }
         };
@@ -127,11 +125,10 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.notify = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(self, message, parameters);
-            for (o in _outputs) {
-                if (_outputs[o] != undefined
-                    && (_outputs[o] & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
-                    o.appendNotify(loggingMessage);
+            for (var i = 0; i < _outputs.length; i++) {
+                if ((_outputs[i].value & Logger.LEVEL_NOTIFY) == Logger.LEVEL_NOTIFY) {
+                    var loggingMessage = new LoggingMessage(self, message, parameters);
+                    _outputs[i].key.appendNotify(loggingMessage);
                 }
             }
         };
@@ -144,11 +141,10 @@ var Logger = (function() {
          *   parameters - the Array of parameters to be logged
          */
         this.trace = function(message, parameters) {
-            var loggingMessage = new LoggingMessage(self, message, parameters);
-            for (o in _outputs) {
-                if (_outputs[o] != undefined
-                    && (_outputs[o] & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
-                    o.appendTrace(loggingMessage);
+            for (var i = 0; i < _outputs.length; i++) {
+                if ((_outputs[i].value & Logger.LEVEL_TRACE) == Logger.LEVEL_TRACE) {
+                    var loggingMessage = new LoggingMessage(self, message, parameters);
+                    _outputs[i].key.appendTrace(loggingMessage);
                 }
             }
         };
@@ -170,16 +166,28 @@ var Logger = (function() {
      *   The Logger instance for a given loggerName
      */
     _Logger.getLogger = function(loggerName) {
-        if (null == _loggers[loggerName]) {
+        if (undefined == _loggers[loggerName]) {
             _loggers[loggerName] = new Logger(loggerName);
         }
         return _loggers[loggerName];
     };
 
     /**
+     * The wrapper to tie LoggerOutput to corressponding logging level
+     *
+     * Parameters:
+     *   loggerOutput - the LoggerOutput instance to be a key
+     *   loggingLevel - the level to be a instance value
+     */
+    function LoggerOutputLoggingLevel(loggerOutput, loggingLevel) {
+        this.key = loggerOutput;
+        this.value = loggingLevel;
+    };
+    
+    /**
      * The array that contains all output handlers
      */
-    var _outputs = {};
+    var _outputs = new Array();
 
     /**
      * Adds the given output instance to the array of output handlers.
@@ -187,13 +195,14 @@ var Logger = (function() {
      *
      * Parameters:
      *   output - the LoggerOutput instance to be added
-     *   loggingLevel - specifies the logging levels that shall be passed to this output
-     *                  in form of binary mask
+     *   level - specifies the logging levels that shall be passed to this output
+     *           in form of binary mask
      */
-    _Logger.addLoggerOutput = function(output, loggingLevel) {
-        if (null != output) {
+    _Logger.addLoggerOutput = function(output, level) {
+        if (undefined != output && output instanceof LoggerOutput
+            && typeof level != "undefined") {
             if (output instanceof LoggerOutput) {
-                _outputs[output] = loggingLevel;
+                _outputs[_outputs.length] = new LoggerOutputLoggingLevel(output, loggingLevel);
             } else {
                 throw new Error("Cannot register the non LoggerOutput instance!");
             }
@@ -201,17 +210,16 @@ var Logger = (function() {
     };
 
     /**
-     * Removes the given output instance from the array of output handlers.
+     * Removes all occurences of the given output instance from the array of output handlers.
      *
      * Parameters:
      *   output - the output instance to be removed
      */
     _Logger.removeLoggerOutput = function(output) {
         if (null != output && output instanceof LoggerOutput) {
-            for (o in _outptus) {
-                if (o == output) {
-                    _outputs[o] = undefined;
-                    break;
+            for (var i = _outputs.length - 1; i >= 0; i--) {
+                if (_outputs[i] == output) {
+                    _outputs.splice(i, 1);
                 }
             }
         }
@@ -221,7 +229,7 @@ var Logger = (function() {
      * Removes all registered outputs.
      */
     _Logger.removeAllLoggerOutputs = function() {
-        _outputs = {};
+        _outputs = new Array();
     };
         
     // Return an instance
