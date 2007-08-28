@@ -862,7 +862,7 @@ function ColorHTMLLoggerOutput(element) {
 };
 
 /**
- * PlainLggerOutput extends the LoggerOutput
+ * ColorHTMLLoggerOutput extends the LoggerOutput
  */
 ColorHTMLLoggerOutput.prototype = new LoggerOutput();
 
