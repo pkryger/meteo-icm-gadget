@@ -592,11 +592,19 @@ function PlainLoggerOutput(element) {
     };
 
     // TODO - investigate this approach
-//    Message.prototype.format = function() {
-//        return 
-//   };
-//    Message.prototype.prefix = "";
-//    Message.prototype.suffix = "";
+    Message.prototype.format = function() {
+        var loggingMessage = getLoggingMessage();
+        return prefix
+            + _incrementMessageNumber() + ": "
+            + loggingMessage.getMessage()
+            + _parseArray(loggingMessage.getParameters())
+            + " [" + loggingMessage.getSource().getName() + "]"
+            + suffix
+            + self.getEndl();
+    };
+
+    Message.prototype.prefix = "";
+    Message.prototype.suffix = "";
 
     /**
      * This is a wrapper for an error logging message.
@@ -606,6 +614,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.ErrorMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
+        this.prefix = this.getPrefix();
+        this.suffix = this.getSuffix();
 
         /**
          * The sequence to be used as an error prefix
@@ -672,6 +682,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.WarningMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
+        this.prefix = this.getPrefix();
+        this.suffix = this.getSuffix();
 
         /**
          * The sequence to be used as an warning prefix
@@ -738,6 +750,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.NotifyMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
+        this.prefix = this.getPrefix();
+        this.suffix = this.getSuffix();
 
         /**
          * The sequence to be used as an notify prefix
@@ -804,6 +818,8 @@ function PlainLoggerOutput(element) {
      */
     PlainLoggerOutput.TraceMessage = function(loggingMessage) {
         this.setLoggingMessage(loggingMessage);
+        this.prefix = this.getPrefix();
+        this.suffix = this.getSuffix();
 
         /**
          * The sequence to be used as an trace prefix
