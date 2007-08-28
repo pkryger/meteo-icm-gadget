@@ -179,7 +179,7 @@ var Logger = (function() {
     /**
      * The array that contains all output handlers
      */
-    var _outputs = new Array();
+    var _outputs = {};
 
     /**
      * Adds the given output instance to the array of output handlers.
@@ -221,7 +221,7 @@ var Logger = (function() {
      * Removes all registered outputs.
      */
     _Logger.removeAllLoggerOutputs = function() {
-        _outputs = new Array();
+        _outputs = {};
     };
         
     // Return an instance
