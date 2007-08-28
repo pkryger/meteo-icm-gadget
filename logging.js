@@ -892,6 +892,7 @@ function _testLogger(element) {
     Logger.removeAllLoggerOutputs();
     var array = {"key1":"value1", "key2":"value2"};
     for (var nLevel = Logger.LEVEL_NONE; nLevel <= Logger.LEVEL_ALL; nLevel++) {
+        Logger.removeLoggerOutput(loggerOutput);
         Logger.addLoggerOutput(loggerOutput, nLevel);
         var log = Logger.getLogger("TestLogger: level = " + nLevel);
         log.error("Test error message");
