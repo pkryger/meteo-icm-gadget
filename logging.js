@@ -41,7 +41,6 @@ _testLogger(element) - sandbox for Logger class. All output is redirected to the
 
 */
 
-
 /**
  * The Logger class. The Logger instance receives user messages and multiplex them among registered
  * LoggerOutputs.
@@ -79,7 +78,7 @@ var Logger = (function() {
          */
         this.getName = function() {
             var retValue;
-            if (null != _name) {
+            if (undefined != _name) {
                 retValue = _name.toString();
             } else {
                 retValue = "[/no name/]";
@@ -218,7 +217,7 @@ var Logger = (function() {
      *   output - the output instance to be removed
      */
     _Logger.removeLoggerOutput = function(output) {
-        if (null != output && output instanceof LoggerOutput) {
+        if (undefined != output && output instanceof LoggerOutput) {
             for (var i = _outputs.length - 1; i >= 0; i--) {
                 if (_outputs[i].key == output) {
                     _outputs.splice(i, 1);
@@ -471,7 +470,7 @@ function ColorHTMLLoggerOutput(element) {
      */
     function _parseArray(array) {
         var retString = "";
-        if (null != array) {
+        if (undefined != array) {
             retString = ": {";
             for (key in array) {
                 retString += key.toString() + ":" + array[key].toString() + ", ";
@@ -867,7 +866,7 @@ function ColorHTMLLoggerOutput(element) {
 ColorHTMLLoggerOutput.prototype = new LoggerOutput();
 
 /**
- * Performs the Logger class unit tests. The caller is responsiple for preparing the output
+ * Performs the classes unit tests. The caller is responsiple for preparing the output
  * and passing it to this function.
  * 
  * Parameters:
