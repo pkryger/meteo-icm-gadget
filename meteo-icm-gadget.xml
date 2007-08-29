@@ -909,6 +909,7 @@
                  var x = CITY_X[prefs.getString("cityName")];
                  var y = CITY_Y[prefs.getString("cityName")];
                  var sPlotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
+                 log.notify("In getLinkName()", {"x":x, "y":y, "sPlotLanguage":sPlotLanguage});
                  var name = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
