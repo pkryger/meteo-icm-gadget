@@ -444,7 +444,7 @@
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
-             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
@@ -940,9 +940,12 @@
                  document.write('</div>');
                  log.trace("Exit main()");
             }
-             
-             main(new _IG_Prefs(__MODULE_ID__));
-             </script>
+            
+            _IG_FetchContent(getLinkName(prefs), function parseICMSite(sResponse) {
+                log.notify(sResponse);
+            });
+            //main(new _IG_Prefs(__MODULE_ID__));
+            </script>
     ]]> 
   </Content> 
 </Module>
