@@ -942,10 +942,10 @@
             }
             
             _IG_FetchContent(getLinkName(new _IG_Prefs(__MODULE_ID__)), function parseICMSite(response) {
-                var year = response.match('var Year=\\d{4}').match('\\d{4}');;
-                var month = response.match('var Month=\\d{2}').match('\\d{2}');
-                var day = response.match('var Day=\\d{1,2}').match('\\d{1,2}');
-                var startTime = response.match('var Start_time=\\d{2}').match('\\d{2}');
+                var year = new String(response.match('var Year=\\d{4}')).match('\\d{4}');;
+                var month = new String(response.match('var Month=\\d{2}')).match('\\d{2}');
+                var day = new String(response.match('var Day=\\d{1,2}')).match('\\d{1,2}');
+                var startTime = new String(response.match('var Start_time=\\d{2}')).match('\\d{2}');
                 log.notify("Data extracted from ICM site", {"year":year, "month":month, "day":day, "startTime":startTime});
             });
             //main(new _IG_Prefs(__MODULE_ID__));
