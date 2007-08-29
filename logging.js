@@ -524,11 +524,16 @@ function ColorHTMLLoggerOutput(element) {
      */
     function _formatMessage(message) {
         var loggingMessage = message.getLoggingMessage();
+        var encodedMessage = new String(loggingMessage.getMessage()
+            + _parseArray(loggingMessage.getParameters())
+            + " [" + loggingMessage.getSource().getName() + "]");
+        encodedMessage.replace(/&/g, "&amp;");
+        encodedMessage.replace(/</g, "&lt;");
+        encodedMessage.replace(/>/g, "&gt;");
+        encodedMessage.replace(/\"/g, "&quot;");
         return message.getPrefix()
             + _incrementMessageNumber() + ": "
-            + loggingMessage.getMessage()
-            + _parseArray(loggingMessage.getParameters())
-            + " [" + loggingMessage.getSource().getName() + "]"
+            + encodedMessage
             + message.getSuffix()
             + self.getEndl();
     };
