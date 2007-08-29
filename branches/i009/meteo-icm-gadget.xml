@@ -941,7 +941,7 @@
                  log.trace("Exit main()");
             }
             
-            _IG_FetchContent(getLinkName(prefs), function parseICMSite(sResponse) {
+            _IG_FetchContent(getLinkName(new _IG_Prefs(__MODULE_ID__)), function parseICMSite(sResponse) {
                 log.notify(sResponse);
             });
             //main(new _IG_Prefs(__MODULE_ID__));
