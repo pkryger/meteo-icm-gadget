@@ -913,9 +913,7 @@
                  var name = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
-                     + '&' + 'lang=' + sPlotLanguage;
-                     log.notify("tmp name: " + name);
-                     name = name
+                     + '&lang=' + sPlotLanguage
                      + '&ver=&ikonka=1';
                  log.trace("Exit getLinkName(): " + name);
                  return name;
