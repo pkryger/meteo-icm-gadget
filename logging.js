@@ -528,9 +528,9 @@ function ColorHTMLLoggerOutput(element) {
             + _parseArray(loggingMessage.getParameters())
             + " [" + loggingMessage.getSource().getName() + "]");
         encodedMessage.replace(/&/g, "&amp;");
-        encodedMessage.replace(/</g, "&lt;");
-        encodedMessage.replace(/>/g, "&gt;");
-        encodedMessage.replace(/\"/g, "&quot;");
+        //encodedMessage.replace(/</g, "&lt;");
+        //encodedMessage.replace(/>/g, "&gt;");
+        //encodedMessage.replace(/\"/g, "&quot;");
         return message.getPrefix()
             + _incrementMessageNumber() + ": "
             + encodedMessage
