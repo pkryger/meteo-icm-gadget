@@ -941,10 +941,9 @@
                  log.trace("Exit main()");
             }
             
-            _IG_FetchContent(getLinkName(new _IG_Prefs(__MODULE_ID__)), function parseICMSite(sResponse) {
-                var oResponse = new Document();
-                oRespone.write(sResponse);
-                log.notify("Images", oResponse.images);
+            _IG_FetchContent(getLinkName(new _IG_Prefs(__MODULE_ID__)), function parseICMSite(response) {
+                var imgTag = response.match('<img src="/gpp/data/\\d{4}[A-Z][a-z]{2}\\d{2}_\\d{2}_row\\d{2}_col\\d{2}_en.png"/>');
+                log.notify(imgTag);
             });
             //main(new _IG_Prefs(__MODULE_ID__));
             </script>
