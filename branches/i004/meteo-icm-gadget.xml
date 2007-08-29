@@ -913,7 +913,7 @@
                  var name = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
-                     + '&lang=' + sPlotLanguage;
+                     + '&' + 'lang=' + sPlotLanguage;
                      log.notify("tmp name: " + name);
                      name = name
                      + '&ver=&ikonka=1';
