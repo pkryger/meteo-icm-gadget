@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
   <ModulePrefs title="__MSG_title__ __UP_cityName__"
-	       title_url="http://meteo.icm.edu.pl"
-	       description="__MSG_description__"
-	       author="Przemysław Kryger"
-	       author_email="pkryger+icmweatherforecast@gmail.com"
-	       directory_title="__MSG_directory_title__"
-	       screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
-	       thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
-	       author_location="Kraków, Poland"
-	       scaling="true"
-	       height="300"
-	       width="520"
+               title_url="http://meteo.icm.edu.pl"
+               description="__MSG_description__"
+               author="Przemysław Kryger"
+               author_email="pkryger+icmweatherforecast@gmail.com"
+               directory_title="__MSG_directory_title__"
+               screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
+               thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
+               author_location="Kraków, Poland"
+               scaling="true"
+               height="300"
+               width="520"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
   </ModulePrefs>
   <UserPref name="cityName"
-	    display_name="__MSG_city__"
-	    default_value="Kraków"
-	    datatype="enum">
+            display_name="__MSG_city__"
+            default_value="Kraków"
+            datatype="enum">
     <EnumValue value="Aleksandrów Kujawski" />
     <EnumValue value="Augustów" />
     <EnumValue value="Bartoszyce" />
@@ -425,20 +425,32 @@
     <EnumValue value="Żywiec" />
   </UserPref>
   <UserPref name="plotLanguage"
-	    display_name="__MSG_plot_language__"
-	    default_value="en"
-	    datatype="enum">
+            display_name="__MSG_plot_language__"
+            default_value="en"
+            datatype="enum">
     <EnumValue value="pl"
-	       display_value="__MSG_plot_language_polish__" />
+               display_value="__MSG_plot_language_polish__" />
     <EnumValue value="en"
-	       display_value="__MSG_plot_language_english__" />
+               display_value="__MSG_plot_language_english__" />
   </UserPref>
   <Content type="html">
     <![CDATA[
-	     <script type="text/javascript">
-	     var CACHE_TIME = 60 * 60 * 6;
-	     var BASE_URL = "http://meteo.icm.edu.pl/";
-	     var IMAGE_URL = BASE_URL + "gpp/data/";
+             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
+             <div id="meteogram_div"></div>
+             <script type="text/javascript"
+                     src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
+             <script type="text/javascript">
+
+             // The logging stuff
+             var log = Logger.getLogger("meteo-icm-main");
+             // Uncoment the following line to see logging messages
+             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             // Uncomment the following line to perform the logging module tests
+             //_testLogger(_gel("logging_div"));
+             
+             var CACHE_TIME = 60 * 60 * 6;
+             var BASE_URL = "http://meteo.icm.edu.pl/";
+             var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
              var MONTHS_NAMES = new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
@@ -850,79 +862,87 @@
              CITY_X["Żywiec"] = 16; CITY_Y["Żywiec"] = 7;
 
              var PLOT_LANGUAGES = new Array();
-	     PLOT_LANGUAGES["pl"] = 0;
-	     PLOT_LANGUAGES["en"] = 1;
+             PLOT_LANGUAGES["pl"] = 0;
+             PLOT_LANGUAGES["en"] = 1;
 
              function getImageName(prefs) {
-               var now = new Date();
-	       var year = now.getUTCFullYear();
-	       var nMonth = now.getUTCMonth();
-               var month = MONTHS_NAMES[nMonth];
-	       var nDay = now.getUTCDate();
-               var day = nDay;
-               if (nDay < 10) {
-	         day = "0" + nDay;
-               }
-               var nHour = now.getUTCHours();
-               var hour = 0;
-               if (nHour > 21 || nHour < 4) {
-                 hour = 18;
-               } else if (nHour > 3 && nHour < 10) {
-                 hour = 0;
-	       } else if (nHour > 9 && nHour < 16) {
-                 hour = 6;
-               } else if (nHour > 15 && nHour < 22) {
-                 hour = 12;
-	       }
-               if (hour < 10) {
-                 hour = "0" + hour;
-               }
-	       var plotLanguage = prefs.getString("plotLanguage");
-	       var col = "col" + CITY_X[prefs.getString("cityName")];
-               var nRow = 43 - CITY_Y[prefs.getString("cityName")];
-               if (nRow < 10) {
-	         nRow = "0" + nRow;
-	       }
-               var row = "row" + nRow;
-	       var name = IMAGE_URL
-	         + year + month + day 
-                 + '_' + hour + '_'
-                 + row + '_' + col + '_'
-		 + plotLanguage + '.png';
-               return name;
-	     }
+                 log.trace("Enter getImageName()",
+                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
+                 var now = new Date();
+                 var year = now.getUTCFullYear();
+                 var nMonth = now.getUTCMonth();
+                 var month = MONTHS_NAMES[nMonth];
+                 var nDay = now.getUTCDate();
+                 var sDay = nDay;
+                 if (nDay < 10) {
+                     sDay = "0" + nDay;
+                 }
+                 var nHour = now.getUTCHours();
+                 var sHour = "00";
+                 if (nHour > 21 || nHour < 4) {
+                     sHour = "18";
+                 } else if (nHour > 3 && nHour < 10) {
+                     sHour = "00";
+                 } else if (nHour > 9 && nHour < 16) {
+                     sHour = "06";
+                 } else if (nHour > 15 && nHour < 22) {
+                     sHour = "12";
+                 } else {
+                     log.error("Cannot determine sHour!", {"sHour":sHour});
+                 }
+                 var sPlotLanguage = prefs.getString("plotLanguage");
+                 var sCol = "col" + CITY_X[prefs.getString("cityName")];
+                 var nRow = 43 - CITY_Y[prefs.getString("cityName")];
+                 if (nRow < 10) {
+                     nRow = "0" + nRow;
+                 }
+                 var sRow = "row" + nRow;
+                 var name = IMAGE_URL
+                     + year + month + sDay 
+                     + '_' + sHour + '_'
+                     + sRow + '_' + sCol + '_'
+                     + sPlotLanguage + '.png';
+                 log.trace("Exit getImageName(): " + name);
+                 return name;
+             }
 
              function getLinkName(prefs) {
-	       var x = CITY_X[prefs.getString("cityName")];
-               var y = CITY_Y[prefs.getString("cityName")];
-               var plotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
-               var name = LINK_URL
-                 + '?x=' + x
-                 + '&y=' + y
-                 + '&lang=' + plotLanguage
-                 + '&ver=&ikonka=1';
-               return name;
-	     }
+                 log.trace("Enter getLinkName()",
+                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
+                 var x = CITY_X[prefs.getString("cityName")];
+                 var y = CITY_Y[prefs.getString("cityName")];
+                 var sPlotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
+                 var name = LINK_URL
+                     + '?x=' + x
+                     + '&y=' + y
+                     + '&lang=' + sPlotLanguage
+                     + '&ver=&ikonka=1';
+                 log.trace("Exit getLinkName(): " + name);
+                 return name;
+             }
 
-	     function main(prefs) {
-	       var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
-	       document.write('<div>');
-               document.write('<a target="_blank" href="'
-                 + getLinkName(prefs)
-                 + '" >');
-	       document.write('<img border="0" width="540" heigth="560" src="'
-	         + cachedUrl
-		 + '" title="'
-		 + prefs.getMsg("forecast_for")
-		 + ' '
-		 + prefs.getString("cityName") 
-		 + '" />');
-               document.write('</a>');
-	       document.write('</div>'); 
-	     }
+             function main(prefs) {
+                 log.trace("Enter main()",
+                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
+                 var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
+                 document.write('<div>');
+                 document.write('<a target="_blank" href="'
+                     + getLinkName(prefs)
+                     + '" >');
+                 document.write('<img border="0" width="540" heigth="560" src="'
+                     + cachedUrl
+                     + '" title="'
+                     + prefs.getMsg("forecast_for")
+                     + ' '
+                     + prefs.getString("cityName") 
+                     + '" />');
+                 document.write('</a>');
+                 document.write('</div>');
+                 log.trace("Exit main()");
+            }
              
              main(new _IG_Prefs(__MODULE_ID__));
-	     </script>
+             </script>
     ]]> 
   </Content> 
 </Module>
