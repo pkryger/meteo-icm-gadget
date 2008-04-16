@@ -449,7 +449,7 @@
              //_testLogger(_gel("logging_div"));
              
              var CACHE_TIME = 60 * 60 * 6;
-             var BASE_URL = "http://meteo.icm.edu.pl/";
+             var BASE_URL = "http://umold.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
