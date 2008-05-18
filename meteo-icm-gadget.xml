@@ -10,8 +10,7 @@
                thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
                author_location="Kraków, Poland"
                scaling="true"
-               height="300"
-               width="520"
+               height="340"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
@@ -433,14 +432,23 @@
     <EnumValue value="en"
                display_value="__MSG_plot_language_english__" />
   </UserPref>
+  <UserPref name="scaleHeight"
+            display_name="__MSG_scale_height__"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="scaleWidth"
+            display_name="__MSG_scale_width__"
+            default_value="false"
+            datatype="bool"/>
   <Content type="html">
     <![CDATA[
-             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
-             <div id="meteogram_div"></div>
+             <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
+             <!-- Uncoment the following line to see logging messages-->
+             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
+
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
              <script type="text/javascript">
-
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
@@ -865,9 +873,9 @@
              PLOT_LANGUAGES["pl"] = 0;
              PLOT_LANGUAGES["en"] = 1;
 
-             function getImageName(prefs) {
+             function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
+                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
                  var now = new Date();
                  var year = now.getUTCFullYear();
                  var nMonth = now.getUTCMonth();
@@ -890,9 +898,8 @@
                  } else {
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
-                 var sPlotLanguage = prefs.getString("plotLanguage");
-                 var sCol = "col" + CITY_X[prefs.getString("cityName")];
-                 var nRow = 43 - CITY_Y[prefs.getString("cityName")];
+                 var sCol = "col" + CITY_X[_cityName];
+                 var nRow = 43 - CITY_Y[_cityName];
                  if (nRow < 10) {
                      nRow = "0" + nRow;
                  }
@@ -901,17 +908,17 @@
                      + year + month + sDay 
                      + '_' + sHour + '_'
                      + sRow + '_' + sCol + '_'
-                     + sPlotLanguage + '.png';
+                     + _plotLanguage + '.png';
                  log.trace("Exit getImageName(): " + name);
                  return name;
              }
 
-             function getLinkName(prefs) {
+             function getLinkName(_cityName, _plotLanguage) {
                  log.trace("Enter getLinkName()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
-                 var x = CITY_X[prefs.getString("cityName")];
-                 var y = CITY_Y[prefs.getString("cityName")];
-                 var sPlotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
+                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
+                 var x = CITY_X[_cityName];
+                 var y = CITY_Y[_cityName];
+                 var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
                  var name = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
@@ -921,27 +928,34 @@
                  return name;
              }
 
-             function main(prefs) {
-                 log.trace("Enter main()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
-                 var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
-                 document.write('<div>');
-                 document.write('<a target="_blank" href="'
-                     + getLinkName(prefs)
-                     + '" >');
-                 document.write('<img border="0" width="540" heigth="560" src="'
+             function main() {
+                 log.trace("Enter main()");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");
+                 var scaleHeight = prefs.getString("scaleHeight");
+                 var scaleWidth = prefs.getString("scaleWidth");
+                 var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
+                 var height = true == scaleHeight ? ' height="100%" ' : ' height="560" ';
+                 var width = true == scaleWidth ? ' width="100%" ' : ' width="540" ';
+                 meteogramHtml =  '<a target="_blank" href="'
+                     + getLinkName(cityName, plotLanguage)
+                     + '"><img border="0"'
+                     + width
+                     + height
+                     + 'src="'
                      + cachedUrl
                      + '" title="'
                      + prefs.getMsg("forecast_for")
                      + ' '
-                     + prefs.getString("cityName") 
-                     + '" />');
-                 document.write('</a>');
-                 document.write('</div>');
+                     + cityName
+                     + '" />'
+                     +'</a>';
+                 var meteogramDiv = _gel("meteogram_div");
+                 meteogramDiv.innerHTML = meteogramHtml;
                  log.trace("Exit main()");
-            }
-             
-             main(new _IG_Prefs(__MODULE_ID__));
+             }
+             _IG_RegisterOnloadHandler(main);
              </script>
     ]]> 
   </Content> 

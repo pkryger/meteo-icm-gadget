@@ -9,4 +9,7 @@
   <msg name="plot_language_polish">Polski</msg>
   <msg name="plot_language_english">Angielski</msg>
   <msg name="forecast_for">Prognoza pogody:</msg>
+  <msg name="loading_data">Ładuję meteogram...</msg>
+  <msg name="scale_height">Skaluj wysokość</msg>
+  <msg name="scale_width">Skaluj szerokość</msg>
 </messagebundle>
