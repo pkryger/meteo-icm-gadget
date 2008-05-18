@@ -959,18 +959,18 @@
                      + '" />'
                      +'</a>';
                  log.trace(meteogramHtml);
-                 var meteogramDiv = _gel("meteogram_div");
+                 var meteogramDiv = _gel('meteogram_div');
                  if (undefined != meteogramDiv)
                  {
                     log.trace(meteogramDiv);
                     log.trace(meteogramDiv.innerHtml);
-                    meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
+                    //meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                     meteogramDiv.innerHtml = meteogramHtml;
                     log.trace(meteogramDiv.innerHtml);
                  }
                  else
                  {
-                    log.error("Cannot find medeogram_div");
+                    log.error("Cannot find meteogram_div");
                  }
                  log.trace("Exit main()");
             }
