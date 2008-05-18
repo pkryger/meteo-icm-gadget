@@ -435,7 +435,7 @@
   </UserPref>
   <UserPref name="gadgetHeight"
             display_name="Height"
-            default_vaule="normal"
+            default_value="normal"
             datatype="enum">
     <EnumValue value="small"
                display_value="Small" />
