@@ -962,7 +962,7 @@
                  if (undefined != meteogramDiv)
                  {
                     log.trace("div: " + meteogramDiv);
-                    log.trace("pre: innerHTML: " = meteogramDiv.innerHTML);
+                    log.trace("pre: innerHTML: " + meteogramDiv.innerHTML);
                     meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                     meteogramDiv.innerHTML = meteogramHtml;
                     log.trace("post: innerHTML: " + meteogramDiv.innerHTML);
