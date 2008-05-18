@@ -455,7 +455,7 @@
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
-             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
@@ -958,6 +958,7 @@
                      + cityName
                      + '" />'
                      +'</a>';
+                 log.trace(meteogramHtml);
                  var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                  meteogramDiv.innerHtml = meteogramHtml;
