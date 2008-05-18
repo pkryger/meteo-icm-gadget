@@ -10,7 +10,7 @@
                thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
                author_location="Kraków, Poland"
                scaling="true"
-               height="320"
+               height="340"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
