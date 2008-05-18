@@ -938,8 +938,8 @@
                  var scaleHeight = prefs.getString("scaleHeight");
                  var scaleWidth = prefs.getString("scaleWidth");
                  var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
-                 var height = scaleHeight ? ' height="100%" ' : ' height="560" ';
-                 var width = scaleWidth ? ' width="100%" ' : ' width="540" ';
+                 var height = true == scaleHeight ? ' height="100%" ' : ' height="560" ';
+                 var width = true == scaleWidth ? ' width="100%" ' : ' width="540" ';
                  meteogramHtml =  '<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
                      + '"><img border="0"'
