@@ -10,8 +10,7 @@
                thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
                author_location="Kraków, Poland"
                scaling="true"
-               height="300"
-               width="520"
+               height="__UP_gadgetHeight__"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
@@ -436,13 +435,13 @@
   <!--TODO to messages -->
   <UserPref name="gadgetHeight"
             display_name="Height"
-            default_value="normal"
+            default_value="350"
             datatype="enum">
-    <EnumValue value="small"
+    <EnumValue value="180"
                display_value="Small" />
-    <EnumValue value="normal"
+    <EnumValue value="350"
                display_value="Normal" />
-    <EnumValue value="big"
+    <EnumValue value="580"
                display_value="Big" />
   </UserPref>
   <Content type="html">
@@ -878,11 +877,6 @@
              var PLOT_LANGUAGES = new Array();
              PLOT_LANGUAGES["pl"] = 0;
              PLOT_LANGUAGES["en"] = 1;
-
-             var GADGET_HEIGHTS = new Array();
-             GADGET_HEIGHTS["small"] = 200;
-             GADGET_HEIGHTS["normal"] = 300;
-             GADGET_HEIGHTS["big"] = 560;
 
              function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
