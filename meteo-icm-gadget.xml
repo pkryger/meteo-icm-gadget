@@ -883,7 +883,7 @@
 
              function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
-                       {"cityName":_cityName), "plotLanguage":_plotLanguage});
+                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
                  var now = new Date();
                  var year = now.getUTCFullYear();
                  var nMonth = now.getUTCMonth();
