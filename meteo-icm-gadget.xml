@@ -907,7 +907,7 @@
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
                  var sCol = "col" + CITY_X[_cityName];
-                 var nRow = 43 - CITY_Y[_cityName_];
+                 var nRow = 43 - CITY_Y[_cityName];
                  if (nRow < 10) {
                      nRow = "0" + nRow;
                  }
