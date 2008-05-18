@@ -433,6 +433,7 @@
     <EnumValue value="en"
                display_value="__MSG_plot_language_english__" />
   </UserPref>
+  <!--TODO to messages -->
   <UserPref name="gadgetHeight"
             display_name="Height"
             default_value="normal"
@@ -447,7 +448,8 @@
   <Content type="html">
     <![CDATA[
              <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
-             <div id="meteogram_div"><p>test</p></div>
+             //TODO - to messages
+             <div id="meteogram_div"><span style="font-size:9pt">Loading meteogram...</span></div>
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
              <script type="text/javascript">
@@ -960,11 +962,18 @@
                      +'</a>';
                  log.trace(meteogramHtml);
                  var meteogramDiv = _gel("meteogram_div");
-                 log.trace(meteogramDiv);
-                 log.trace(meteogramDiv.innerHtml);
-                 meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
-                 meteogramDiv.innerHtml = meteogramHtml;
-                 log.trace(meteogramDiv.innerHtml);
+                 if (undefined != meteogramDiv)
+                 {
+                    log.trace(meteogramDiv);
+                    log.trace(meteogramDiv.innerHtml);
+                    meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
+                    meteogramDiv.innerHtml = meteogramHtml;
+                    log.trace(meteogramDiv.innerHtml);
+                 }
+                 else
+                 {
+                    log.error("Cannot find medeogram_div");
+                 }
                  log.trace("Exit main()");
             }
              
