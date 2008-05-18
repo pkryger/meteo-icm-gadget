@@ -938,11 +938,12 @@
                  return name;
              }
 
-             function main(prefs) {
-                 log.trace("Enter main()",
-                       {"cityName":prefs.getString("cityName"),
-                        "plotLanguage":prefs.getString("plotLanguage"),
-                        "gadgetHeight":prefs.getString("gadgetHeight")});
+             function main() {
+                 log.trace("Enter main()"); //,
+                 //      {"cityName":prefs.getString("cityName"),
+                 //       "plotLanguage":prefs.getString("plotLanguage"),
+                 //      "gadgetHeight":prefs.getString("gadgetHeight")});
+                 prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");
                  var gadgetHeight = prefs.getString("gadgetHeight");
@@ -975,9 +976,9 @@
                     log.error("Cannot find meteogram_div");
                  }
                  log.trace("Exit main()");
-            }
-             
-             main(new _IG_Prefs(__MODULE_ID__));
+             }
+             _IG_RegisterOnloadHandler(main);
+             //main(new _IG_Prefs(__MODULE_ID__));
              </script>
     ]]> 
   </Content> 
