@@ -453,7 +453,6 @@
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
              <script type="text/javascript">
-
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
@@ -950,9 +949,9 @@
                  var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
                  meteogramHtml =  '<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
-                     + '" >'
+                     + '">'
                      + '<img border="0" width="540" '
-                     + 'heigth="100%" '
+                     + 'height="100%" '
                      + 'src="'
                      + cachedUrl
                      + '" title="'
@@ -978,9 +977,7 @@
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
-             //main(new _IG_Prefs(__MODULE_ID__));
              </script>
-             <INPUT TYPE="button" NAME="button" Value="Refresh" onClick="main()">
     ]]> 
   </Content> 
 </Module>
