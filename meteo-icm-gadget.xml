@@ -959,7 +959,7 @@
                      + '" />'
                      +'</a>'
                  var meteogramDiv = _gel("meteogram_div");
-                 meteogramDiv.height = GADGETS_HEIGHTS[gadgetHeight];
+                 meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                  meteogramDiv.innerHtml = meteogramHtml;
                  log.trace("Exit main()");
             }
