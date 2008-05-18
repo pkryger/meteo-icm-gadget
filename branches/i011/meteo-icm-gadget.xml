@@ -10,7 +10,7 @@
                thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
                author_location="Kraków, Poland"
                scaling="true"
-               height="380"
+               height="340"
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
@@ -433,24 +433,21 @@
                display_value="__MSG_plot_language_english__" />
   </UserPref>
   <!--TODO to messages -->
-  <UserPref name="gadgetHeight"
-            display_name="Height"
-            default_value="350"
-            datatype="enum">
-    <EnumValue value="small"
-               display_value="Small" />
-    <EnumValue value="normal"
-               display_value="Normal" />
-    <EnumValue value="big"
-               display_value="Big" />
-  </UserPref>
+  <UserPref name="scaleHeight"
+            display_name="Scale height"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="scaleWidth">
+            display_name="Scale height"
+            default_value="false"
+            datatype="bool"/>
   <Content type="html">
     <![CDATA[
              <!-- TODO to messages -->
              <div id="meteogram_div"><span style="font-size:9pt">Loading meteogram...</span></div>
-             <!-- Uncoment the following line to see logging messages
-             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
-             -->
+             <!-- Uncoment the following line to see logging messages-->
+             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
+
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
              <script type="text/javascript">
@@ -938,13 +935,16 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");
-                 var gadgetHeight = prefs.getString("gadgetHeight");
+                 var scaleHeight = prefs.getString("scaleHeight");
+                 var scaleWidth = pregs.getString("scaleWidth");
                  var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
+                 var height = scaleHeight ? ' height="100%" ' : ' height="560" ';
+                 var width = scaleWidth ? ' width="100%" ' : ' width="540" ';
                  meteogramHtml =  '<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
-                     + '">'
-                     + '<img border="0" width="540" '
-                     + 'height="100%" '
+                     + '"><img border="0"'
+                     + width
+                     + height
                      + 'src="'
                      + cachedUrl
                      + '" title="'
