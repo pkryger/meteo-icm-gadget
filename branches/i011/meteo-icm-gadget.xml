@@ -957,7 +957,7 @@
                      + ' '
                      + cityName
                      + '" />'
-                     +'</a>'
+                     +'</a>';
                  var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                  meteogramDiv.innerHtml = meteogramHtml;
