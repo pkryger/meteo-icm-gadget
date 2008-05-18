@@ -945,7 +945,7 @@
                  var plotLanguage = prefs.getString("plotLanguage");
                  var gadgetHeight = prefs.getString("gadgetHeight");
                  var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
-                 metoogramHtml =  '<a target="_blank" href="'
+                 meteogramHtml =  '<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
                      + '" >'
                      + '<img border="0" width="540" '
