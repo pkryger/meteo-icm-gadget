@@ -437,7 +437,7 @@
             display_name="Scale height"
             default_value="false"
             datatype="bool"/>
-  <UserPref name="scaleWidth">
+  <UserPref name="scaleWidth"
             display_name="Scale height"
             default_value="false"
             datatype="bool"/>
