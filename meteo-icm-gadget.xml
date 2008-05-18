@@ -938,10 +938,7 @@
              }
 
              function main() {
-                 log.trace("Enter main()"); //,
-                 //      {"cityName":prefs.getString("cityName"),
-                 //       "plotLanguage":prefs.getString("plotLanguage"),
-                 //      "gadgetHeight":prefs.getString("gadgetHeight")});
+                 log.trace("Enter main()");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");
@@ -966,7 +963,7 @@
                  {
                     log.trace(meteogramDiv);
                     log.trace(meteogramDiv.innerHtml);
-                    //meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
+                    meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
                     meteogramDiv.innerHtml = meteogramHtml;
                     log.trace(meteogramDiv.innerHtml);
                  }
