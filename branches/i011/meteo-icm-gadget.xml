@@ -12,7 +12,6 @@
                scaling="true"
                height="320"
                scrolling="true">
-    <Require feature="dynamic-height"/>
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
   </ModulePrefs>
@@ -945,7 +944,7 @@
                      + getLinkName(cityName, plotLanguage)
                      + '">'
                      + '<img border="0" width="540" '
-                     + 'height="560" '
+                     + 'height="100%" '
                      + 'src="'
                      + cachedUrl
                      + '" title="'
