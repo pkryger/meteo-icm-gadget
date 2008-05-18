@@ -980,7 +980,7 @@
              _IG_RegisterOnloadHandler(main);
              //main(new _IG_Prefs(__MODULE_ID__));
              </script>
-             <INPUT TYPE="button" NAME="button" Value="Refresh" onClick="main">
+             <INPUT TYPE="button" NAME="button" Value="Refresh" onClick="main()">
     ]]> 
   </Content> 
 </Module>
