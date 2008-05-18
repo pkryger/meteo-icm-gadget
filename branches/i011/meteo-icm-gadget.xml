@@ -957,15 +957,15 @@
                      + cityName
                      + '" />'
                      +'</a>';
-                 log.trace(meteogramHtml);
-                 var meteogramDiv = _gel('meteogram_div');
+                 log.trace("html: " + meteogramHtml);
+                 var meteogramDiv = _gel("meteogram_div");
                  if (undefined != meteogramDiv)
                  {
-                    log.trace(meteogramDiv);
-                    log.trace(meteogramDiv.innerHtml);
+                    log.trace("div: " + meteogramDiv);
+                    log.trace("pre: innerHTML: " = meteogramDiv.innerHTML);
                     meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
-                    meteogramDiv.innerHtml = meteogramHtml;
-                    log.trace(meteogramDiv.innerHtml);
+                    meteogramDiv.innerHTML = meteogramHtml;
+                    log.trace("post: innerHTML: " + meteogramDiv.innerHTML);
                  }
                  else
                  {
