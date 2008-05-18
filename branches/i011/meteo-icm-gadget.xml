@@ -945,21 +945,22 @@
                  var plotLanguage = prefs.getString("plotLanguage");
                  var gadgetHeight = prefs.getString("gadgetHeight");
                  var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
-                 document.write('<div height="400" width="50">');
-                 document.write('<a target="_blank" href="'
+                 metoogramHtml =  '<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
-                     + '" >');
-                 document.write('<img border="0" width="540" '
-                     + 'heigth="560" '
+                     + '" >'
+                     + '<img border="0" width="540" '
+                     + 'heigth="100%" '
                      + 'src="'
                      + cachedUrl
                      + '" title="'
                      + prefs.getMsg("forecast_for")
                      + ' '
                      + cityName
-                     + '" />');
-                 document.write('</a>');
-                 document.write('</div>');
+                     + '" />'
+                     +'</a>'
+                 var meteogramDiv = _gel("meteogram_div");
+                 meteogramDiv.height = GADGETS_HEIGHTS[gadgetHeight];
+                 meteogramDiv.innerHtml = ;
                  log.trace("Exit main()");
             }
              
