@@ -447,9 +447,9 @@
   </UserPref>
   <Content type="html">
     <![CDATA[
-             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
              <!-- TODO to messages -->
              <div id="meteogram_div"><span style="font-size:9pt">Loading meteogram...</span></div>
+             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
              <script type="text/javascript">
