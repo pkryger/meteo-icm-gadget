@@ -434,7 +434,7 @@
                display_value="__MSG_plot_language_english__" />
   </UserPref>
   <UserPref name="gadgetHeight"
-            diplay_name="Height"
+            display_name="Height"
             default_vaule="normal"
             datatype="enum">
     <EnumValue value="small"
