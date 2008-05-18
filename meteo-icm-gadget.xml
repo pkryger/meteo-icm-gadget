@@ -949,13 +949,15 @@
                  document.write('<a target="_blank" href="'
                      + getLinkName(cityName, plotLanguage)
                      + '" >');
-                 //document.write('<img border="0" width="540" heigth="560" src="'
-                 //    + cachedUrl
-                 //    + '" title="'
-                 //    + prefs.getMsg("forecast_for")
-                 //    + ' '
-                 //    + prefs.getString("cityName") 
-                 //    + '" />');
+                 document.write('<img border="0" width="540" '
+                     + 'heigth="560" '
+                     + 'src="'
+                     + cachedUrl
+                     + '" title="'
+                     + prefs.getMsg("forecast_for")
+                     + ' '
+                     + cityName
+                     + '" />');
                  document.write('</a>');
                  document.write('</div>');
                  log.trace("Exit main()");
