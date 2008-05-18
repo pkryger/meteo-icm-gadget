@@ -950,7 +950,7 @@
                      + getLinkName(cityName, plotLanguage)
                      + '">'
                      + '<img border="0" width="540" '
-                     + 'height="100%" '
+                     + 'height="560" '
                      + 'src="'
                      + cachedUrl
                      + '" title="'
@@ -959,20 +959,8 @@
                      + cityName
                      + '" />'
                      +'</a>';
-                 log.trace("html: " + meteogramHtml);
                  var meteogramDiv = _gel("meteogram_div");
-                 if (undefined != meteogramDiv)
-                 {
-                    log.trace("div: " + meteogramDiv);
-                    log.trace("pre: innerHTML: " + meteogramDiv.innerHTML);
-                    meteogramDiv.height = GADGET_HEIGHTS[gadgetHeight];
-                    meteogramDiv.innerHTML = meteogramHtml;
-                    log.trace("post: innerHTML: " + meteogramDiv.innerHTML);
-                 }
-                 else
-                 {
-                    log.error("Cannot find meteogram_div");
-                 }
+                 meteogramDiv.innerHTML = meteogramHtml;
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
