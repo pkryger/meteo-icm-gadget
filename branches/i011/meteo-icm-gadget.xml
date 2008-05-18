@@ -433,6 +433,17 @@
     <EnumValue value="en"
                display_value="__MSG_plot_language_english__" />
   </UserPref>
+  <UserPref name="gadgetHeight"
+            diplay_name="Height"
+            default_vaule="normal"
+            datatype="enum">
+    <EnumValue value="small"
+               display_value="Small" />
+    <EnumValue value="normal"
+               display_value="Normal" />
+    <EnumValue value="big"
+               display_value="Big" />
+  </UserPref>
   <Content type="html">
     <![CDATA[
              <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
@@ -865,9 +876,14 @@
              PLOT_LANGUAGES["pl"] = 0;
              PLOT_LANGUAGES["en"] = 1;
 
-             function getImageName(prefs) {
+             var GADGET_HEIGHTS = new Array();
+             GADGET_HEIGHTS["small"] = 200;
+             GADGET_HEIGHTS["normal"] = 300;
+             GADGET_HEIGHTS["big"] = 560;
+
+             function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
+                       {"cityName":_cityName), "plotLanguage":_plotLanguage});
                  var now = new Date();
                  var year = now.getUTCFullYear();
                  var nMonth = now.getUTCMonth();
@@ -890,9 +906,8 @@
                  } else {
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
-                 var sPlotLanguage = prefs.getString("plotLanguage");
-                 var sCol = "col" + CITY_X[prefs.getString("cityName")];
-                 var nRow = 43 - CITY_Y[prefs.getString("cityName")];
+                 var sCol = "col" + CITY_X[_cityName];
+                 var nRow = 43 - CITY_Y[_cityName_];
                  if (nRow < 10) {
                      nRow = "0" + nRow;
                  }
@@ -901,17 +916,17 @@
                      + year + month + sDay 
                      + '_' + sHour + '_'
                      + sRow + '_' + sCol + '_'
-                     + sPlotLanguage + '.png';
+                     + _plotLanguage + '.png';
                  log.trace("Exit getImageName(): " + name);
                  return name;
              }
 
-             function getLinkName(prefs) {
+             function getLinkName(_cityName, _plotLanguage) {
                  log.trace("Enter getLinkName()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
-                 var x = CITY_X[prefs.getString("cityName")];
-                 var y = CITY_Y[prefs.getString("cityName")];
-                 var sPlotLanguage = PLOT_LANGUAGES[prefs.getString("plotLanguage")];
+                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
+                 var x = CITY_X[cityName];
+                 var y = CITY_Y[cityName];
+                 var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
                  var name = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
@@ -923,19 +938,24 @@
 
              function main(prefs) {
                  log.trace("Enter main()",
-                       {"cityName":prefs.getString("cityName"), "plotLanguage":prefs.getString("plotLanguage")});
-                 var cachedUrl = _IG_GetImageUrl(getImageName(prefs), {refreshInterval:CACHE_TIME});
-                 document.write('<div>');
+                       {"cityName":prefs.getString("cityName"),
+                        "plotLanguage":prefs.getString("plotLanguage"),
+                        "gadgetHeight":prefs.getString("gadgetHeight")});
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");
+                 var gadgetHeight = prefs.getString("gadgetHeight");
+                 var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
+                 document.write('<div height="400" width="50">');
                  document.write('<a target="_blank" href="'
-                     + getLinkName(prefs)
+                     + getLinkName(cityName, plotLanguage)
                      + '" >');
-                 document.write('<img border="0" width="540" heigth="560" src="'
-                     + cachedUrl
-                     + '" title="'
-                     + prefs.getMsg("forecast_for")
-                     + ' '
-                     + prefs.getString("cityName") 
-                     + '" />');
+                 //document.write('<img border="0" width="540" heigth="560" src="'
+                 //    + cachedUrl
+                 //    + '" title="'
+                 //    + prefs.getMsg("forecast_for")
+                 //    + ' '
+                 //    + prefs.getString("cityName") 
+                 //    + '" />');
                  document.write('</a>');
                  document.write('</div>');
                  log.trace("Exit main()");
