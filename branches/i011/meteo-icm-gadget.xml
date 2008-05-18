@@ -924,8 +924,8 @@
              function getLinkName(_cityName, _plotLanguage) {
                  log.trace("Enter getLinkName()",
                        {"cityName":_cityName, "plotLanguage":_plotLanguage});
-                 var x = CITY_X[cityName];
-                 var y = CITY_Y[cityName];
+                 var x = CITY_X[_cityName];
+                 var y = CITY_Y[_cityName];
                  var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
                  var name = LINK_URL
                      + '?x=' + x
