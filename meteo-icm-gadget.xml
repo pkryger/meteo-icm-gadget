@@ -12,8 +12,8 @@
                scaling="true"
                height="340"
                scrolling="true">
-    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
-    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i011/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i011/pl_ALL.xml"/>
   </ModulePrefs>
   <UserPref name="cityName"
             display_name="__MSG_city__"
@@ -432,19 +432,17 @@
     <EnumValue value="en"
                display_value="__MSG_plot_language_english__" />
   </UserPref>
-  <!--TODO to messages -->
   <UserPref name="scaleHeight"
-            display_name="Scale height"
+            display_name="__MSG_scale_height__"
             default_value="false"
             datatype="bool"/>
   <UserPref name="scaleWidth"
-            display_name="Scale width"
+            display_name="__MSG_scale_width__"
             default_value="false"
             datatype="bool"/>
   <Content type="html">
     <![CDATA[
-             <!-- TODO to messages -->
-             <div id="meteogram_div"><span style="font-size:9pt">Loading meteogram...</span></div>
+             <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
              <!-- Uncoment the following line to see logging messages-->
              <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
 
