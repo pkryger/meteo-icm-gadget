@@ -1014,7 +1014,6 @@
 
              function main() {
                  log.trace("Enter main()");
-                 /*
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");
@@ -1036,9 +1035,8 @@
                      + cityName
                      + '" />'
                      +'</a>';
-                 var meteogramDiv = _gel("meteogram_div");
-                 meteogramDiv.innerHTML = meteogramHtml;
-                 */
+                 ///var meteogramDiv = _gel("meteogram_div");
+                 //meteogramDiv.innerHTML = meteogramHtml;
                  _IG_FetchContent(getLinkName(cityName, plotLanguage), parseResponse);
                  log.trace("Exit main()");
              }
