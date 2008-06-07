@@ -898,7 +898,7 @@
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
                  percent += "%";
                  var progress = _gel("progressIn");
-                 progress.setAttribute("style", "width:" + progress);
+                 progress.setAttribute("style", "width:" + percent);
                  log.trace("Exit setProgress()");
              }
 
