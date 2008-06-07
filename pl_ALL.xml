@@ -12,4 +12,5 @@
   <msg name="loading_data">Ładuję meteogram...</msg>
   <msg name="scale_height">Skaluj wysokość</msg>
   <msg name="scale_width">Skaluj szerokość</msg>
+  <msg name="error_cannot_load">Nie mogę załadować meteogramu.</msg>
 </messagebundle>
