@@ -878,7 +878,7 @@
              PLOT_LANGUAGES["en"] = 1;
 
              var responseParsed__MODULE_ID__ = false;
-             var parseCheckAttempt__MODULE_ID__ = 0;
+             var checkAttempt__MODULE_ID__ = 0;
              var RESPONSE_PARSED_PROGRESS = 10;
              var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
              var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
@@ -979,7 +979,7 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
-                     var img = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
+                     var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                      if (true == img.complete) {
                          prefs.set("lastImageUrl", imageUrl);
                          setImage(img);
@@ -1030,7 +1030,7 @@
                      + sRow
                      + sCol
                      + plotLanguage + '.png';
-                 var img = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
@@ -1044,6 +1044,7 @@
              
              function fetchImageFromResponse(_response) {
                  log.trace("Enter fetchImageFromResponse()");
+                 return;
                  // Mark we already parsed the response, so no other will set up the image
                  responeParsed__MODULE_ID__ = true;
                  // Set progress bar
@@ -1068,7 +1069,7 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 var img = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
@@ -1078,6 +1079,21 @@
                  }
                  log.trace("Exit fetchImageFromResponse()");
              }
+             
+             function checkIfResponseParsed() {
+                 log.trace("Enter checkIfResponseParsed()");
+                 if (false == responeParsed__MODULE_ID__) {
+                     checkAttempt__MODULE_ID__++;
+                     setProgress(checkAttempt__MODULE_ID__++;)
+                     if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
+                         // make another checking
+                         setTimeout(checkIfResponseParsed, 1000);
+                     } else {
+                         fetchImageManually();
+                     }
+                 }
+                 log.trace("Exit checkIfResponseParsed()");
+             }
 
              function main() {
                  log.trace("Enter main()");
@@ -1085,6 +1101,7 @@
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
                  _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse);
+                 setTimeout(checkIfResponseParsed, 1000);
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
