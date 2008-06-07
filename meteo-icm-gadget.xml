@@ -446,7 +446,16 @@
             datatype="hidden"/>
   <Content type="html">
     <![CDATA[
-             <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
+             <style type="text/css">
+                 .progressOut{margin: 2px 0; border: 1px solid #008000; width: 200px; height: 0.5em}
+                 #progressIn{background: #00ff00; width: 0; height: 100%}
+             </style>
+             <div id="meteogram_div">
+                 <span style="font-size:9pt">__MSG_loading_data__</span>
+                 <div class="progressOut">
+                     <div id="progressIn" style=""></div>
+                 </div>
+             </div>
              <!-- Uncoment the following line to see logging messages-->
              <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
@@ -888,6 +897,8 @@
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
                  percent += "%";
+                 var progress = _gel("progressIn");
+                 progress.setAttribute("style", "width: " + progress);
                  log.trace("percent = " + percent);
                  log.trace("Exit setProgress()");
              }
