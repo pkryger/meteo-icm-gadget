@@ -908,11 +908,11 @@
                  _img.setAttribute("title", titleAlt);
                  _img.setAttribute("alt", titleAlt);
                  
+                 var meteogramDiv = _gel("meteogram_div");
                  var linkName = getLinkName(cityName, plotLanguage);
-                 var link = document.createNode("a");
+                 var link = meteogramDiv.createNode("a");
                  link.setAttribute("target", "_blank");
                  link.setAttribute("href", linkName);
-                 var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.appendChild(link);
                  link.appendChild(_img);
                  log.trace("Exit setImage()");
@@ -1003,10 +1003,8 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 log.trace("getting image: " + imageUrl);
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  if (true == img.complete) {
-                    log.trace("got image ;)");
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
