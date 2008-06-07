@@ -908,11 +908,12 @@
                  _img.setAttribute("title", titleAlt);
                  _img.setAttribute("alt", titleAlt);
                  
-                 var meteogramDiv = _gel("meteogram_div");
                  var linkName = getLinkName(cityName, plotLanguage);
-                 var link = meteogramDiv.createNode("a");
+                 var link = document.createElement("a");
                  link.setAttribute("target", "_blank");
                  link.setAttribute("href", linkName);
+
+                 var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.appendChild(link);
                  link.appendChild(_img);
                  log.trace("Exit setImage()");
