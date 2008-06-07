@@ -948,8 +948,8 @@
                  setProgress(RESPONSE_PARSED_PROGRESS);
                  var sStartTime = _response.substr(_response.indexOf("var Start_time=") + 15, 2);
                  var sDay = _response.substr(_response.indexOf("var Day=") + 8, 2);
-                 var nMonth = _response.substr(_response.indexOf("var Month=") + 10, 2);
-                 var sMonth = MONTHS_NAMES[(nMonth * 1)];
+                 var nMonth = _response.substr(_response.indexOf("var Month=") + 10, 2) - 1;
+                 var sMonth = MONTHS_NAMES[nMonth];
                  var sYear = _response.substr(_response.indexOf("var Year=") + 9, 4);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");                 
