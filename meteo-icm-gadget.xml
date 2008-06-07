@@ -440,6 +440,9 @@
             display_name="__MSG_scale_width__"
             default_value="false"
             datatype="bool"/>
+  <UserPref name="lastImageUrl"
+            default_value=""
+            datatype="hidden" />
   <Content type="html">
     <![CDATA[
              <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
@@ -1001,6 +1004,7 @@
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  if (true == img.complete) {
+                    prefs.setString("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
                     // Fallback to the manual counting
