@@ -1081,7 +1081,8 @@
                      + plotLanguage
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 if (true != img.complete) {
+                 log.trace(img.complete);
+                 if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
