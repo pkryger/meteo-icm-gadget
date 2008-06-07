@@ -1082,7 +1082,7 @@
              
              function checkIfResponseParsed() {
                  log.trace("Enter checkIfResponseParsed()");
-                 if (false == responeParsed__MODULE_ID__) {
+                 if (false == responseParsed__MODULE_ID__) {
                      checkAttempt__MODULE_ID__++;
                      setProgress(checkAttempt__MODULE_ID__);
                      if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
