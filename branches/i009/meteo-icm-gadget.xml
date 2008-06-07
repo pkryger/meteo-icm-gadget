@@ -887,6 +887,7 @@
              PLOT_LANGUAGES["en"] = 1;
 
              var responseParsed__MODULE_ID__ = false;
+             var checkTimeout__MODULE_ID__ = undefined;
              var checkAttempt__MODULE_ID__ = 0;
              var RESPONSE_PARSED_PROGRESS = 10;
              var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
@@ -1056,6 +1057,7 @@
                  log.trace("Enter fetchImageFromResponse()");
                  // Mark we already parsed the response, so no other will set up the image
                  responeParsed__MODULE_ID__ = true;
+                 clearTimeout(checkTimeout__MODULE_ID__);
                  // Set progress bar
                  setProgress(RESPONSE_PARSED_PROGRESS);
                  var sStartTime = _response.substr(_response.indexOf("var Start_time=") + 15, 2);
@@ -1109,8 +1111,8 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
+                 checkTimeout__MODULE_ID = setTimeout(checkIfResponseParsed, 1000);
                  _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse);
-                 setTimeout(checkIfResponseParsed, 1000);
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
