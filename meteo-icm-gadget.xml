@@ -963,6 +963,7 @@
                  setProgress(TOTAL_PROGRESS);
                  var error = document.createElement("span");
                  error.setAttribute("style", "font-size:9pt");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
                  error.innerHTML = prefs.getMsg("error_cannot_load");
                  var div = _gel("meteogram_div");
                  while (div.hasChildNodes()) {
