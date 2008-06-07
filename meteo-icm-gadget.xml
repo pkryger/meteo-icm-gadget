@@ -999,10 +999,12 @@
                      +'</a>';
                  var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.innerHTML = meteogramHtml;
+                 
+                 _IG_FetchContent(getLinkName(cityName, plotLanguage), parseResponse);
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
-
+             
             </script>
     ]]> 
   </Content> 
