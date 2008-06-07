@@ -444,7 +444,7 @@
     <![CDATA[
              <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
              <!-- Uncoment the following line to see logging messages-->
-             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
+             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
@@ -456,7 +456,7 @@
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
-             var CACHE_TIME = 60 * 60 * 6;
+             var CACHE_TIME = 60 * 60 * 24;
              var BASE_URL = "http://umold.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
