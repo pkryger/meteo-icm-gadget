@@ -873,6 +873,18 @@
              PLOT_LANGUAGES["pl"] = 0;
              PLOT_LANGUAGES["en"] = 1;
 
+             var responseParsed__MODULE_ID__ = false;
+             var RESPONSE_PARSED_PROGRESS = 10;
+             var TOTAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 2;
+
+             function setProgress(_progress) {
+                 log.trace("Enter setProgress()", {"_progress":_progress});
+                 var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
+                 percent += "%";
+                 log.trace("percent = " + percent);
+                 log.trace("Exit setProgress()");
+             }
+
              function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
                        {"cityName":_cityName, "plotLanguage":_plotLanguage});
@@ -926,6 +938,40 @@
                      + '&ver=&ikonka=1';
                  log.trace("Exit getLinkName(): " + name);
                  return name;
+             }
+
+             function parseResponse(_response) {
+                 log.trace("Enter parseResponse()");
+                 // Mark we already parsed the response, so no other will set up the image
+                 responeParsed__MODULE_ID__ = true;
+                 // Set progress bar
+                 setProgress(RESPONSE_PARSED_PROGRESS);
+                 var sStartTime = _response.substr(_response.indexOf("var Start_time=") + 15, 2);
+                 var sDay = _response.substr(_response.indexOf("var Day=") + 8, 2);
+                 var nMonth = _response.substr(_response.indexOf("var Month=") + 10, 2);
+                 var sMonth = MONTH_NAMES[nMonth];
+                 var sYear = _response.substr(_response.indexOf("var Year=") + 9, 4);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");                 
+                 var sCol = "_col" + CITY_X[cityName];
+                 var nRow = 43 - CITY_Y[cityName];
+                 if (nRow < 10) {
+                     nRow = "0" + nRow;
+                 }
+                 var sRow = "_row" + nRow;
+                 var plotLanguage = prefs.getString("plotLanguage");
+
+                 var imageName = IMAGE_URL
+                     + sYear
+                     + sMonth
+                     + "_"
+                     + sStartTime
+                     + sRow
+                     + sCol
+                     + plotLanguage
+                     + ".png";
+                 log.trace("imageName = " + imageName);
+                 log.trace("Exit parseResponse()");
              }
 
              function main() {
