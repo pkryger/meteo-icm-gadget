@@ -1082,10 +1082,10 @@
                      + plotLanguage
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 //img.setAttribute("width", "0");
-                 //img.setAttribute("height", "0");
+                 img.setAttribute("width", "0");
+                 img.setAttribute("height", "0");
                  _gel("img_tmp").appendChild(img);
-                 if (true == img.complete) {
+                 if (true == _gel("img_tmp").firstChild.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
