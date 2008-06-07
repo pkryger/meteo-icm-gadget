@@ -447,7 +447,7 @@
   <Content type="html">
     <![CDATA[
              <style type="text/css">
-                 .progressOut{margin:2px 0;border:2px solid #008000;width:200px;height:0.75em}
+                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:0.75em}
                  #progressIn{background:#00d200;width:0;height:100%}
              </style>
              <div id="meteogram_div">
