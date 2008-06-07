@@ -1095,12 +1095,20 @@
                  log.trace("Enter checkIfResponseParsed()");
                  if (false == responseParsed__MODULE_ID__) {
                      checkAttempt__MODULE_ID__++;
-                     setProgress(checkAttempt__MODULE_ID__);
-                     if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
-                         // make another checking
-                         setTimeout(checkIfResponseParsed, 1000);
-                     } else {
-                         fetchImageManually();
+                     if (false == responseParsed__MODULE_ID__) {
+                         setProgress(checkAttempt__MODULE_ID__);
+                         if (false == responseParsed__MODULE_ID__) {
+                             if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
+                                 // make another checking
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+                                 }
+                             } else {
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     fetchImageManually();
+                                 }
+                             }
+                         }
                      }
                  }
                  log.trace("Exit checkIfResponseParsed()");
@@ -1111,7 +1119,7 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
-                 checkTimeout__MODULE_ID = setTimeout(checkIfResponseParsed, 1000);
+                 checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
                  _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse);
                  log.trace("Exit main()");
              }
