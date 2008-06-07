@@ -14,6 +14,7 @@
                scrolling="true">
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+    <Require feature="setprefs"/>
   </ModulePrefs>
   <UserPref name="cityName"
             display_name="__MSG_city__"
@@ -440,11 +441,23 @@
             display_name="__MSG_scale_width__"
             default_value="false"
             datatype="bool"/>
+  <UserPref name="lastImageUrl"
+            default_value=""
+            datatype="hidden"/>
   <Content type="html">
     <![CDATA[
-             <div id="meteogram_div"><span style="font-size:9pt">__MSG_loading_data__</span></div>
+             <style type="text/css">
+                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:0.75em}
+                 #progressIn{background:#00d200;width:0;height:100%}
+             </style>
+             <div id="meteogram_div">
+                 <span style="font-size:9pt">__MSG_loading_data__</span>
+                 <div class="progressOut">
+                     <div id="progressIn" style=""></div>
+                 </div>
+             </div>
              <!-- Uncoment the following line to see logging messages-->
-             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
+             <1--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
 
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
@@ -456,7 +469,7 @@
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
-             var CACHE_TIME = 60 * 60 * 6;
+             var CACHE_TIME = 60 * 60 * 24;
              var BASE_URL = "http://umold.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
@@ -873,86 +886,241 @@
              PLOT_LANGUAGES["pl"] = 0;
              PLOT_LANGUAGES["en"] = 1;
 
-             function getImageName(_cityName, _plotLanguage) {
-                 log.trace("Enter getImageName()",
+             var responseParsed__MODULE_ID__ = false;
+             var checkTimeout__MODULE_ID__ = undefined;
+             var checkAttempt__MODULE_ID__ = 0;
+             var RESPONSE_PARSED_PROGRESS = 10;
+             var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
+             var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
+             var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
+
+             function setProgress(_progress) {
+                 log.trace("Enter setProgress()", {"_progress":_progress});
+                 var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
+                 percent += "%";
+                 var progress = _gel("progressIn");
+                 progress.setAttribute("style", "width:" + percent);
+                 log.trace("Exit setProgress()");
+             }
+
+             function setImage(_img) {
+                 log.trace("Enter setImage()");
+                 setProgress(TOTAL_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");
+                 var scaleHeight = prefs.getString("scaleHeight");
+                 var scaleWidth = prefs.getString("scaleWidth");
+                 var height = true == scaleHeight ? "100%" : "560";
+                 var width = true == scaleWidth ? "100%" : "540";
+                 var titleAlt = prefs.getMsg("forecast_for")
+                     + ' '
+                     + cityName;
+                 _img.setAttribute("border", 0);
+                 _img.setAttribute("height", height);
+                 _img.setAttribute("width", width);
+                 _img.setAttribute("title", titleAlt);
+                 _img.setAttribute("alt", titleAlt);
+                 
+                 var linkName = getLinkUrl(cityName, plotLanguage);
+                 var link = document.createElement("a");
+                 link.setAttribute("target", "_blank");
+                 link.setAttribute("href", linkName);
+
+                 var div = _gel("meteogram_div");
+                 while (div.hasChildNodes()) {
+                     div.removeChild(div.firstChild);
+                 }
+                 div.appendChild(link);
+                 link.appendChild(_img);
+                 log.trace("Exit setImage()");
+             }
+
+             function getColumnUrl(_cityName) {
+                 log.trace("Enter getColumnUrl()", {"_cityName":_cityName});
+                 var sColumn = "_col" + CITY_X[_cityName];
+                 log.trace("Exit getColumnUrl()");
+                 return sColumn;
+             }
+
+             function getRowUrl(_cityName) {
+                 log.trace("Enter getRowUrl()", {"_cityName":_cityName});
+                 var nRow = 43 - CITY_Y[_cityName];
+                 if (nRow < 10) {
+                     nRow = "0" + nRow;
+                 }
+                 var sRow = "_row" + nRow;                 
+                 log.trace("Exit getRowUrl()");
+                 return sRow;
+             }
+
+             function getLinkUrl(_cityName, _plotLanguage) {
+                 log.trace("Enter getLinkUrl()",
                        {"cityName":_cityName, "plotLanguage":_plotLanguage});
+                 var x = CITY_X[_cityName];
+                 var y = CITY_Y[_cityName];
+                 var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
+                 var url = LINK_URL
+                     + '?x=' + x
+                     + '&y=' + y
+                     + '&lang=' + sPlotLanguage
+                     + '&ver=&ikonka=1';
+                 log.trace("Exit getLinkUrl(): " + url);
+                 return url;
+             }
+
+             function setError() {
+                 log.trace("Enter setError()");
+                 setProgress(TOTAL_PROGRESS);
+                 var error = document.createElement("span");
+                 error.setAttribute("style", "font-size:9pt");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 error.innerHTML = prefs.getMsg("error_cannot_load");
+                 var div = _gel("meteogram_div");
+                 while (div.hasChildNodes()) {
+                     div.removeChild(div.firstChild);
+                 }
+                 div.appendChild(error);
+                 log.trace("Exit setError()");
+             }
+
+             function fetchLastSavedImage() {
+                 log.trace("Enter fetchLastSavedImage()");
+                 setProgress(LAST_SAVED_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var imageUrl = prefs.getString("lastImageUrl");
+                 if (undefined != imageUrl && imageUrl != "") {
+                     var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                     if (true == img.complete) {
+                         prefs.set("lastImageUrl", imageUrl);
+                         setImage(img);
+                     } else {
+                         log.trace("Cannot load the image: " + imageUrl);
+                         setError();
+                     }                                  
+                 } else {
+                     log.trace("No last saved image");
+                     setError();
+                 }
+                 log.trace("Exit fetchLastSavedImage()");
+             }
+
+             function fetchImageManually() {
+                 log.trace("Enter fetchImageManually()");
+                 setProgress(MANUAL_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");                 
+                 var plotLanguage = "_" + prefs.getString("plotLanguage");
                  var now = new Date();
                  var year = now.getUTCFullYear();
                  var nMonth = now.getUTCMonth();
-                 var month = MONTHS_NAMES[nMonth];
+                 var sMonth = MONTHS_NAMES[nMonth];
                  var nDay = now.getUTCDate();
                  var sDay = nDay;
                  if (nDay < 10) {
                      sDay = "0" + nDay;
                  }
                  var nHour = now.getUTCHours();
-                 var sHour = "00";
+                 var sHour = "_00";
                  if (nHour > 21 || nHour < 4) {
-                     sHour = "18";
+                     sHour = "_18";
                  } else if (nHour > 3 && nHour < 10) {
-                     sHour = "00";
+                     sHour = "_00";
                  } else if (nHour > 9 && nHour < 16) {
-                     sHour = "06";
+                     sHour = "_06";
                  } else if (nHour > 15 && nHour < 22) {
-                     sHour = "12";
+                     sHour = "_12";
                  } else {
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
-                 var sCol = "col" + CITY_X[_cityName];
-                 var nRow = 43 - CITY_Y[_cityName];
-                 if (nRow < 10) {
-                     nRow = "0" + nRow;
-                 }
-                 var sRow = "row" + nRow;
-                 var name = IMAGE_URL
-                     + year + month + sDay 
-                     + '_' + sHour + '_'
-                     + sRow + '_' + sCol + '_'
-                     + _plotLanguage + '.png';
-                 log.trace("Exit getImageName(): " + name);
-                 return name;
+                 var sCol = getColumnUrl(cityName);
+                 var sRow = getRowUrl(cityName);
+                 var imageUrl = IMAGE_URL
+                     + year + sMonth + sDay 
+                     + sHour 
+                     + sRow
+                     + sCol
+                     + plotLanguage + '.png';
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 if (true == img.complete) {
+                    prefs.set("lastImageUrl", imageUrl);
+                    setImage(img);
+                 } else {
+                    log.trace("Cannot load the image: " + imageUrl);
+                    // Fallback to the last successfully loaded image
+                    fetchLastSavedImage();
+                 }                 
+                 log.trace("Exit fetchImageManually()");
              }
-
-             function getLinkName(_cityName, _plotLanguage) {
-                 log.trace("Enter getLinkName()",
-                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
-                 var x = CITY_X[_cityName];
-                 var y = CITY_Y[_cityName];
-                 var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
-                 var name = LINK_URL
-                     + '?x=' + x
-                     + '&y=' + y
-                     + '&lang=' + sPlotLanguage
-                     + '&ver=&ikonka=1';
-                 log.trace("Exit getLinkName(): " + name);
-                 return name;
+             
+             function fetchImageFromResponse(_response) {
+                 log.trace("Enter fetchImageFromResponse()");
+                 // Mark we already parsed the response, so no other will set up the image
+                 responeParsed__MODULE_ID__ = true;
+                 clearTimeout(checkTimeout__MODULE_ID__);
+                 // Set progress bar
+                 setProgress(RESPONSE_PARSED_PROGRESS);
+                 var sStartTime = _response.substr(_response.indexOf("var Start_time=") + 15, 2);
+                 var sDay = _response.substr(_response.indexOf("var Day=") + 8, 2);
+                 var nMonth = _response.substr(_response.indexOf("var Month=") + 10, 2) - 1;
+                 var sMonth = MONTHS_NAMES[nMonth];
+                 var sYear = _response.substr(_response.indexOf("var Year=") + 9, 4);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");                 
+                 var sCol = getColumnUrl(cityName);
+                 var sRow = getRowUrl(cityName);
+                 var plotLanguage = "_" + prefs.getString("plotLanguage");
+                 var imageUrl = IMAGE_URL
+                     + sYear
+                     + sMonth
+                     + sDay
+                     + "_"
+                     + sStartTime
+                     + sRow
+                     + sCol
+                     + plotLanguage
+                     + ".png";
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 if (true == img.complete) {
+                    prefs.set("lastImageUrl", imageUrl);
+                    setImage(img);
+                 } else {
+                    log.trace("Cannot load the image: " + imageUrl);
+                    fetchImageManually();
+                 }
+                 log.trace("Exit fetchImageFromResponse()");
+             }
+             
+             function checkIfResponseParsed() {
+                 log.trace("Enter checkIfResponseParsed()");
+                 if (false == responseParsed__MODULE_ID__) {
+                     checkAttempt__MODULE_ID__++;
+                     if (false == responseParsed__MODULE_ID__) {
+                         setProgress(checkAttempt__MODULE_ID__);
+                         if (false == responseParsed__MODULE_ID__) {
+                             if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
+                                 // make another checking
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+                                 }
+                             } else {
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     fetchImageManually();
+                                 }
+                             }
+                         }
+                     }
+                 }
+                 log.trace("Exit checkIfResponseParsed()");
              }
 
              function main() {
                  log.trace("Enter main()");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
-                 var plotLanguage = prefs.getString("plotLanguage");
-                 var scaleHeight = prefs.getString("scaleHeight");
-                 var scaleWidth = prefs.getString("scaleWidth");
-                 var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
-                 var height = true == scaleHeight ? ' height="100%" ' : ' height="560" ';
-                 var width = true == scaleWidth ? ' width="100%" ' : ' width="540" ';
-                 meteogramHtml =  '<a target="_blank" href="'
-                     + getLinkName(cityName, plotLanguage)
-                     + '"><img border="0"'
-                     + width
-                     + height
-                     + 'src="'
-                     + cachedUrl
-                     + '" title="'
-                     + prefs.getMsg("forecast_for")
-                     + ' '
-                     + cityName
-                     + '" />'
-                     +'</a>';
-                 var meteogramDiv = _gel("meteogram_div");
-                 meteogramDiv.innerHTML = meteogramHtml;
+                 var plotLanguage = prefs.getString("plotLanguage");         
+                 checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse);
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
