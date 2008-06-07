@@ -1082,7 +1082,7 @@
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  var complete = img.getAttribute("complete");
-                 if (true == complete) {
+                 if ("true" == complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
