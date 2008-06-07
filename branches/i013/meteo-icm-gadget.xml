@@ -456,6 +456,7 @@
                      <div id="progressIn" style=""></div>
                  </div>
              </div>
+             <div id="img_tmp"></div>
              <!-- Uncoment the following line to see logging messages-->
              <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
@@ -1081,7 +1082,9 @@
                      + plotLanguage
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 log.trace(img.height + img.width);
+                 img.setAttribute("width", "0");
+                 img.setAttribute("height", "0");
+                 _gel("img_tmp").appendChild(img);
                  if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
