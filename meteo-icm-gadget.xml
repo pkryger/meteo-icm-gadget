@@ -1002,9 +1002,10 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 log.trace("getting image...");
+                 log.trace("getting image: " + imageUrl);
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  if (true == img.complete) {
+                    log.trace("got image ;)");
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
