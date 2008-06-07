@@ -959,13 +959,13 @@
                  var x = CITY_X[_cityName];
                  var y = CITY_Y[_cityName];
                  var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
-                 var name = LINK_URL
+                 var url = LINK_URL
                      + '?x=' + x
                      + '&y=' + y
                      + '&lang=' + sPlotLanguage
                      + '&ver=&ikonka=1';
-                 log.trace("Exit getLinkUrl(): " + name);
-                 return name;
+                 log.trace("Exit getLinkUrl(): " + url);
+                 return url;
              }
 
              function setError() {
@@ -1054,7 +1054,6 @@
              
              function fetchImageFromResponse(_response) {
                  log.trace("Enter fetchImageFromResponse()");
-                 return;
                  // Mark we already parsed the response, so no other will set up the image
                  responeParsed__MODULE_ID__ = true;
                  // Set progress bar
