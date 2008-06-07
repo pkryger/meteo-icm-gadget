@@ -972,8 +972,7 @@
                  log.trace("Exit setError()");
              }
 
-             function fetchLastSavedImage()
-             {
+             function fetchLastSavedImage() {
                  log.trace("Enter fetchLastSavedImage()");
                  setProgress(LAST_SAVED_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
@@ -1037,6 +1036,7 @@
                  } else {
                     log.trace("Cannot load the image: " + imageUrl);
                     // Fallback to the last successfully loaded image
+                    fetchLastSavedImage();
                  }                 
                  log.trace("Exit fetchImageManually()");
              }
