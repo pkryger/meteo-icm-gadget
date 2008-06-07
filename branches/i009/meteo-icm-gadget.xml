@@ -1007,6 +1007,7 @@
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
+                    log.trace("Cannot load the image: " + imageUrl);
                     // Fallback to the manual counting
                  }
                  log.trace("Exit parseResponse()");
