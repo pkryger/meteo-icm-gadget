@@ -977,7 +977,7 @@
                  setProgress(LAST_SAVED_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var imageUrl = prefs.getString("lastImageUrl");
-                 if (undefined != imageUrl && !imageUrl.equals("")) {
+                 if (undefined != imageUrl && imageUrl != "") {
                      var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                      if (true == img.complete) {
                          prefs.set("lastImageUrl", imageUrl);
