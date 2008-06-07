@@ -885,6 +885,35 @@
                  log.trace("Exit setProgress()");
              }
 
+             function setImage(_img) {
+                 log.trace("Enter setImage()");
+                 setProgress(TOTAL_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");
+                 var scaleHeight = prefs.getString("scaleHeight");
+                 var scaleWidth = prefs.getString("scaleWidth");
+                 var height = true == scaleHeight ? "100%" : "560";
+                 var width = true == scaleWidth ? "100%" : "540";
+                 var titleAlt = prefs.getMsg("forecast_for")
+                     + ' '
+                     + cityName;
+                 _img.setAttribute("border", 0);
+                 _img.setAttribute("height", height);
+                 _img.setAttribute("width", width);
+                 _img.setAttribute("title", titleAlt);
+                 _img.setAttribute("alt", titleAlt);
+                 
+                 var linkName = getLinkName(cityName, plotLanguage);
+                 var link = document.createNode("a");
+                 link.setAttribute("target", "_blank");
+                 link.setAttribute("href", linkName);
+                 var meteogramDiv = _gel("meteogram_div");
+                 meteogramDiv.appendChild(link);
+                 link.appendChild(_img);
+                 log.trace("Exit setImage()");
+             }
+
              function getImageName(_cityName, _plotLanguage) {
                  log.trace("Enter getImageName()",
                        {"cityName":_cityName, "plotLanguage":_plotLanguage});
@@ -960,8 +989,7 @@
                  }
                  var sRow = "_row" + nRow;
                  var plotLanguage = "_" + prefs.getString("plotLanguage");
-
-                 var imageName = IMAGE_URL
+                 var imageUrl = IMAGE_URL
                      + sYear
                      + sMonth
                      + sDay
@@ -971,12 +999,18 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 log.trace("imageName = " + imageName);
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 if (true == img.complete) {
+                    setImage(img);
+                 } else {
+                    // Fallback to the manual counting
+                 }
                  log.trace("Exit parseResponse()");
              }
 
              function main() {
                  log.trace("Enter main()");
+                 /*
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");
@@ -1000,7 +1034,7 @@
                      +'</a>';
                  var meteogramDiv = _gel("meteogram_div");
                  meteogramDiv.innerHTML = meteogramHtml;
-                 
+                 */
                  _IG_FetchContent(getLinkName(cityName, plotLanguage), parseResponse);
                  log.trace("Exit main()");
              }
