@@ -1014,29 +1014,6 @@
 
              function main() {
                  log.trace("Enter main()");
-                 var prefs = new _IG_Prefs(__MODULE_ID__);
-                 var cityName = prefs.getString("cityName");
-                 var plotLanguage = prefs.getString("plotLanguage");
-                 var scaleHeight = prefs.getString("scaleHeight");
-                 var scaleWidth = prefs.getString("scaleWidth");
-                 var cachedUrl = _IG_GetImageUrl(getImageName(cityName, plotLanguage), {refreshInterval:CACHE_TIME});
-                 var height = true == scaleHeight ? ' height="100%" ' : ' height="560" ';
-                 var width = true == scaleWidth ? ' width="100%" ' : ' width="540" ';
-                 meteogramHtml =  '<a target="_blank" href="'
-                     + getLinkName(cityName, plotLanguage)
-                     + '"><img border="0"'
-                     + width
-                     + height
-                     + 'src="'
-                     + cachedUrl
-                     + '" title="'
-                     + prefs.getMsg("forecast_for")
-                     + ' '
-                     + cityName
-                     + '" />'
-                     +'</a>';
-                 ///var meteogramDiv = _gel("meteogram_div");
-                 //meteogramDiv.innerHTML = meteogramHtml;
                  _IG_FetchContent(getLinkName(cityName, plotLanguage), parseResponse);
                  log.trace("Exit main()");
              }
