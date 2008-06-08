@@ -1081,8 +1081,10 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 var img = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
-                 log.error(img.src);
+                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 var img1 = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
+                 log.error(img.height);
+                 log.error(img1.height);
                  if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
