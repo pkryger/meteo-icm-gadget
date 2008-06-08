@@ -458,7 +458,7 @@
              </div>
              <div id="img_tmp"></div>
              <!-- Uncoment the following line to see logging messages-->
-             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
+             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
 
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i013/logging.js"></script>
@@ -466,12 +466,12 @@
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
-             Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
              var CACHE_TIME = 60 * 60 * 24;
-             var BASE_URL = "http://umold1.meteo.pl/";
+             var BASE_URL = "http://umold.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
