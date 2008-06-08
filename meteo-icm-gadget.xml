@@ -990,7 +990,8 @@
                      {"_img":_img, "_failureCallback":_failureCallback});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var imageUrl = _img.src;
-                 if (true == _img.complete) {
+                 // TODO image checking is needed for more realiability: if (true == _img.complete) {
+                 if (true) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(_img);
                  } else {
@@ -1105,7 +1106,10 @@
                                  }
                              } else {
                                  if (false == responseParsed__MODULE_ID__) {
-                                     fetchImageManually();
+                                     //TODO since error checking doesn't work
+                                     // fallback to last successfully loaded image
+                                     // rather than: fetchImageManually();
+                                     fetchLastSavedImage();
                                  }
                              }
                          }
