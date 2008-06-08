@@ -70,7 +70,7 @@ var Logger = (function() {
      */
     function _Logger(loggerName) {
         if (_Logger.caller != _Logger.getLogger) {
-            throw new Error("Only Logger.getLogger can create a Logger instance!");
+            //throw new Error("Only Logger.getLogger can create a Logger instance!");
         }
         /**
          * By convention, we make a private self parameter. This is used to make the object
