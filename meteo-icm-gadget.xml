@@ -1081,12 +1081,8 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-
-                 var params = {};  
-                 params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
-                 gadgets.io.makeRequest(imageUrl, response, params);
-
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 log.error(img.src);
                  if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
@@ -1097,12 +1093,6 @@
                  log.trace("Exit fetchImageFromResponse()");
              }
 
-             function response(obj) {
-                 log.trace("Enter response()", {"obj":obj});
-                 log.error(obj.errors);
-                 log.trace("Exit response()");
-             }
-             
              function checkIfResponseParsed() {
                  log.trace("Enter checkIfResponseParsed()");
                  if (false == responseParsed__MODULE_ID__) {
