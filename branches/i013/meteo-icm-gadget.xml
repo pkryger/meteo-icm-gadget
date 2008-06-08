@@ -456,9 +456,8 @@
                      <div id="progressIn" style=""></div>
                  </div>
              </div>
-             <div id="img_tmp"></div>
              <!-- Uncoment the following line to see logging messages-->
-             <!--<div id="logging_div" style="font-size:8pt; padding:5px;"></div>-->
+             <div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
              <script type="text/javascript"
                      src="http://meteo-icm-gadget.googlecode.com/svn/branches/i013/logging.js"></script>
@@ -466,12 +465,13 @@
              // The logging stuff
              var log = Logger.getLogger("meteo-icm-main");
              // Uncoment the following line to see logging messages
-             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
              // Uncomment the following line to perform the logging module tests
              //_testLogger(_gel("logging_div"));
              
-             var CACHE_TIME = 60 * 60 * 24;
-             var BASE_URL = "http://umold.meteo.pl/";
+             var IMAGE_CACHE_TIME = 60 * 60 * 24;
+             var PAGE_CACHE_TIME = 20 * 2;
+             var BASE_URL = "http://umold1.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
@@ -985,20 +985,20 @@
                  log.trace("Exit setError()");
              }
 
-             function checkImage(_img, _failureCallback) {
-                 log.trace("Enter checkImage()",
-                     {"_img":_img, "_failureCallback":_failureCallback});
+             function fetchImage(_imageUrl, _failureCallback) {
+                 log.trace("Enter fetchImage()",
+                     {"_imageUrl":_imageUrl, "_failureCallback":_failureCallback});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
-                 var imageUrl = _img.src;
-                 // TODO image checking is needed for more realiability: if (true == _img.complete) {
+                 var img = _IG_GetImage(_imageUrl, {refreshInterval:IMAGE_CACHE_TIME});
+                 // TODO image checking is needed for more realiability: if (true == img.complete) {
                  if (true) {
-                    prefs.set("lastImageUrl", imageUrl);
-                    setImage(_img);
+                    prefs.set("lastImageUrl", _imageUrl);
+                    setImage(img);
                  } else {
-                    log.trace("Cannot load the image: " + imageUrl);
+                    log.trace("Cannot load the image: " + _imageUrl);
                     _failureCallback();
                  }
-                 log.trace("Exit checkImage()");
+                 log.trace("Exit fetchImage()");
              }
 
              function fetchLastSavedImage() {
@@ -1007,9 +1007,8 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
-                     var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                      // Fallback to error message
-                     checkImage(img, setError);
+                     fetchImage(imageUrl, setError);
                  } else {
                      log.trace("No last saved image");
                      setError();
@@ -1053,9 +1052,8 @@
                      + sRow
                      + sCol
                      + plotLanguage + '.png';
-                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  // Fallback to the last successfully loaded image
-                 checkImage(img, fetchLastSavedImage);
+                 fetchImage(imageUrl, fetchLastSavedImage);
                  log.trace("Exit fetchImageManually()");
              }
              
@@ -1086,9 +1084,8 @@
                      + sCol
                      + plotLanguage
                      + ".png";
-                 var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
                  // Fallback to the manual approach
-                 checkImage(img, fetchImageManually);
+                 fetchImage(imageUrl, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
              }
 
@@ -1124,7 +1121,7 @@
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: (60 * 2)});
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
