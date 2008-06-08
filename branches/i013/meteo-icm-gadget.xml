@@ -985,6 +985,21 @@
                  log.trace("Exit setError()");
              }
 
+             function checkImage(_img, _failureCallback) {
+                 log.trace("Enter checkImage()",
+                     {"_img":_img, "_failureCallback":_failureCallback});
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var imageUrl = _img.src;
+                 if (true == _img.complete) {
+                    prefs.set("lastImageUrl", imageUrl);
+                    setImage(_img);
+                 } else {
+                    log.trace("Cannot load the image: " + imageUrl);
+                    _failureCallback();
+                 }
+                 log.trace("Exit checkImage()");
+             }
+
              function fetchLastSavedImage() {
                  log.trace("Enter fetchLastSavedImage()");
                  setProgress(LAST_SAVED_PROGRESS);
@@ -992,13 +1007,8 @@
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
                      var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                     if (true == img.complete) {
-                         prefs.set("lastImageUrl", imageUrl);
-                         setImage(img);
-                     } else {
-                         log.trace("Cannot load the image: " + imageUrl);
-                         setError();
-                     }                                  
+                     // Fallback to error message
+                     checkImage(img, setError);
                  } else {
                      log.trace("No last saved image");
                      setError();
@@ -1043,14 +1053,8 @@
                      + sCol
                      + plotLanguage + '.png';
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 if (true == img.complete) {
-                    prefs.set("lastImageUrl", imageUrl);
-                    setImage(img);
-                 } else {
-                    log.trace("Cannot load the image: " + imageUrl);
-                    // Fallback to the last successfully loaded image
-                    fetchLastSavedImage();
-                 }                 
+                 // Fallback to the last successfully loaded image
+                 checkImage(img, fetchLastSavedImage);
                  log.trace("Exit fetchImageManually()");
              }
              
@@ -1082,16 +1086,8 @@
                      + plotLanguage
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 var img1 = _IG_GetImage(imageUrl + "1", {refreshInterval:CACHE_TIME});
-                 log.error(img.document);
-                 log.error(img1.document);
-                 if (true == img.complete) {
-                    prefs.set("lastImageUrl", imageUrl);
-                    setImage(img);
-                 } else {
-                    log.trace("Cannot load the image: " + imageUrl);
-                    //fetchImageManually();
-                 }
+                 // Fallback to the manual approach
+                 checkImage(img, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
              }
 
