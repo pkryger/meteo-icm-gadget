@@ -450,7 +450,7 @@
                  .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:0.75em}
                  #progressIn{background:#00d200;width:0;height:100%}
              </style>
-             <div id="meteogram_div" style="width:100%;height:100%">
+             <div id="meteogram_div" style="width:100%;height:340px">
                  <span style="font-size:9pt">__MSG_loading_data__</span>
                  <div class="progressOut">
                      <div id="progressIn" style=""></div>
