@@ -1124,7 +1124,7 @@
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: (60 * 2)});
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage) + "1", fetchImageFromResponse, { refreshInterval: (60 * 2)});
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
