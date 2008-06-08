@@ -1082,6 +1082,7 @@
                      + plotLanguage
                      + ".png";
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
+                 log.trace(img);
                  img.setAttribute("width", "0");
                  img.setAttribute("height", "0");
                  _gel("img_tmp").appendChild(img);
@@ -1124,7 +1125,7 @@
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse);
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: (60 * 2)});
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
