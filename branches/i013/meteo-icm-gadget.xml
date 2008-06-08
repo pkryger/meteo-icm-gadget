@@ -471,7 +471,7 @@
              //_testLogger(_gel("logging_div"));
              
              var CACHE_TIME = 60 * 60 * 24;
-             var BASE_URL = "http://umold.meteo.pl/";
+             var BASE_URL = "http://umold1.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
@@ -1124,7 +1124,7 @@
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage) + "1", fetchImageFromResponse, { refreshInterval: (60 * 2)});
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: (60 * 2)});
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
