@@ -1081,19 +1081,26 @@
                      + sCol
                      + plotLanguage
                      + ".png";
+
+                 var params = {};  
+                 params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.DOM;
+                 gadgets.io.makeRequest(imageUrl, response, params);
+
                  var img = _IG_GetImage(imageUrl, {refreshInterval:CACHE_TIME});
-                 img.setAttribute("width", "0");
-                 img.setAttribute("height", "0");
-                 _gel("img_tmp").appendChild(img);
-                 log.error(img.innerHTML);
-                 if (true == _gel("img_tmp").firstChild.complete) {
+                 if (true == img.complete) {
                     prefs.set("lastImageUrl", imageUrl);
                     setImage(img);
                  } else {
                     log.trace("Cannot load the image: " + imageUrl);
-                    fetchImageManually();
+                    //fetchImageManually();
                  }
                  log.trace("Exit fetchImageFromResponse()");
+             }
+
+             function response(obj) {
+                 log.trace("Enter response()", {"obj":obj});
+                 log.error(obj.errors);
+                 log.trace("Exit response()");
              }
              
              function checkIfResponseParsed() {
