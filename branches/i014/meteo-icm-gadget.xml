@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="__MSG_title__ __UP_cityName__"
+               title_url="http://meteo.icm.edu.pl"
+               description="__MSG_description__"
+               author="Przemysław Kryger"
+               author_email="pkryger+icmweatherforecast@gmail.com"
+               directory_title="__MSG_directory_title__"
+               screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
+               thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
+               author_location="Kraków, Poland"
+               scaling="true"
+               height="340"
+               scrolling="true">
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+    <Require feature="setprefs"/>
+  </ModulePrefs>
+  <UserPref name="cityName"
+            display_name="__MSG_city__"
+            default_value="Kraków"
+            datatype="enum">
+    <EnumValue value="Aleksandrów Kujawski" />
+    <EnumValue value="Augustów" />
+    <EnumValue value="Bartoszyce" />
+    <EnumValue value="Bełchatów" />
+    <EnumValue value="Będzin" />
+    <EnumValue value="Biała Podlaska" />
+    <EnumValue value="Białobrzegi" />
+    <EnumValue value="Białogard" />
+    <EnumValue value="Białystok" />
+    <EnumValue value="Bielsko-Biała" />
+    <EnumValue value="Bielsk Podlaski" />
+    <EnumValue value="Biłgoraj" />
+    <EnumValue value="Bochnia" />
+    <EnumValue value="Bogatynia" />
+    <EnumValue value="Bolesławiec" />
+    <EnumValue value="Braniewo" />
+    <EnumValue value="Brenna" />
+    <EnumValue value="Brodnica" />
+    <EnumValue value="Brzeg" />
+    <EnumValue value="Brzeg Dolny" />
+    <EnumValue value="Brzesko" />
+    <EnumValue value="Brzozów" />
+    <EnumValue value="Busko-Zdrój" />
+    <EnumValue value="Bydgoszcz" />
+    <EnumValue value="Bystrzyca Kłodzka" />
+    <EnumValue value="Bytom" />
+    <EnumValue value="Bytów" />
+    <EnumValue value="Chełm" />
+    <EnumValue value="Chełmno" />
+    <EnumValue value="Chodzież" />
+    <EnumValue value="Chojnice" />
+    <EnumValue value="Chorzów" />
+    <EnumValue value="Choszczno" />
+    <EnumValue value="Chrzanów" />
+    <EnumValue value="Ciechanów" />
+    <EnumValue value="Ciechocinek" />
+    <EnumValue value="Cieszyn" />
+    <EnumValue value="Cisna" />
+    <EnumValue value="Czarnków" />
+    <EnumValue value="Czeremcha" />
+    <EnumValue value="Częstochowa" />
+    <EnumValue value="Człuchów" />
+    <EnumValue value="Darłowo" />
+    <EnumValue value="Darłówko" />
+    <EnumValue value="Dąbki" />
+    <EnumValue value="Dąbrowa Górnicza" />
+    <EnumValue value="Dąbrowa Tarnowska" />
+    <EnumValue value="Dębica" />
+    <EnumValue value="Dęblin" />
+    <EnumValue value="Drawsko Pomorskie" />
+    <EnumValue value="Duszniki-Zdrój" />
+    <EnumValue value="Działdowo" />
+    <EnumValue value="Dzierżoniów" />
+    <EnumValue value="Dziwnów" />
+    <EnumValue value="Dźwirzyno" />
+    <EnumValue value="Elbląg" />
+    <EnumValue value="Ełk" />
+    <EnumValue value="Frombork" />
+    <EnumValue value="Garwolin" />
+    <EnumValue value="Gdańsk" />
+    <EnumValue value="Gdynia" />
+    <EnumValue value="Giżycko" />
+    <EnumValue value="Gliwice" />
+    <EnumValue value="Głogów" />
+    <EnumValue value="Głubczyce" />
+    <EnumValue value="Gniezno" />
+    <EnumValue value="Goleniów" />
+    <EnumValue value="Golub-Dobrzyń" />
+    <EnumValue value="Gołdap" />
+    <EnumValue value="Gorlice" />
+    <EnumValue value="Gorzów Wielkopolski" />
+    <EnumValue value="Gostynin" />
+    <EnumValue value="Gostyń" />
+    <EnumValue value="Góra" />
+    <EnumValue value="Górowo Iławeckie" />
+    <EnumValue value="Grajewo" />
+    <EnumValue value="Grodzisk Mazowiecki" />
+    <EnumValue value="Grodzisk Wielkopolski" />
+    <EnumValue value="Grójec" />
+    <EnumValue value="Grudziądz" />
+    <EnumValue value="Gryfice" />
+    <EnumValue value="Gryfino" />
+    <EnumValue value="Hajnówka" />
+    <EnumValue value="Hel" />
+    <EnumValue value="Hrubieszów" />
+    <EnumValue value="Iława" />
+    <EnumValue value="Inowrocław" />
+    <EnumValue value="Istebna" />
+    <EnumValue value="Janów Lubelski" />
+    <EnumValue value="Jarocin" />
+    <EnumValue value="Jarosław" />
+    <EnumValue value="Jarosławiec" />
+    <EnumValue value="Jasło" />
+    <EnumValue value="Jastarnia" />
+    <EnumValue value="Jastrzębia Góra" />
+    <EnumValue value="Jastrzębie Zdrój" />
+    <EnumValue value="Jawor" />
+    <EnumValue value="Jaworzno" />
+    <EnumValue value="Jelenia Góra" />
+    <EnumValue value="Jędrzejów" />
+    <EnumValue value="Kalisz" />
+    <EnumValue value="Kalisz Pomorski" />
+    <EnumValue value="Kamienna Góra" />
+    <EnumValue value="Kamień Pomorski" />
+    <EnumValue value="Karpacz" />
+    <EnumValue value="Kartuzy" />
+    <EnumValue value="Katowice" />
+    <EnumValue value="Kazimierza Wielka" />
+    <EnumValue value="Kazimierz Dolny" />
+    <EnumValue value="Kędzierzyn-Koźle" />
+    <EnumValue value="Kępno" />
+    <EnumValue value="Kętrzyn" />
+    <EnumValue value="Kielce" />
+    <EnumValue value="Kluczbork" />
+    <EnumValue value="Kłobuck" />
+    <EnumValue value="Kłodawa" />
+    <EnumValue value="Kłodzko" />
+    <EnumValue value="Kolbuszowa" />
+    <EnumValue value="Kolno" />
+    <EnumValue value="Koluszki" />
+    <EnumValue value="Koło" />
+    <EnumValue value="Kołobrzeg" />
+    <EnumValue value="Koniecpol" />
+    <EnumValue value="Konin" />
+    <EnumValue value="Końskie" />
+    <EnumValue value="Korbielów" />
+    <EnumValue value="Kostrzyn" />
+    <EnumValue value="Koszalin" />
+    <EnumValue value="Kościan" />
+    <EnumValue value="Kościerzyna" />
+    <EnumValue value="Kozienice" />
+    <EnumValue value="Kraków" />
+    <EnumValue value="Krapkowice" />
+    <EnumValue value="Krasnystaw" />
+    <EnumValue value="Kraśnik" />
+    <EnumValue value="Krosno" />
+    <EnumValue value="Krosno Odrzańskie" />
+    <EnumValue value="Krotoszyn" />
+    <EnumValue value="Krynica" />
+    <EnumValue value="Krynica Morska" />
+    <EnumValue value="Krzyż" />
+    <EnumValue value="Kudowa Zdrój" />
+    <EnumValue value="Kutno" />
+    <EnumValue value="Kwidzyn" />
+    <EnumValue value="Lądek Zdrój" />
+    <EnumValue value="Legionowo" />
+    <EnumValue value="Legnica" />
+    <EnumValue value="Lesko" />
+    <EnumValue value="Leszno" />
+    <EnumValue value="Leżajsk" />
+    <EnumValue value="Lębork" />
+    <EnumValue value="Lidzbark Warmiński" />
+    <EnumValue value="Limanowa" />
+    <EnumValue value="Lipno" />
+    <EnumValue value="Lipsko" />
+    <EnumValue value="Lubaczów" />
+    <EnumValue value="Lubań" />
+    <EnumValue value="Lubartów" />
+    <EnumValue value="Lubawka" />
+    <EnumValue value="Lubin" />
+    <EnumValue value="Lublin" />
+    <EnumValue value="Lubliniec" />
+    <EnumValue value="Lwówek Śląski" />
+    <EnumValue value="Łańcut" />
+    <EnumValue value="Łask" />
+    <EnumValue value="Łeba" />
+    <EnumValue value="Łęczna" />
+    <EnumValue value="Łęczyca" />
+    <EnumValue value="Łomża" />
+    <EnumValue value="Łosice" />
+    <EnumValue value="Łowicz" />
+    <EnumValue value="Łódź" />
+    <EnumValue value="Łuków" />
+    <EnumValue value="Maków Mazowiecki" />
+    <EnumValue value="Maków Podhalański" />
+    <EnumValue value="Malbork" />
+    <EnumValue value="Miastko" />
+    <EnumValue value="Miechów" />
+    <EnumValue value="Mielec" />
+    <EnumValue value="Mielno" />
+    <EnumValue value="Międzychód" />
+    <EnumValue value="Międzyrzec Podlaski" />
+    <EnumValue value="Międzyrzecz" />
+    <EnumValue value="Międzyzdroje" />
+    <EnumValue value="Mikołajki" />
+    <EnumValue value="Mikołów" />
+    <EnumValue value="Milicz" />
+    <EnumValue value="Mińsk Mazowiecki" />
+    <EnumValue value="Mława" />
+    <EnumValue value="Mogilno" />
+    <EnumValue value="Morąg" />
+    <EnumValue value="Mrągowo" />
+    <EnumValue value="Mrzeżyno" />
+    <EnumValue value="Mszana Dolna" />
+    <EnumValue value="Mysłowice" />
+    <EnumValue value="Myszków" />
+    <EnumValue value="Myszyniec" />
+    <EnumValue value="Myślenice" />
+    <EnumValue value="Myślibórz" />
+    <EnumValue value="Nakło nad Notecią" />
+    <EnumValue value="Namysłów" />
+    <EnumValue value="Nidzica" />
+    <EnumValue value="Niechorze" />
+    <EnumValue value="Nisko" />
+    <EnumValue value="Nowa Sól" />
+    <EnumValue value="Nowe Miasto Lubawskie" />
+    <EnumValue value="Nowy Dwór Gdański" />
+    <EnumValue value="Nowy Dwór Mazowiecki" />
+    <EnumValue value="Nowy Sącz" />
+    <EnumValue value="Nowy Targ" />
+    <EnumValue value="Nowy Tomyśl" />
+    <EnumValue value="Nysa" />
+    <EnumValue value="Oborniki" />
+    <EnumValue value="Olecko" />
+    <EnumValue value="Olesno" />
+    <EnumValue value="Oleśnica" />
+    <EnumValue value="Olkusz" />
+    <EnumValue value="Olsztyn" />
+    <EnumValue value="Oława" />
+    <EnumValue value="Opatów" />
+    <EnumValue value="Opoczno" />
+    <EnumValue value="Opole" />
+    <EnumValue value="Opole Lubelskie" />
+    <EnumValue value="Orzysz" />
+    <EnumValue value="Ostrołęka" />
+    <EnumValue value="Ostrowiec Świętokrzyski" />
+    <EnumValue value="Ostróda" />
+    <EnumValue value="Ostrów Mazowiecka" />
+    <EnumValue value="Ostrów Wielkopolski" />
+    <EnumValue value="Ostrzeszów" />
+    <EnumValue value="Oświęcim" />
+    <EnumValue value="Otwock" />
+    <EnumValue value="Pabianice" />
+    <EnumValue value="Pajęczno" />
+    <EnumValue value="Parczew" />
+    <EnumValue value="Piaseczno" />
+    <EnumValue value="Piekary Śląskie" />
+    <EnumValue value="Piła" />
+    <EnumValue value="Pińczów" />
+    <EnumValue value="Piotrków Trybunalski" />
+    <EnumValue value="Pisz" />
+    <EnumValue value="Piwniczna" />
+    <EnumValue value="Pleszew" />
+    <EnumValue value="Płock" />
+    <EnumValue value="Płońsk" />
+    <EnumValue value="Pobierowo" />
+    <EnumValue value="Poddębice" />
+    <EnumValue value="Police" />
+    <EnumValue value="Polkowice" />
+    <EnumValue value="Poniatowa" />
+    <EnumValue value="Poznań" />
+    <EnumValue value="Proszowice" />
+    <EnumValue value="Prudnik" />
+    <EnumValue value="Pruszcz Gdański" />
+    <EnumValue value="Pruszków" />
+    <EnumValue value="Przasnysz" />
+    <EnumValue value="Przemyśl" />
+    <EnumValue value="Przeworsk" />
+    <EnumValue value="Przysucha" />
+    <EnumValue value="Pszczyna" />
+    <EnumValue value="Puck" />
+    <EnumValue value="Puławy" />
+    <EnumValue value="Pułtusk" />
+    <EnumValue value="Pyrzyce" />
+    <EnumValue value="Rabka" />
+    <EnumValue value="Racibórz" />
+    <EnumValue value="Radom" />
+    <EnumValue value="Radomsko" />
+    <EnumValue value="Radziejów" />
+    <EnumValue value="Radzyń Podlaski" />
+    <EnumValue value="Rawa Mazowiecka" />
+    <EnumValue value="Rawicz" />
+    <EnumValue value="Rewal" />
+    <EnumValue value="Ropczyce" />
+    <EnumValue value="Rowy" />
+    <EnumValue value="Ruda Śląska" />
+    <EnumValue value="Rybnik" />
+    <EnumValue value="Ryki" />
+    <EnumValue value="Rypin" />
+    <EnumValue value="Rzeczka" />
+    <EnumValue value="Rzeszów" />
+    <EnumValue value="Sandomierz" />
+    <EnumValue value="Sanok" />
+    <EnumValue value="Sejny" />
+    <EnumValue value="Sępólno Krajeńskie" />
+    <EnumValue value="Siedlce" />
+    <EnumValue value="Siemianowice Śląskie" />
+    <EnumValue value="Siemiatycze" />
+    <EnumValue value="Sieradz" />
+    <EnumValue value="Sierpc" />
+    <EnumValue value="Skarżysko-Kamienna" />
+    <EnumValue value="Skierniewice" />
+    <EnumValue value="Skoczów" />
+    <EnumValue value="Sławno" />
+    <EnumValue value="Słubice" />
+    <EnumValue value="Słupca" />
+    <EnumValue value="Słupsk" />
+    <EnumValue value="Sochaczew" />
+    <EnumValue value="Sokołów Podlaski" />
+    <EnumValue value="Sokółka" />
+    <EnumValue value="Solec Kujawski" />
+    <EnumValue value="Sopot" />
+    <EnumValue value="Sosnowiec" />
+    <EnumValue value="Stalowa Wola" />
+    <EnumValue value="Starachowice" />
+    <EnumValue value="Stargard Szczeciński" />
+    <EnumValue value="Starogard Gdański" />
+    <EnumValue value="Staszów" />
+    <EnumValue value="Strzelce Krajeńskie" />
+    <EnumValue value="Strzelce Opolskie" />
+    <EnumValue value="Strzelin" />
+    <EnumValue value="Strzyżów" />
+    <EnumValue value="Sucha Beskidzka" />
+    <EnumValue value="Sulęcin" />
+    <EnumValue value="Suwałki" />
+    <EnumValue value="Szamotuły" />
+    <EnumValue value="Szczawnica" />
+    <EnumValue value="Szczecin" />
+    <EnumValue value="Szczecinek" />
+    <EnumValue value="Szczyrk" />
+    <EnumValue value="Szczytno" />
+    <EnumValue value="Szklarska Poręba" />
+    <EnumValue value="Szydłowiec" />
+    <EnumValue value="Śrem" />
+    <EnumValue value="Środa Śląska" />
+    <EnumValue value="Środa Wielkopolska" />
+    <EnumValue value="Świdnica" />
+    <EnumValue value="Świdnik" />
+    <EnumValue value="Świdwin" />
+    <EnumValue value="Świebodzin" />
+    <EnumValue value="Świecie" />
+    <EnumValue value="Świeradów Zdrój" />
+    <EnumValue value="Świętochłowice" />
+    <EnumValue value="Świnoujście" />
+    <EnumValue value="Tarnobrzeg" />
+    <EnumValue value="Tarnowskie Góry" />
+    <EnumValue value="Tarnów" />
+    <EnumValue value="Tczew" />
+    <EnumValue value="Tomaszów Lubelski" />
+    <EnumValue value="Tomaszów Mazowiecki" />
+    <EnumValue value="Toruń" />
+    <EnumValue value="Trzebnica" />
+    <EnumValue value="Trzęsacz" />
+    <EnumValue value="Tuchola" />
+    <EnumValue value="Turek" />
+    <EnumValue value="Tychy" />
+    <EnumValue value="Tylicz" />
+    <EnumValue value="Ustka" />
+    <EnumValue value="Ustronie Morskie" />
+    <EnumValue value="Ustroń" />
+    <EnumValue value="Ustrzyki Dolne" />
+    <EnumValue value="Ustrzyki Górne" />
+    <EnumValue value="Wadowice" />
+    <EnumValue value="Wałbrzych" />
+    <EnumValue value="Wałcz" />
+    <EnumValue value="Warka" />
+    <EnumValue value="Warszawa" />
+    <EnumValue value="Warszawa-Praga" />
+    <EnumValue value="Wąbrzeźno" />
+    <EnumValue value="Wągrowiec" />
+    <EnumValue value="Wejherowo" />
+    <EnumValue value="Węgorzewo" />
+    <EnumValue value="Węgrów" />
+    <EnumValue value="Wieliczka" />
+    <EnumValue value="Wieluń" />
+    <EnumValue value="Wieruszów" />
+    <EnumValue value="Wisła" />
+    <EnumValue value="Władysławowo" />
+    <EnumValue value="Włocławek" />
+    <EnumValue value="Włodawa" />
+    <EnumValue value="Włoszczowa" />
+    <EnumValue value="Wodzisław Śląski" />
+    <EnumValue value="Wolsztyn" />
+    <EnumValue value="Wołomin" />
+    <EnumValue value="Wołów" />
+    <EnumValue value="Wrocław" />
+    <EnumValue value="Wronki" />
+    <EnumValue value="Września" />
+    <EnumValue value="Wschowa" />
+    <EnumValue value="Wysokie Mazowieckie" />
+    <EnumValue value="Wyszków" />
+    <EnumValue value="Zabrze" />
+    <EnumValue value="Zakopane" />
+    <EnumValue value="Zambrów" />
+    <EnumValue value="Zamość" />
+    <EnumValue value="Zawiercie" />
+    <EnumValue value="Zawoja" />
+    <EnumValue value="Ząbkowice Śląskie" />
+    <EnumValue value="Zduńska Wola" />
+    <EnumValue value="Zgorzelec" />
+    <EnumValue value="Zielona Góra" />
+    <EnumValue value="Złocieniec" />
+    <EnumValue value="Złotoryja" />
+    <EnumValue value="Złotów" />
+    <EnumValue value="Zwardoń" />
+    <EnumValue value="Zwoleń" />
+    <EnumValue value="Żagań" />
+    <EnumValue value="Żary" />
+    <EnumValue value="Żnin" />
+    <EnumValue value="Żory" />
+    <EnumValue value="Żuromin" />
+    <EnumValue value="Żyrardów" />
+    <EnumValue value="Żywiec" />
+  </UserPref>
+  <UserPref name="plotLanguage"
+            display_name="__MSG_plot_language__"
+            default_value="en"
+            datatype="enum">
+    <EnumValue value="pl"
+               display_value="__MSG_plot_language_polish__" />
+    <EnumValue value="en"
+               display_value="__MSG_plot_language_english__" />
+  </UserPref>
+  <UserPref name="scaleHeight"
+            display_name="__MSG_scale_height__"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="scaleWidth"
+            display_name="__MSG_scale_width__"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="lastImageUrl"
+            default_value=""
+            datatype="hidden"/>
+  <Content type="html">
+    <![CDATA[
+             <style type="text/css">
+                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:0.75em}
+                 #progressIn{background:#00d200;width:0;height:100%}
+             </style>
+             <div id="meteogram_div" style="width:100%;height:340px">
+                 <span style="font-size:9pt">__MSG_loading_data__</span>
+                 <div class="progressOut">
+                     <div id="progressIn" style=""></div>
+                 </div>
+             </div>
+             <!-- Uncoment the following line to see logging messages -->
+             <!-- <div id="logging_div" style="font-size:8pt; padding:5px;"></div> -->
+
+             <script type="text/javascript"
+                     src="http://meteo-icm-gadget.googlecode.com/svn/branches/i013/logging.js"></script>
+             <script type="text/javascript">
+             // The logging stuff
+             var log = Logger.getLogger("meteo-icm-main");
+             // Uncoment the following line to see logging messages
+             //Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+             // Uncomment the following line to perform the logging module tests
+             //_testLogger(_gel("logging_div"));
+             
+             var IMAGE_CACHE_TIME = 60 * 60 * 24;
+             var PAGE_CACHE_TIME = 20 * 2;
+             var BASE_URL = "http://umold.meteo.pl/";
+             var IMAGE_URL = BASE_URL + "gpp/data/";
+             var LINK_URL = BASE_URL + "java/mgram.php";
+
+             var MONTHS_NAMES = new Array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+
+             var CITY_X = new Array();
+             var CITY_Y = new Array();
+             CITY_X["Aleksandrów Kujawski"] = 16; CITY_Y["Aleksandrów Kujawski"] = 15;
+             CITY_X["Augustów"] = 21; CITY_Y["Augustów"] = 17;
+             CITY_X["Bartoszyce"] = 18; CITY_Y["Bartoszyce"] = 18;
+             CITY_X["Bełchatów"] = 16; CITY_Y["Bełchatów"] = 11;
+             CITY_X["Będzin"] = 16; CITY_Y["Będzin"] = 9;
+             CITY_X["Biała Podlaska"] = 22; CITY_Y["Biała Podlaska"] = 13;
+             CITY_X["Białobrzegi"] = 19; CITY_Y["Białobrzegi"] = 12;
+             CITY_X["Białogard"] = 12; CITY_Y["Białogard"] = 17;
+             CITY_X["Białystok"] = 21; CITY_Y["Białystok"] = 15;
+             CITY_X["Bielsko-Biała"] = 16; CITY_Y["Bielsko-Biała"] = 8;
+             CITY_X["Bielsk Podlaski"] = 22; CITY_Y["Bielsk Podlaski"] = 14;
+             CITY_X["Biłgoraj"] = 21; CITY_Y["Biłgoraj"] = 9;
+             CITY_X["Bochnia"] = 18; CITY_Y["Bochnia"] = 8;
+             CITY_X["Bogatynia"] = 10; CITY_Y["Bogatynia"] = 10;
+             CITY_X["Bolesławiec"] = 11; CITY_Y["Bolesławiec"] = 11;
+             CITY_X["Braniewo"] = 17; CITY_Y["Braniewo"] = 18;
+             CITY_X["Brenna"] = 16; CITY_Y["Brenna"] = 8;
+             CITY_X["Brodnica"] = 16; CITY_Y["Brodnica"] = 15;
+             CITY_X["Brzeg"] = 14; CITY_Y["Brzeg"] = 10;
+             CITY_X["Brzeg Dolny"] = 13; CITY_Y["Brzeg Dolny"] = 11;
+             CITY_X["Brzesko"] = 18; CITY_Y["Brzesko"] = 8;
+             CITY_X["Brzozów"] = 20; CITY_Y["Brzozów"] = 8;
+             CITY_X["Busko-Zdrój"] = 18; CITY_Y["Busko-Zdrój"] = 9;
+             CITY_X["Bydgoszcz"] = 15; CITY_Y["Bydgoszcz"] = 15;
+             CITY_X["Bystrzyca Kłodzka"] = 13; CITY_Y["Bystrzyca Kłodzka"] = 9;
+             CITY_X["Bytom"] = 16; CITY_Y["Bytom"] = 9;
+             CITY_X["Bytów"] = 14; CITY_Y["Bytów"] = 17;
+             CITY_X["Chełm"] = 22; CITY_Y["Chełm"] = 11;
+             CITY_X["Chełmno"] = 15; CITY_Y["Chełmno"] = 16;
+             CITY_X["Chodzież"] = 13; CITY_Y["Chodzież"] = 15;
+             CITY_X["Chojnice"] = 14; CITY_Y["Chojnice"] = 16;
+             CITY_X["Chorzów"] = 16; CITY_Y["Chorzów"] = 9;
+             CITY_X["Choszczno"] = 11; CITY_Y["Choszczno"] = 15;
+             CITY_X["Chrzanów"] = 16; CITY_Y["Chrzanów"] = 8;
+             CITY_X["Ciechanów"] = 18; CITY_Y["Ciechanów"] = 15;
+             CITY_X["Ciechocinek"] = 16; CITY_Y["Ciechocinek"] = 15;
+             CITY_X["Cieszyn"] = 15; CITY_Y["Cieszyn"] = 8;
+             CITY_X["Cisna"] = 21; CITY_Y["Cisna"] = 7;
+             CITY_X["Czarnków"] = 13; CITY_Y["Czarnków"] = 15;
+             CITY_X["Czeremcha"] = 22; CITY_Y["Czeremcha"] = 14;
+             CITY_X["Częstochowa"] = 16; CITY_Y["Częstochowa"] = 10;
+             CITY_X["Człuchów"] = 14; CITY_Y["Człuchów"] = 16;
+             CITY_X["Darłowo"] = 13; CITY_Y["Darłowo"] = 18;
+             CITY_X["Darłówko"] = 13; CITY_Y["Darłówko"] = 18;
+             CITY_X["Dąbki"] = 12; CITY_Y["Dąbki"] = 18;
+             CITY_X["Dąbrowa Górnicza"] = 16; CITY_Y["Dąbrowa Górnicza"] = 9;
+             CITY_X["Dąbrowa Tarnowska"] = 19; CITY_Y["Dąbrowa Tarnowska"] = 9;
+             CITY_X["Dębica"] = 19; CITY_Y["Dębica"] = 8;
+             CITY_X["Dęblin"] = 20; CITY_Y["Dęblin"] = 12;
+             CITY_X["Drawsko Pomorskie"] = 12; CITY_Y["Drawsko Pomorskie"] = 16;
+             CITY_X["Duszniki-Zdrój"] = 12; CITY_Y["Duszniki-Zdrój"] = 9;
+             CITY_X["Działdowo"] = 18; CITY_Y["Działdowo"] = 15;
+             CITY_X["Dzierżoniów"] = 13; CITY_Y["Dzierżoniów"] = 10;
+             CITY_X["Dziwnów"] = 10; CITY_Y["Dziwnów"] = 17;
+             CITY_X["Dźwirzyno"] = 11; CITY_Y["Dźwirzyno"] = 17;
+             CITY_X["Elbląg"] = 16; CITY_Y["Elbląg"] = 17;
+             CITY_X["Ełk"] = 20; CITY_Y["Ełk"] = 17;
+             CITY_X["Frombork"] = 17; CITY_Y["Frombork"] = 18;
+             CITY_X["Garwolin"] = 20; CITY_Y["Garwolin"] = 12;
+             CITY_X["Gdańsk"] = 15; CITY_Y["Gdańsk"] = 18;
+             CITY_X["Gdynia"] = 15; CITY_Y["Gdynia"] = 18;
+             CITY_X["Giżycko"] = 20; CITY_Y["Giżycko"] = 17;
+             CITY_X["Gliwice"] = 15; CITY_Y["Gliwice"] = 9;
+             CITY_X["Głogów"] = 12; CITY_Y["Głogów"] = 12;
+             CITY_X["Głubczyce"] = 14; CITY_Y["Głubczyce"] = 9;
+             CITY_X["Gniezno"] = 14; CITY_Y["Gniezno"] = 14;
+             CITY_X["Goleniów"] = 10; CITY_Y["Goleniów"] = 16;
+             CITY_X["Golub-Dobrzyń"] = 16; CITY_Y["Golub-Dobrzyń"] = 15;
+             CITY_X["Gołdap"] = 20; CITY_Y["Gołdap"] = 18;
+             CITY_X["Gorlice"] = 19; CITY_Y["Gorlice"] = 7;
+             CITY_X["Gorzów Wielkopolski"] = 11; CITY_Y["Gorzów Wielkopolski"] = 14;
+             CITY_X["Gostynin"] = 17; CITY_Y["Gostynin"] = 14;
+             CITY_X["Gostyń"] = 13; CITY_Y["Gostyń"] = 12;
+             CITY_X["Góra"] = 13; CITY_Y["Góra"] = 12;
+             CITY_X["Górowo Iławeckie"] = 18; CITY_Y["Górowo Iławeckie"] = 18;
+             CITY_X["Grajewo"] = 20; CITY_Y["Grajewo"] = 16;
+             CITY_X["Grodzisk Mazowiecki"] = 18; CITY_Y["Grodzisk Mazowiecki"] = 13;
+             CITY_X["Grodzisk Wielkopolski"] = 12; CITY_Y["Grodzisk Wielkopolski"] = 13;
+             CITY_X["Grójec"] = 18; CITY_Y["Grójec"] = 12;
+             CITY_X["Grudziądz"] = 16; CITY_Y["Grudziądz"] = 16;
+             CITY_X["Gryfice"] = 11; CITY_Y["Gryfice"] = 17;
+             CITY_X["Gryfino"] = 10; CITY_Y["Gryfino"] = 16;
+             CITY_X["Hajnówka"] = 22; CITY_Y["Hajnówka"] = 14;
+             CITY_X["Hel"] = 16; CITY_Y["Hel"] = 18;
+             CITY_X["Hrubieszów"] = 23; CITY_Y["Hrubieszów"] = 10;
+             CITY_X["Iława"] = 17; CITY_Y["Iława"] = 16;
+             CITY_X["Inowrocław"] = 15; CITY_Y["Inowrocław"] = 14;
+             CITY_X["Istebna"] = 16; CITY_Y["Istebna"] = 7;
+             CITY_X["Janów Lubelski"] = 21; CITY_Y["Janów Lubelski"] = 10;
+             CITY_X["Jarocin"] = 14; CITY_Y["Jarocin"] = 13;
+             CITY_X["Jarosław"] = 21; CITY_Y["Jarosław"] = 8;
+             CITY_X["Jarosławiec"] = 13; CITY_Y["Jarosławiec"] = 18;
+             CITY_X["Jasło"] = 19; CITY_Y["Jasło"] = 8;
+             CITY_X["Jastarnia"] = 16; CITY_Y["Jastarnia"] = 19;
+             CITY_X["Jastrzębia Góra"] = 15; CITY_Y["Jastrzębia Góra"] = 19;
+             CITY_X["Jastrzębie Zdrój"] = 15; CITY_Y["Jastrzębie Zdrój"] = 8;
+             CITY_X["Jawor"] = 12; CITY_Y["Jawor"] = 11;
+             CITY_X["Jaworzno"] = 16; CITY_Y["Jaworzno"] = 9;
+             CITY_X["Jelenia Góra"] = 11; CITY_Y["Jelenia Góra"] = 10;
+             CITY_X["Jędrzejów"] = 18; CITY_Y["Jędrzejów"] = 10;
+             CITY_X["Kalisz"] = 15; CITY_Y["Kalisz"] = 12;
+             CITY_X["Kalisz Pomorski"] = 12; CITY_Y["Kalisz Pomorski"] = 16;
+             CITY_X["Kamienna Góra"] = 12; CITY_Y["Kamienna Góra"] = 10;
+             CITY_X["Kamień Pomorski"] = 10; CITY_Y["Kamień Pomorski"] = 17;
+             CITY_X["Karpacz"] = 11; CITY_Y["Karpacz"] = 10;
+             CITY_X["Kartuzy"] = 15; CITY_Y["Kartuzy"] = 18;
+             CITY_X["Katowice"] = 16; CITY_Y["Katowice"] = 9;
+             CITY_X["Kazimierza Wielka"] = 18; CITY_Y["Kazimierza Wielka"] = 9;
+             CITY_X["Kazimierz Dolny"] = 20; CITY_Y["Kazimierz Dolny"] = 11;
+             CITY_X["Kędzierzyn-Koźle"] = 15; CITY_Y["Kędzierzyn-Koźle"] = 9;
+             CITY_X["Kępno"] = 14; CITY_Y["Kępno"] = 11;
+             CITY_X["Kętrzyn"] = 19; CITY_Y["Kętrzyn"] = 17;
+             CITY_X["Kielce"] = 18; CITY_Y["Kielce"] = 10;
+             CITY_X["Kluczbork"] = 15; CITY_Y["Kluczbork"] = 10;
+             CITY_X["Kłobuck"] = 16; CITY_Y["Kłobuck"] = 10;
+             CITY_X["Kłodawa"] = 16; CITY_Y["Kłodawa"] = 13;
+             CITY_X["Kłodzko"] = 13; CITY_Y["Kłodzko"] = 9;
+             CITY_X["Kolbuszowa"] = 20; CITY_Y["Kolbuszowa"] = 9;
+             CITY_X["Kolno"] = 20; CITY_Y["Kolno"] = 16;
+             CITY_X["Koluszki"] = 17; CITY_Y["Koluszki"] = 12;
+             CITY_X["Koło"] = 15; CITY_Y["Koło"] = 13;
+             CITY_X["Kołobrzeg"] = 11; CITY_Y["Kołobrzeg"] = 17;
+             CITY_X["Koniecpol"] = 17; CITY_Y["Koniecpol"] = 10;
+             CITY_X["Konin"] = 15; CITY_Y["Konin"] = 13;
+             CITY_X["Końskie"] = 18; CITY_Y["Końskie"] = 11;
+             CITY_X["Korbielów"] = 16; CITY_Y["Korbielów"] = 7;
+             CITY_X["Kostrzyn"] = 10; CITY_Y["Kostrzyn"] = 14;
+             CITY_X["Koszalin"] = 12; CITY_Y["Koszalin"] = 18;
+             CITY_X["Kościan"] = 13; CITY_Y["Kościan"] = 13;
+             CITY_X["Kościerzyna"] = 15; CITY_Y["Kościerzyna"] = 17;
+             CITY_X["Kozienice"] = 19; CITY_Y["Kozienice"] = 12;
+             CITY_X["Kraków"] = 17; CITY_Y["Kraków"] = 8;
+             CITY_X["Krapkowice"] = 14; CITY_Y["Krapkowice"] = 9;
+             CITY_X["Krasnystaw"] = 22; CITY_Y["Krasnystaw"] = 11;
+             CITY_X["Kraśnik"] = 20; CITY_Y["Kraśnik"] = 10;
+             CITY_X["Krosno"] = 20; CITY_Y["Krosno"] = 8;
+             CITY_X["Krosno Odrzańskie"] = 11; CITY_Y["Krosno Odrzańskie"] = 13;
+             CITY_X["Krotoszyn"] = 14; CITY_Y["Krotoszyn"] = 12;
+             CITY_X["Krynica"] = 19; CITY_Y["Krynica"] = 7;
+             CITY_X["Krynica Morska"] = 17; CITY_Y["Krynica Morska"] = 18;
+             CITY_X["Krzyż"] = 12; CITY_Y["Krzyż"] = 15;
+             CITY_X["Kudowa Zdrój"] = 12; CITY_Y["Kudowa Zdrój"] = 9;
+             CITY_X["Kutno"] = 16; CITY_Y["Kutno"] = 13;
+             CITY_X["Kwidzyn"] = 16; CITY_Y["Kwidzyn"] = 16;
+             CITY_X["Lądek Zdrój"] = 13; CITY_Y["Lądek Zdrój"] = 9;
+             CITY_X["Legionowo"] = 19; CITY_Y["Legionowo"] = 14;
+             CITY_X["Legnica"] = 12; CITY_Y["Legnica"] = 11;
+             CITY_X["Lesko"] = 21; CITY_Y["Lesko"] = 7;
+             CITY_X["Leszno"] = 13; CITY_Y["Leszno"] = 12;
+             CITY_X["Leżajsk"] = 21; CITY_Y["Leżajsk"] = 9;
+             CITY_X["Lębork"] = 14; CITY_Y["Lębork"] = 18;
+             CITY_X["Lidzbark Warmiński"] = 18; CITY_Y["Lidzbark Warmiński"] = 17;
+             CITY_X["Limanowa"] = 18; CITY_Y["Limanowa"] = 8;
+             CITY_X["Lipno"] = 16; CITY_Y["Lipno"] = 15;
+             CITY_X["Lipsko"] = 20; CITY_Y["Lipsko"] = 11;
+             CITY_X["Lubaczów"] = 22; CITY_Y["Lubaczów"] = 9;
+             CITY_X["Lubań"] = 11; CITY_Y["Lubań"] = 11;
+             CITY_X["Lubartów"] = 21; CITY_Y["Lubartów"] = 11;
+             CITY_X["Lubawka"] = 12; CITY_Y["Lubawka"] = 10;
+             CITY_X["Lubin"] = 12; CITY_Y["Lubin"] = 11;
+             CITY_X["Lublin"] = 21; CITY_Y["Lublin"] = 11;
+             CITY_X["Lubliniec"] = 15; CITY_Y["Lubliniec"] = 10;
+             CITY_X["Lwówek Śląski"] = 11; CITY_Y["Lwówek Śląski"] = 11;
+             CITY_X["Łańcut"] = 21; CITY_Y["Łańcut"] = 8;
+             CITY_X["Łask"] = 16; CITY_Y["Łask"] = 12;
+             CITY_X["Łeba"] = 14; CITY_Y["Łeba"] = 19;
+             CITY_X["Łęczna"] = 21; CITY_Y["Łęczna"] = 11;
+             CITY_X["Łęczyca"] = 16; CITY_Y["Łęczyca"] = 13;
+             CITY_X["Łomża"] = 20; CITY_Y["Łomża"] = 15;
+             CITY_X["Łosice"] = 21; CITY_Y["Łosice"] = 13;
+             CITY_X["Łowicz"] = 17; CITY_Y["Łowicz"] = 13;
+             CITY_X["Łódź"] = 17; CITY_Y["Łódź"] = 12;
+             CITY_X["Łuków"] = 21; CITY_Y["Łuków"] = 13;
+             CITY_X["Maków Mazowiecki"] = 19; CITY_Y["Maków Mazowiecki"] = 15;
+             CITY_X["Maków Podhalański"] = 17; CITY_Y["Maków Podhalański"] = 8;
+             CITY_X["Malbork"] = 16; CITY_Y["Malbork"] = 17;
+             CITY_X["Miastko"] = 13; CITY_Y["Miastko"] = 17;
+             CITY_X["Miechów"] = 17; CITY_Y["Miechów"] = 9;
+             CITY_X["Mielec"] = 19; CITY_Y["Mielec"] = 9;
+             CITY_X["Mielno"] = 12; CITY_Y["Mielno"] = 18;
+             CITY_X["Międzychód"] = 12; CITY_Y["Międzychód"] = 14;
+             CITY_X["Międzyrzec Podlaski"] = 21; CITY_Y["Międzyrzec Podlaski"] = 13;
+             CITY_X["Międzyrzecz"] = 11; CITY_Y["Międzyrzecz"] = 14;
+             CITY_X["Międzyzdroje"] = 10; CITY_Y["Międzyzdroje"] = 17;
+             CITY_X["Mikołajki"] = 19; CITY_Y["Mikołajki"] = 17;
+             CITY_X["Mikołów"] = 16; CITY_Y["Mikołów"] = 9;
+             CITY_X["Milicz"] = 14; CITY_Y["Milicz"] = 12;
+             CITY_X["Mińsk Mazowiecki"] = 19; CITY_Y["Mińsk Mazowiecki"] = 13;
+             CITY_X["Mława"] = 18; CITY_Y["Mława"] = 15;
+             CITY_X["Mogilno"] = 15; CITY_Y["Mogilno"] = 14;
+             CITY_X["Morąg"] = 17; CITY_Y["Morąg"] = 17;
+             CITY_X["Mrągowo"] = 19; CITY_Y["Mrągowo"] = 17;
+             CITY_X["Mrzeżyno"] = 11; CITY_Y["Mrzeżyno"] = 17;
+             CITY_X["Mszana Dolna"] = 17; CITY_Y["Mszana Dolna"] = 7;
+             CITY_X["Mysłowice"] = 16; CITY_Y["Mysłowice"] = 9;
+             CITY_X["Myszków"] = 16; CITY_Y["Myszków"] = 9;
+             CITY_X["Myszyniec"] = 19; CITY_Y["Myszyniec"] = 16;
+             CITY_X["Myślenice"] = 17; CITY_Y["Myślenice"] = 8;
+             CITY_X["Myślibórz"] = 10; CITY_Y["Myślibórz"] = 15;
+             CITY_X["Nakło nad Notecią"] = 14; CITY_Y["Nakło nad Notecią"] = 15;
+             CITY_X["Namysłów"] = 14; CITY_Y["Namysłów"] = 11;
+             CITY_X["Nidzica"] = 18; CITY_Y["Nidzica"] = 16;
+             CITY_X["Niechorze"] = 11; CITY_Y["Niechorze"] = 17;
+             CITY_X["Nisko"] = 20; CITY_Y["Nisko"] = 9;
+             CITY_X["Nowa Sól"] = 11; CITY_Y["Nowa Sól"] = 12;
+             CITY_X["Nowe Miasto Lubawskie"] = 17; CITY_Y["Nowe Miasto Lubawskie"] = 16;
+             CITY_X["Nowy Dwór Gdański"] = 16; CITY_Y["Nowy Dwór Gdański"] = 18;
+             CITY_X["Nowy Dwór Mazowiecki"] = 18; CITY_Y["Nowy Dwór Mazowiecki"] = 14;
+             CITY_X["Nowy Sącz"] = 18; CITY_Y["Nowy Sącz"] = 7;
+             CITY_X["Nowy Targ"] = 17; CITY_Y["Nowy Targ"] = 7;
+             CITY_X["Nowy Tomyśl"] = 12; CITY_Y["Nowy Tomyśl"] = 13;
+             CITY_X["Nysa"] = 14; CITY_Y["Nysa"] = 9;
+             CITY_X["Oborniki"] = 13; CITY_Y["Oborniki"] = 14;
+             CITY_X["Olecko"] = 21; CITY_Y["Olecko"] = 17;
+             CITY_X["Olesno"] = 15; CITY_Y["Olesno"] = 10;
+             CITY_X["Oleśnica"] = 14; CITY_Y["Oleśnica"] = 11;
+             CITY_X["Olkusz"] = 17; CITY_Y["Olkusz"] = 9;
+             CITY_X["Olsztyn"] = 18; CITY_Y["Olsztyn"] = 17;
+             CITY_X["Oława"] = 14; CITY_Y["Oława"] = 10;
+             CITY_X["Opatów"] = 19; CITY_Y["Opatów"] = 10;
+             CITY_X["Opoczno"] = 18; CITY_Y["Opoczno"] = 11;
+             CITY_X["Opole"] = 14; CITY_Y["Opole"] = 10;
+             CITY_X["Opole Lubelskie"] = 20; CITY_Y["Opole Lubelskie"] = 11;
+             CITY_X["Orzysz"] = 20; CITY_Y["Orzysz"] = 17;
+             CITY_X["Ostrołęka"] = 19; CITY_Y["Ostrołęka"] = 15;
+             CITY_X["Ostrowiec Świętokrzyski"] = 19; CITY_Y["Ostrowiec Świętokrzyski"] = 10;
+             CITY_X["Ostróda"] = 17; CITY_Y["Ostróda"] = 16;
+             CITY_X["Ostrów Mazowiecka"] = 20; CITY_Y["Ostrów Mazowiecka"] = 14;
+             CITY_X["Ostrów Wielkopolski"] = 14; CITY_Y["Ostrów Wielkopolski"] = 12;
+             CITY_X["Ostrzeszów"] = 14; CITY_Y["Ostrzeszów"] = 11;
+             CITY_X["Oświęcim"] = 16; CITY_Y["Oświęcim"] = 8;
+             CITY_X["Otwock"] = 19; CITY_Y["Otwock"] = 13;
+             CITY_X["Pabianice"] = 16; CITY_Y["Pabianice"] = 12;
+             CITY_X["Pajęczno"] = 16; CITY_Y["Pajęczno"] = 11;
+             CITY_X["Parczew"] = 21; CITY_Y["Parczew"] = 12;
+             CITY_X["Piaseczno"] = 19; CITY_Y["Piaseczno"] = 13;
+             CITY_X["Piekary Śląskie"] = 16; CITY_Y["Piekary Śląskie"] = 9;
+             CITY_X["Piła"] = 13; CITY_Y["Piła"] = 15;
+             CITY_X["Pińczów"] = 18; CITY_Y["Pińczów"] = 9;
+             CITY_X["Piotrków Trybunalski"] = 17; CITY_Y["Piotrków Trybunalski"] = 11;
+             CITY_X["Pisz"] = 20; CITY_Y["Pisz"] = 16;
+             CITY_X["Piwniczna"] = 18; CITY_Y["Piwniczna"] = 7;
+             CITY_X["Pleszew"] = 14; CITY_Y["Pleszew"] = 12;
+             CITY_X["Płock"] = 17; CITY_Y["Płock"] = 14;
+             CITY_X["Płońsk"] = 18; CITY_Y["Płońsk"] = 14;
+             CITY_X["Pobierowo"] = 11; CITY_Y["Pobierowo"] = 17;
+             CITY_X["Poddębice"] = 16; CITY_Y["Poddębice"] = 12;
+             CITY_X["Police"] = 10; CITY_Y["Police"] = 16;
+             CITY_X["Polkowice"] = 12; CITY_Y["Polkowice"] = 12;
+             CITY_X["Poniatowa"] = 20; CITY_Y["Poniatowa"] = 11;
+             CITY_X["Poznań"] = 13; CITY_Y["Poznań"] = 14;
+             CITY_X["Proszowice"] = 18; CITY_Y["Proszowice"] = 9;
+             CITY_X["Prudnik"] = 14; CITY_Y["Prudnik"] = 9;
+             CITY_X["Pruszcz Gdański"] = 15; CITY_Y["Pruszcz Gdański"] = 18;
+             CITY_X["Pruszków"] = 18; CITY_Y["Pruszków"] = 13;
+             CITY_X["Przasnysz"] = 18; CITY_Y["Przasnysz"] = 15;
+             CITY_X["Przemyśl"] = 21; CITY_Y["Przemyśl"] = 8;
+             CITY_X["Przeworsk"] = 21; CITY_Y["Przeworsk"] = 8;
+             CITY_X["Przysucha"] = 18; CITY_Y["Przysucha"] = 11;
+             CITY_X["Pszczyna"] = 16; CITY_Y["Pszczyna"] = 8;
+             CITY_X["Puck"] = 15; CITY_Y["Puck"] = 19;
+             CITY_X["Puławy"] = 20; CITY_Y["Puławy"] = 11;
+             CITY_X["Pułtusk"] = 19; CITY_Y["Pułtusk"] = 14;
+             CITY_X["Pyrzyce"] = 10; CITY_Y["Pyrzyce"] = 15;
+             CITY_X["Rabka"] = 17; CITY_Y["Rabka"] = 7;
+             CITY_X["Racibórz"] = 15; CITY_Y["Racibórz"] = 8;
+             CITY_X["Radom"] = 19; CITY_Y["Radom"] = 11;
+             CITY_X["Radomsko"] = 17; CITY_Y["Radomsko"] = 11;
+             CITY_X["Radziejów"] = 15; CITY_Y["Radziejów"] = 14;
+             CITY_X["Radzyń Podlaski"] = 21; CITY_Y["Radzyń Podlaski"] = 12;
+             CITY_X["Rawa Mazowiecka"] = 18; CITY_Y["Rawa Mazowiecka"] = 12;
+             CITY_X["Rawicz"] = 13; CITY_Y["Rawicz"] = 12;
+             CITY_X["Rewal"] = 11; CITY_Y["Rewal"] = 17;
+             CITY_X["Ropczyce"] = 20; CITY_Y["Ropczyce"] = 8;
+             CITY_X["Rowy"] = 13; CITY_Y["Rowy"] = 19;
+             CITY_X["Ruda Śląska"] = 15; CITY_Y["Ruda Śląska"] = 9;
+             CITY_X["Rybnik"] = 15; CITY_Y["Rybnik"] = 8;
+             CITY_X["Ryki"] = 20; CITY_Y["Ryki"] = 12;
+             CITY_X["Rypin"] = 16; CITY_Y["Rypin"] = 15;
+             CITY_X["Rzeczka"] = 12; CITY_Y["Rzeczka"] = 10;
+             CITY_X["Rzeszów"] = 20; CITY_Y["Rzeszów"] = 8;
+             CITY_X["Sandomierz"] = 20; CITY_Y["Sandomierz"] = 10;
+             CITY_X["Sanok"] = 21; CITY_Y["Sanok"] = 7;
+             CITY_X["Sejny"] = 22; CITY_Y["Sejny"] = 17;
+             CITY_X["Sępólno Krajeńskie"] = 14; CITY_Y["Sępólno Krajeńskie"] = 16;
+             CITY_X["Siedlce"] = 20; CITY_Y["Siedlce"] = 13;
+             CITY_X["Siemianowice Śląskie"] = 16; CITY_Y["Siemianowice Śląskie"] = 9;
+             CITY_X["Siemiatycze"] = 21; CITY_Y["Siemiatycze"] = 14;
+             CITY_X["Sieradz"] = 16; CITY_Y["Sieradz"] = 12;
+             CITY_X["Sierpc"] = 17; CITY_Y["Sierpc"] = 15;
+             CITY_X["Skarżysko-Kamienna"] = 19; CITY_Y["Skarżysko-Kamienna"] = 11;
+             CITY_X["Skierniewice"] = 17; CITY_Y["Skierniewice"] = 13;
+             CITY_X["Skoczów"] = 15; CITY_Y["Skoczów"] = 8;
+             CITY_X["Sławno"] = 13; CITY_Y["Sławno"] = 18;
+             CITY_X["Słubice"] = 10; CITY_Y["Słubice"] = 14;
+             CITY_X["Słupca"] = 14; CITY_Y["Słupca"] = 13;
+             CITY_X["Słupsk"] = 13; CITY_Y["Słupsk"] = 18;
+             CITY_X["Sochaczew"] = 18; CITY_Y["Sochaczew"] = 13;
+             CITY_X["Sokołów Podlaski"] = 20; CITY_Y["Sokołów Podlaski"] = 14;
+             CITY_X["Sokółka"] = 22; CITY_Y["Sokółka"] = 16;
+             CITY_X["Solec Kujawski"] = 15; CITY_Y["Solec Kujawski"] = 15;
+             CITY_X["Sopot"] = 15; CITY_Y["Sopot"] = 18;
+             CITY_X["Sosnowiec"] = 16; CITY_Y["Sosnowiec"] = 9;
+             CITY_X["Stalowa Wola"] = 20; CITY_Y["Stalowa Wola"] = 10;
+             CITY_X["Starachowice"] = 19; CITY_Y["Starachowice"] = 10;
+             CITY_X["Stargard Szczeciński"] = 11; CITY_Y["Stargard Szczeciński"] = 16;
+             CITY_X["Starogard Gdański"] = 15; CITY_Y["Starogard Gdański"] = 17;
+             CITY_X["Staszów"] = 19; CITY_Y["Staszów"] = 9;
+             CITY_X["Strzelce Krajeńskie"] = 11; CITY_Y["Strzelce Krajeńskie"] = 15;
+             CITY_X["Strzelce Opolskie"] = 15; CITY_Y["Strzelce Opolskie"] = 9;
+             CITY_X["Strzelin"] = 13; CITY_Y["Strzelin"] = 10;
+             CITY_X["Strzyżów"] = 20; CITY_Y["Strzyżów"] = 8;
+             CITY_X["Sucha Beskidzka"] = 17; CITY_Y["Sucha Beskidzka"] = 8;
+             CITY_X["Sulęcin"] = 11; CITY_Y["Sulęcin"] = 14;
+             CITY_X["Suwałki"] = 21; CITY_Y["Suwałki"] = 17;
+             CITY_X["Szamotuły"] = 13; CITY_Y["Szamotuły"] = 14;
+             CITY_X["Szczawnica"] = 18; CITY_Y["Szczawnica"] = 7;
+             CITY_X["Szczecin"] = 10; CITY_Y["Szczecin"] = 16;
+             CITY_X["Szczecinek"] = 13; CITY_Y["Szczecinek"] = 16;
+             CITY_X["Szczyrk"] = 16; CITY_Y["Szczyrk"] = 8;
+             CITY_X["Szczytno"] = 19; CITY_Y["Szczytno"] = 16;
+             CITY_X["Szklarska Poręba"] = 11; CITY_Y["Szklarska Poręba"] = 10;
+             CITY_X["Szydłowiec"] = 19; CITY_Y["Szydłowiec"] = 11;
+             CITY_X["Śrem"] = 13; CITY_Y["Śrem"] = 13;
+             CITY_X["Środa Śląska"] = 13; CITY_Y["Środa Śląska"] = 11;
+             CITY_X["Środa Wielkopolska"] = 14; CITY_Y["Środa Wielkopolska"] = 13;
+             CITY_X["Świdnica"] = 12; CITY_Y["Świdnica"] = 10;
+             CITY_X["Świdnik"] = 21; CITY_Y["Świdnik"] = 11;
+             CITY_X["Świdwin"] = 12; CITY_Y["Świdwin"] = 17;
+             CITY_X["Świebodzin"] = 11; CITY_Y["Świebodzin"] = 13;
+             CITY_X["Świecie"] = 15; CITY_Y["Świecie"] = 16;
+             CITY_X["Świeradów Zdrój"] = 11; CITY_Y["Świeradów Zdrój"] = 10;
+             CITY_X["Świętochłowice"] = 16; CITY_Y["Świętochłowice"] = 9;
+             CITY_X["Świnoujście"] = 10; CITY_Y["Świnoujście"] = 17;
+             CITY_X["Tarnobrzeg"] = 20; CITY_Y["Tarnobrzeg"] = 10;
+             CITY_X["Tarnowskie Góry"] = 16; CITY_Y["Tarnowskie Góry"] = 9;
+             CITY_X["Tarnów"] = 19; CITY_Y["Tarnów"] = 8;
+             CITY_X["Tczew"] = 16; CITY_Y["Tczew"] = 17;
+             CITY_X["Tomaszów Lubelski"] = 22; CITY_Y["Tomaszów Lubelski"] = 9;
+             CITY_X["Tomaszów Mazowiecki"] = 17; CITY_Y["Tomaszów Mazowiecki"] = 12;
+             CITY_X["Toruń"] = 15; CITY_Y["Toruń"] = 15;
+             CITY_X["Trzebnica"] = 13; CITY_Y["Trzebnica"] = 11;
+             CITY_X["Trzęsacz"] = 11; CITY_Y["Trzęsacz"] = 17;
+             CITY_X["Tuchola"] = 14; CITY_Y["Tuchola"] = 16;
+             CITY_X["Turek"] = 15; CITY_Y["Turek"] = 13;
+             CITY_X["Tychy"] = 16; CITY_Y["Tychy"] = 8;
+             CITY_X["Tylicz"] = 19; CITY_Y["Tylicz"] = 7;
+             CITY_X["Ustka"] = 13; CITY_Y["Ustka"] = 18;
+             CITY_X["Ustronie Morskie"] = 12; CITY_Y["Ustronie Morskie"] = 18;
+             CITY_X["Ustroń"] = 16; CITY_Y["Ustroń"] = 8;
+             CITY_X["Ustrzyki Dolne"] = 21; CITY_Y["Ustrzyki Dolne"] = 7;
+             CITY_X["Ustrzyki Górne"] = 21; CITY_Y["Ustrzyki Górne"] = 6;
+             CITY_X["Wadowice"] = 17; CITY_Y["Wadowice"] = 8;
+             CITY_X["Wałbrzych"] = 12; CITY_Y["Wałbrzych"] = 10;
+             CITY_X["Wałcz"] = 13; CITY_Y["Wałcz"] = 16;
+             CITY_X["Warka"] = 19; CITY_Y["Warka"] = 12;
+             CITY_X["Warszawa"] = 18; CITY_Y["Warszawa"] = 13;
+             CITY_X["Warszawa-Praga"] = 19; CITY_Y["Warszawa-Praga"] = 13;
+             CITY_X["Wąbrzeźno"] = 16; CITY_Y["Wąbrzeźno"] = 15;
+             CITY_X["Wągrowiec"] = 14; CITY_Y["Wągrowiec"] = 14;
+             CITY_X["Wejherowo"] = 15; CITY_Y["Wejherowo"] = 18;
+             CITY_X["Węgorzewo"] = 20; CITY_Y["Węgorzewo"] = 18;
+             CITY_X["Węgrów"] = 20; CITY_Y["Węgrów"] = 14;
+             CITY_X["Wieliczka"] = 17; CITY_Y["Wieliczka"] = 8;
+             CITY_X["Wieluń"] = 15; CITY_Y["Wieluń"] = 11;
+             CITY_X["Wieruszów"] = 15; CITY_Y["Wieruszów"] = 11;
+             CITY_X["Wisła"] = 16; CITY_Y["Wisła"] = 7;
+             CITY_X["Władysławowo"] = 15; CITY_Y["Władysławowo"] = 19;
+             CITY_X["Włocławek"] = 16; CITY_Y["Włocławek"] = 14;
+             CITY_X["Włodawa"] = 22; CITY_Y["Włodawa"] = 12;
+             CITY_X["Włoszczowa"] = 17; CITY_Y["Włoszczowa"] = 10;
+             CITY_X["Wodzisław Śląski"] = 15; CITY_Y["Wodzisław Śląski"] = 8;
+             CITY_X["Wolsztyn"] = 12; CITY_Y["Wolsztyn"] = 13;
+             CITY_X["Wołomin"] = 19; CITY_Y["Wołomin"] = 13;
+             CITY_X["Wołów"] = 13; CITY_Y["Wołów"] = 11;
+             CITY_X["Wrocław"] = 13; CITY_Y["Wrocław"] = 11;
+             CITY_X["Wronki"] = 12; CITY_Y["Wronki"] = 14;
+             CITY_X["Września"] = 14; CITY_Y["Września"] = 13;
+             CITY_X["Wschowa"] = 12; CITY_Y["Wschowa"] = 12;
+             CITY_X["Wysokie Mazowieckie"] = 21; CITY_Y["Wysokie Mazowieckie"] = 15;
+             CITY_X["Wyszków"] = 19; CITY_Y["Wyszków"] = 14;
+             CITY_X["Zabrze"] = 16; CITY_Y["Zabrze"] = 9;
+             CITY_X["Zakopane"] = 17; CITY_Y["Zakopane"] = 7;
+             CITY_X["Zambrów"] = 20; CITY_Y["Zambrów"] = 15;
+             CITY_X["Zamość"] = 22; CITY_Y["Zamość"] = 10;
+             CITY_X["Zawiercie"] = 17; CITY_Y["Zawiercie"] = 9;
+             CITY_X["Zawoja"] = 17; CITY_Y["Zawoja"] = 7;
+             CITY_X["Ząbkowice Śląskie"] = 13; CITY_Y["Ząbkowice Śląskie"] = 10;
+             CITY_X["Zduńska Wola"] = 16; CITY_Y["Zduńska Wola"] = 12;
+             CITY_X["Zgorzelec"] = 10; CITY_Y["Zgorzelec"] = 11;
+             CITY_X["Zielona Góra"] = 11; CITY_Y["Zielona Góra"] = 13;
+             CITY_X["Złocieniec"] = 12; CITY_Y["Złocieniec"] = 16;
+             CITY_X["Złotoryja"] = 12; CITY_Y["Złotoryja"] = 11;
+             CITY_X["Złotów"] = 13; CITY_Y["Złotów"] = 16;
+             CITY_X["Zwardoń"] = 16; CITY_Y["Zwardoń"] = 7;
+             CITY_X["Zwoleń"] = 20; CITY_Y["Zwoleń"] = 11;
+             CITY_X["Żagań"] = 11; CITY_Y["Żagań"] = 12;
+             CITY_X["Żary"] = 11; CITY_Y["Żary"] = 12;
+             CITY_X["Żnin"] = 14; CITY_Y["Żnin"] = 14;
+             CITY_X["Żory"] = 15; CITY_Y["Żory"] = 8;
+             CITY_X["Żuromin"] = 17; CITY_Y["Żuromin"] = 15;
+             CITY_X["Żyrardów"] = 18; CITY_Y["Żyrardów"] = 13;
+             CITY_X["Żywiec"] = 16; CITY_Y["Żywiec"] = 7;
+
+             var PLOT_LANGUAGES = new Array();
+             PLOT_LANGUAGES["pl"] = 0;
+             PLOT_LANGUAGES["en"] = 1;
+
+             var responseParsed__MODULE_ID__ = false;
+             var checkTimeout__MODULE_ID__ = undefined;
+             var checkAttempt__MODULE_ID__ = 0;
+             var RESPONSE_PARSED_PROGRESS = 10;
+             var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
+             var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
+             var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
+
+             function setProgress(_progress) {
+                 log.trace("Enter setProgress()", {"_progress":_progress});
+                 var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
+                 percent += "%";
+                 var progress = _gel("progressIn");
+                 progress.setAttribute("style", "width:" + percent);
+                 log.trace("Exit setProgress()");
+             }
+
+             function setImage(_img) {
+                 log.trace("Enter setImage()");
+                 setProgress(TOTAL_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");
+                 var scaleHeight = prefs.getString("scaleHeight");
+                 var scaleWidth = prefs.getString("scaleWidth");
+                 var height = true == scaleHeight ? "100%" : "560";
+                 var width = true == scaleWidth ? "100%" : "540";
+                 var titleAlt = prefs.getMsg("forecast_for")
+                     + ' '
+                     + cityName;
+                 _img.setAttribute("border", 0);
+                 _img.setAttribute("height", height);
+                 _img.setAttribute("width", width);
+                 _img.setAttribute("title", titleAlt);
+                 _img.setAttribute("alt", titleAlt);
+                 
+                 var linkName = getLinkUrl(cityName, plotLanguage);
+                 var link = document.createElement("a");
+                 link.setAttribute("target", "_blank");
+                 link.setAttribute("href", linkName);
+
+                 var div = _gel("meteogram_div");
+                 while (div.hasChildNodes()) {
+                     div.removeChild(div.firstChild);
+                 }
+                 div.appendChild(link);
+                 link.appendChild(_img);
+                 log.trace("Exit setImage()");
+             }
+
+             function getColumnUrl(_cityName) {
+                 log.trace("Enter getColumnUrl()", {"_cityName":_cityName});
+                 var sColumn = "_col" + CITY_X[_cityName];
+                 log.trace("Exit getColumnUrl()");
+                 return sColumn;
+             }
+
+             function getRowUrl(_cityName) {
+                 log.trace("Enter getRowUrl()", {"_cityName":_cityName});
+                 var nRow = 43 - CITY_Y[_cityName];
+                 if (nRow < 10) {
+                     nRow = "0" + nRow;
+                 }
+                 var sRow = "_row" + nRow;                 
+                 log.trace("Exit getRowUrl()");
+                 return sRow;
+             }
+
+             function getLinkUrl(_cityName, _plotLanguage) {
+                 log.trace("Enter getLinkUrl()",
+                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
+                 var x = CITY_X[_cityName];
+                 var y = CITY_Y[_cityName];
+                 var sPlotLanguage = PLOT_LANGUAGES[_plotLanguage];
+                 var url = LINK_URL
+                     + '?x=' + x
+                     + '&y=' + y
+                     + '&lang=' + sPlotLanguage
+                     + '&ver=&ikonka=1';
+                 log.trace("Exit getLinkUrl(): " + url);
+                 return url;
+             }
+
+             function setError() {
+                 log.trace("Enter setError()");
+                 setProgress(TOTAL_PROGRESS);
+                 var error = document.createElement("span");
+                 error.setAttribute("style", "font-size:9pt");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 error.innerHTML = prefs.getMsg("error_cannot_load");
+                 var div = _gel("meteogram_div");
+                 while (div.hasChildNodes()) {
+                     div.removeChild(div.firstChild);
+                 }
+                 div.appendChild(error);
+                 log.trace("Exit setError()");
+             }
+
+             function fetchImage(_imageUrl, _failureCallback) {
+                 log.trace("Enter fetchImage()",
+                     {"_imageUrl":_imageUrl, "_failureCallback":_failureCallback});
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var img = _IG_GetImage(_imageUrl, {refreshInterval:IMAGE_CACHE_TIME});
+                 // TODO image checking is needed for more realiability: if (true == img.complete) {
+                 if (true) {
+                    prefs.set("lastImageUrl", _imageUrl);
+                    setImage(img);
+                 } else {
+                    log.trace("Cannot load the image: " + _imageUrl);
+                    _failureCallback();
+                 }
+                 log.trace("Exit fetchImage()");
+             }
+
+             function fetchLastSavedImage() {
+                 log.trace("Enter fetchLastSavedImage()");
+                 setProgress(LAST_SAVED_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var imageUrl = prefs.getString("lastImageUrl");
+                 if (undefined != imageUrl && imageUrl != "") {
+                     // Fallback to error message
+                     fetchImage(imageUrl, setError);
+                 } else {
+                     log.trace("No last saved image");
+                     setError();
+                 }
+                 log.trace("Exit fetchLastSavedImage()");
+             }
+
+             function fetchImageManually() {
+                 log.trace("Enter fetchImageManually()");
+                 setProgress(MANUAL_PROGRESS);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");                 
+                 var plotLanguage = "_" + prefs.getString("plotLanguage");
+                 var now = new Date();
+                 var year = now.getUTCFullYear();
+                 var nMonth = now.getUTCMonth();
+                 var sMonth = MONTHS_NAMES[nMonth];
+                 var nDay = now.getUTCDate();
+                 var sDay = nDay;
+                 if (nDay < 10) {
+                     sDay = "0" + nDay;
+                 }
+                 var nHour = now.getUTCHours();
+                 var sHour = "_00";
+                 if (nHour > 21 || nHour < 4) {
+                     sHour = "_18";
+                 } else if (nHour > 3 && nHour < 10) {
+                     sHour = "_00";
+                 } else if (nHour > 9 && nHour < 16) {
+                     sHour = "_06";
+                 } else if (nHour > 15 && nHour < 22) {
+                     sHour = "_12";
+                 } else {
+                     log.error("Cannot determine sHour!", {"sHour":sHour});
+                 }
+                 var sCol = getColumnUrl(cityName);
+                 var sRow = getRowUrl(cityName);
+                 var imageUrl = IMAGE_URL
+                     + year + sMonth + sDay 
+                     + sHour 
+                     + sRow
+                     + sCol
+                     + plotLanguage + '.png';
+                 // Fallback to the last successfully loaded image
+                 fetchImage(imageUrl, fetchLastSavedImage);
+                 log.trace("Exit fetchImageManually()");
+             }
+             
+             function fetchImageFromResponse(_response) {
+                 log.trace("Enter fetchImageFromResponse()");
+                 // Mark we already parsed the response, so no other will set up the image
+                 responeParsed__MODULE_ID__ = true;
+                 clearTimeout(checkTimeout__MODULE_ID__);
+                 // Set progress bar
+                 setProgress(RESPONSE_PARSED_PROGRESS);
+                 var sStartTime = _response.substr(_response.indexOf("var Start_time=") + 15, 2);
+                 var sDay = _response.substr(_response.indexOf("var Day=") + 8, 2);
+                 var nMonth = _response.substr(_response.indexOf("var Month=") + 10, 2) - 1;
+                 var sMonth = MONTHS_NAMES[nMonth];
+                 var sYear = _response.substr(_response.indexOf("var Year=") + 9, 4);
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");                 
+                 var sCol = getColumnUrl(cityName);
+                 var sRow = getRowUrl(cityName);
+                 var plotLanguage = "_" + prefs.getString("plotLanguage");
+                 var imageUrl = IMAGE_URL
+                     + sYear
+                     + sMonth
+                     + sDay
+                     + "_"
+                     + sStartTime
+                     + sRow
+                     + sCol
+                     + plotLanguage
+                     + ".png";
+                 // Fallback to the manual approach
+                 fetchImage(imageUrl, fetchImageManually);
+                 log.trace("Exit fetchImageFromResponse()");
+             }
+
+             function checkIfResponseParsed() {
+                 log.trace("Enter checkIfResponseParsed()");
+                 if (false == responseParsed__MODULE_ID__) {
+                     checkAttempt__MODULE_ID__++;
+                     if (false == responseParsed__MODULE_ID__) {
+                         setProgress(checkAttempt__MODULE_ID__);
+                         if (false == responseParsed__MODULE_ID__) {
+                             if (checkAttempt__MODULE_ID__ <= RESPONSE_PARSED_PROGRESS) {
+                                 // make another checking
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+                                 }
+                             } else {
+                                 if (false == responseParsed__MODULE_ID__) {
+                                     //TODO since error checking doesn't work
+                                     // fallback to last successfully loaded image
+                                     // rather than: fetchImageManually();
+                                     fetchLastSavedImage();
+                                 }
+                             }
+                         }
+                     }
+                 }
+                 log.trace("Exit checkIfResponseParsed()");
+             }
+
+             function main() {
+                 log.trace("Enter main()");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var cityName = prefs.getString("cityName");
+                 var plotLanguage = prefs.getString("plotLanguage");         
+                 checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+                 _IG_FetchContent(getLinkUrl(cityName, plotLanguage), fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
+                 log.trace("Exit main()");
+             }
+             _IG_RegisterOnloadHandler(main);
+             </script>
+    ]]> 
+  </Content> 
+</Module>
