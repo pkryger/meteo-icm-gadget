@@ -453,7 +453,7 @@
              <div id="meteogram_div">
                  <span style="font-size:9pt">__MSG_loading_data__</span>
                  <div class="progressOut">
-                     <span id="progressIn" style="width: 0%"></span>
+                     <div id="progressIn" style="width: 0%"></div>
                  </div>
              </div>
              <!-- Uncoment the following line to see logging messages -->
