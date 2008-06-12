@@ -899,7 +899,7 @@
                  log.trace("Enter removeAllChildren()", {"_node":_node});
                  if (undefined != _node) {
                      while (_node.hasChildNodes()) {
-                         _node.removeChild(div.firstChild);
+                         _node.removeChild(_node.firstChild);
                      }
                  } else {
                      log.error("_node is undefined!");
