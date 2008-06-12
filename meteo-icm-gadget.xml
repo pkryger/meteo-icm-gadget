@@ -909,8 +909,8 @@
 
              function setProgress(_progress) {
                  log.trace("Enter setProgress()", {"_progress":_progress});
-                 var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
-                 percent += "%";
+                 var percent = _progress * (1 / TOTAL_PROGRESS) * 200;
+                 percent += "px";
                  var progress = _gel("progressIn");
                  progress.setAttribute("style", "width:" + percent);
                  log.trace("Exit setProgress()");
