@@ -915,7 +915,7 @@
                  removeAllChildren(frame);
                  var bar = document.createElement("div");
                  bar.setAttribute("style", style);
-                 bar.setAttribude("id", "progressIn");
+                 bar.setAttribute("id", "progressIn");
                  frame.appendChild(bar);
                  log.trace("Exit setProgress()");
              }
