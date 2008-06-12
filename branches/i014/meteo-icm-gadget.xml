@@ -910,13 +910,13 @@
              function setProgress(_progress) {
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
-                 percent += "%";
-                 var progressIn = document.createElement("div");
-                 progressIn.setAttribute("style", "width:" + percent);
-                 var progressOut = _gel("progressOut");
-                 removeAllChildren(progressOut);
-                 progressOut.appendChild(progressIn);
-                 progressIn.setAttribude("id", "progressIn");
+                 var style = "width: " + percent += "%;";
+                 var out = _gel("progressOut");
+                 removeAllChildren(out);
+                 var in = document.createElement("div");
+                 in.setAttribute("style", style);
+                 in.setAttribude("id", "progressIn");
+                 out.appendChild(in);
                  log.trace("Exit setProgress()");
              }
 
