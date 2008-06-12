@@ -904,7 +904,7 @@
                  } else {
                      log.error("_node is undefined!");
                  }
-                 log.exit("Exit removeAllChildren());
+                 log.exit("Exit removeAllChildren()");
              }
 
              function setProgress(_progress) {
