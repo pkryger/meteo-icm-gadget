@@ -447,13 +447,13 @@
   <Content type="html">
     <![CDATA[
              <style type="text/css">
-                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:0.75em}
+                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:10px}
                  #progressIn{background:#00d200;width:0;height:100%}
              </style>
-             <div id="meteogram_div" style="width:100%;height:340px">
+             <div id="meteogram_div">
                  <span style="font-size:9pt">__MSG_loading_data__</span>
                  <div class="progressOut">
-                     <div id="progressIn" style=""></div>
+                     <div id="progressIn"></div>
                  </div>
              </div>
              <!-- Uncoment the following line to see logging messages -->
@@ -895,12 +895,26 @@
              var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
              var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
+             function removeAllChildren(_node) {
+                 log.trace("Enter removeAllChildren()", {"_node":_node});
+                 if (undefined != _node) {
+                     while (_node.hasChildNodes()) {
+                         _node.removeChild(_node.firstChild);
+                     }
+                 } else {
+                     log.error("_node is undefined!");
+                 }
+                 log.trace("Exit removeAllChildren()");
+             }
+
              function setProgress(_progress) {
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
-                 percent += "%";
-                 var progress = _gel("progressIn");
-                 progress.setAttribute("style", "width:" + percent);
+                 var width = percent + "%";
+                 var bar = _gel("progressIn");
+                 if (undefined != bar) {
+                     bar.style.width = width;
+                 }
                  log.trace("Exit setProgress()");
              }
 
@@ -912,7 +926,7 @@
                  var plotLanguage = prefs.getString("plotLanguage");
                  var scaleHeight = prefs.getString("scaleHeight");
                  var scaleWidth = prefs.getString("scaleWidth");
-                 var height = true == scaleHeight ? "100%" : "560";
+                 var height = true == scaleHeight ? "340" : "560";
                  var width = true == scaleWidth ? "100%" : "540";
                  var titleAlt = prefs.getMsg("forecast_for")
                      + ' '
@@ -927,13 +941,11 @@
                  var link = document.createElement("a");
                  link.setAttribute("target", "_blank");
                  link.setAttribute("href", linkName);
-
-                 var div = _gel("meteogram_div");
-                 while (div.hasChildNodes()) {
-                     div.removeChild(div.firstChild);
-                 }
-                 div.appendChild(link);
                  link.appendChild(_img);
+                 var div = _gel("meteogram_div");
+                 removeAllChildren(div);
+                 div.appendChild(link);
+                 div.setAttribute("style", "width: 100%; height: auto");
                  log.trace("Exit setImage()");
              }
 
@@ -978,9 +990,7 @@
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  error.innerHTML = prefs.getMsg("error_cannot_load");
                  var div = _gel("meteogram_div");
-                 while (div.hasChildNodes()) {
-                     div.removeChild(div.firstChild);
-                 }
+                 removeAllChildren(div);
                  div.appendChild(error);
                  log.trace("Exit setError()");
              }
