@@ -911,12 +911,12 @@
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
                  var style = "width: " + percent + "%;";
-                 var out = _gel("progressOut");
-                 removeAllChildren(out);
-                 var in = document.createElement("div");
-                 in.setAttribute("style", style);
-                 in.setAttribude("id", "progressIn");
-                 out.appendChild(in);
+                 var frame = _gel("progressOut");
+                 removeAllChildren(frame);
+                 var bar = document.createElement("div");
+                 bar.setAttribute("style", style);
+                 bar.setAttribude("id", "progressIn");
+                 frame.appendChild(bar);
                  log.trace("Exit setProgress()");
              }
 
