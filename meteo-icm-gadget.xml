@@ -924,8 +924,8 @@
                  var plotLanguage = prefs.getString("plotLanguage");
                  var scaleHeight = prefs.getString("scaleHeight");
                  var scaleWidth = prefs.getString("scaleWidth");
-                 var height = true == scaleHeight ? "340px" : "560px";
-                 var width = true == scaleWidth ? "100%" : "540px";
+                 var height = true == scaleHeight ? "340" : "560";
+                 var width = true == scaleWidth ? "100%" : "540";
                  var titleAlt = prefs.getMsg("forecast_for")
                      + ' '
                      + cityName;
