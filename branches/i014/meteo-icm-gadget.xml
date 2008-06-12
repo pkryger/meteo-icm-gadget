@@ -452,7 +452,7 @@
              </style>
              <div id="meteogram_div">
                  <span style="font-size:9pt">__MSG_loading_data__</span>
-                 <div class="progressOut">
+                 <div id="frame" class="progressOut">
                      <div id="progressIn" style="width: 0%"></div>
                  </div>
              </div>
@@ -911,12 +911,14 @@
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
                  var style = "width: " + percent + "%;";
-                 var frame = _gel("progressOut");
+                 var frame = _gel("frame");
                  removeAllChildren(frame);
                  var bar = document.createElement("div");
                  bar.setAttribute("style", style);
                  bar.setAttribute("id", "progressIn");
-                 frame.appendChild(bar);
+                 if (undefined != frame) {
+                     frame.appendChild(bar);
+                 }
                  log.trace("Exit setProgress()");
              }
 
