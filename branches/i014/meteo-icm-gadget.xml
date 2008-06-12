@@ -910,7 +910,7 @@
              function setProgress(_progress) {
                  log.trace("Enter setProgress()", {"_progress":_progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
-                 var style = "width: " + percent += "%;";
+                 var style = "width: " + percent + "%;";
                  var out = _gel("progressOut");
                  removeAllChildren(out);
                  var in = document.createElement("div");
