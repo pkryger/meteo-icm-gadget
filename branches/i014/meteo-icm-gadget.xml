@@ -943,7 +943,7 @@
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
                  div.appendChild(link);
-                 div.setAttribute("style", "width: 100%; height: 100%");
+                 div.setAttribute("style", "width: 100%; height: auto");
                  log.trace("Exit setImage()");
              }
 
