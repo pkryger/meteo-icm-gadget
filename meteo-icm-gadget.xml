@@ -1158,7 +1158,7 @@
                  progressOut.setAttribute("class", "progressOut");
                  mainDiv.appendChild(progressOut);
                  var progressIn = document.createElement("div");
-                 //progressIn.id = "progressIn";
+                 progressIn.setAttribute("id", "progressIn");
                  progressOut.appendChild(progressIn);
                  log.trace("Exit setInitPage()");
              }
