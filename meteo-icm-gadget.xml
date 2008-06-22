@@ -1154,11 +1154,11 @@
                  message.setAttribute("style", "font-size: 9pt");
                  message.innerHTML = prefs.getMsg("loading_data");
                  div.appendChild(message);
-                 var progressIn = document.createElement("div");
-                 progressIn.id = "progressIn";
-                 var progressOut = document.createElement("div");
-                 progressOut.class = "progressOut";
-                 progressOut.appendChild(progressIn);
+                 //var progressIn = document.createElement("div");
+                 //progressIn.id = "progressIn";
+                 //var progressOut = document.createElement("div");
+                 //progressOut.class = "progressOut";
+                 //progressOut.appendChild(progressIn);
                  //div.appendChild("progressOut");
                  log.trace("Exit setInitPage()");
              }
