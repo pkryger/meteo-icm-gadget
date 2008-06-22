@@ -987,6 +987,7 @@
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
                  div.appendChild(errorMessage);
+                 div.appendChild(document.createElement("br"));
                  div.appendChild(refreshButton);
                  log.trace("Exit setErrorPage()");
              }
@@ -1004,12 +1005,13 @@
              function createRefreshButton() {
                  log.trace("Enter createRefreshButton()");
                  var buttonSpan = document.createElement("span");
-                 buttonSpan.setAttribute("style", "font-size: 9pt");
+                 buttonSpan.setAttribute("style", "font-size: 9pt;margin:2px");
                  var button = document.createElement("button");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  button.innerHTML = prefs.getMsg("refresh_button_text");
-                 button.title = prefs.getMsg("refresh_button_tooltip");
-                 button.onclick = "main();";
+                 var tooltip = prefs.getMsg("refresh_button_tooltip");
+                 button.setAttribute("title", tooltip);
+                 button.setAttribute("onclick", "main();");
                  buttonSpan.appendChild(button);
                  log.trace("Exit createRefreshButton(): " + buttonSpan);
                  return buttonSpan;
