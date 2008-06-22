@@ -942,7 +942,7 @@
                  var link = document.createElement("a");
                  //link.setAttribute("target", "_blank");
                  //link.setAttribute("href", linkUrl);
-                 link.taget = "_blank";
+                 link.target = "_blank";
                  link.href = linkUrl;
                  link.appendChild(_img);
                  var div = _gel("meteogram_div");
