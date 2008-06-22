@@ -1157,6 +1157,8 @@
                  var progressOut = document.createElement("div");
                  //progressOut.setAttribute("class", "progressOut");
                  progressOut.setAttribute("style", "margin:2px 0;border:1px solid #008000;width:200px;height:10px");
+                 progressOut.style.height = "10px";
+                 progressOut.style.width = "200px";
                  mainDiv.appendChild(progressOut);
                  var progressIn = document.createElement("div");
                  progressIn.setAttribute("id", "progressIn");
