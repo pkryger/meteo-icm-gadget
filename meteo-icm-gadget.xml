@@ -927,23 +927,16 @@
                  var titleAlt = prefs.getMsg("forecast_for")
                      + ' '
                      + cityName;
-                 //_img.setAttribute("border", 0);
-                 //_img.setAttribute("height", height);
-                 //_img.setAttribute("width", width);
-                 //_img.setAttribute("title", titleAlt);
-                 //_img.setAttribute("alt", titleAlt);
-                 _img.style.border = "0";
-                 _img.style.height = height;
-                 _img.style.width = width;
-                 _img.title = titleAlt;
-                 _img.alt = titleAlt;
+                 _img.setAttribute("border", 0);
+                 _img.setAttribute("height", height);
+                 _img.setAttribute("width", width);
+                 _img.setAttribute("title", titleAlt);
+                 _img.setAttribute("alt", titleAlt);
                  
                  var linkUrl = getLinkUrl(cityName, plotLanguage);
                  var link = document.createElement("a");
-                 //link.setAttribute("target", "_blank");
-                 //link.setAttribute("href", linkUrl);
-                 link.target = "_blank";
-                 link.href = linkUrl;
+                 link.setAttribute("target", "_blank");
+                 link.setAttribute("href", linkUrl);
                  link.appendChild(_img);
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
