@@ -1158,7 +1158,7 @@
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
                  var message = document.createElement("span");
-                 message.style.font-size = "9pt";
+                 message.setAttribute("style", "font-size: 9pt");
                  message.innerHTML = prefs.getMsg("loading_data");
                  div.appendChild(message);
                  var progressIn = document.createElement("div");
