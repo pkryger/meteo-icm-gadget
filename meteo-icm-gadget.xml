@@ -1011,7 +1011,7 @@
                  button.title = prefs.getMsg("refresh_button_tooltip");
                  button.onclick = "main();";
                  buttonSpan.appendChild(button);
-                 log.exit("Exit createRefreshButton(): " + buttonSpan);
+                 log.trace("Exit createRefreshButton(): " + buttonSpan);
                  return buttonSpan;
              }
 
