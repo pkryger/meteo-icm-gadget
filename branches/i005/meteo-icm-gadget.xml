@@ -1155,7 +1155,8 @@
                  message.innerHTML = prefs.getMsg("loading_data");
                  mainDiv.appendChild(message);
                  var progressOut = document.createElement("div");
-                 progressOut.setAttribute("class", "progressOut");
+                 //progressOut.setAttribute("class", "progressOut");
+                 progressOut.setAttribute("style", "margin:2px 0;border:1px solid #008000;width:200px;height:10px");
                  mainDiv.appendChild(progressOut);
                  var progressIn = document.createElement("div");
                  progressIn.setAttribute("id", "progressIn");
