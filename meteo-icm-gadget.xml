@@ -1038,7 +1038,8 @@
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
                      // Fallback to error message
-                     fetchImage(imageUrl, setErrorPage);
+                     setErrorPage();
+                     // TODO fetchImage(imageUrl, setErrorPage);
                  } else {
                      log.trace("No last saved image");
                      setErrorPage();
