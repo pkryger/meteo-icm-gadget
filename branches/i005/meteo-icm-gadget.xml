@@ -1166,7 +1166,7 @@
                  var progressOut = document.createElement("div");
                  progressOut.calss = "progressOut";
                  progressOut.appendChild(progressIn);
-                 div.appendChils("progressOut");
+                 div.appendChild("progressOut");
                  log.trace("Exit setInitPage()");
              }
 
