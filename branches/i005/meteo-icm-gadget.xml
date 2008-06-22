@@ -1011,7 +1011,7 @@
                  button.innerHTML = prefs.getMsg("refresh_button_text");
                  var tooltip = prefs.getMsg("refresh_button_tooltip");
                  button.setAttribute("title", tooltip);
-                 button.setAttribute("onclick", new Function("main()"));
+                 button.onclick = new Function("main()");
                  buttonSpan.appendChild(button);
                  log.trace("Exit createRefreshButton(): " + buttonSpan);
                  return buttonSpan;
