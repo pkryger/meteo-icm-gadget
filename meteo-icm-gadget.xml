@@ -1163,8 +1163,17 @@
                  log.trace("Exit setInitPage()");
              }
 
+             function resetTimoutParams() {
+                 log.trace("Enter resetTimoutParams()");
+                 responseParsed__MODULE_ID__ = false;
+                 checkTimeout__MODULE_ID__ = undefined;
+                 checkAttempt__MODULE_ID__ = 0;
+                 log.trace("Exit resetTimoutParams()");
+             }
+
              function main() {
                  log.trace("Enter main()");
+                 resetTimeoutParams();
                  setInitPage();
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
