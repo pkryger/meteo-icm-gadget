@@ -1166,7 +1166,7 @@
                  var progressOut = document.createElement("div");
                  progressOut.class = "progressOut";
                  progressOut.appendChild(progressIn);
-                 div.appendChild("progressOut");
+                 //div.appendChild("progressOut");
                  log.trace("Exit setInitPage()");
              }
 
