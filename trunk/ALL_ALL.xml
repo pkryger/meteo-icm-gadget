@@ -13,4 +13,6 @@
   <msg name="scale_height">Scale Height</msg>
   <msg name="scale_width">Scale Width</msg>
   <msg name="error_cannot_load">Cannot load meteogram.</msg>
+  <msg name="refresh_button_text">Refresh meteogram</msg>
+  <msg name="refresh_button_tooltip">Click to reload meteogram</msg>
 </messagebundle>
