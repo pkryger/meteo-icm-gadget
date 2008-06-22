@@ -12,8 +12,8 @@
                scaling="true"
                height="340"
                scrolling="true">
-    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i005/ALL_ALL.xml"/> 
-    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i005/pl_ALL.xml"/>
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
     <Require feature="setprefs"/>
   </ModulePrefs>
   <UserPref name="cityName"
@@ -932,7 +932,6 @@
                  _img.setAttribute("width", width);
                  _img.setAttribute("title", titleAlt);
                  _img.setAttribute("alt", titleAlt);
-                 
                  var linkUrl = getLinkUrl(cityName, plotLanguage);
                  var link = document.createElement("a");
                  link.setAttribute("target", "_blank");
@@ -1040,8 +1039,7 @@
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
                      // Fallback to error message
-                     setErrorPage();
-                     // TODO fetchImage(imageUrl, setErrorPage);
+                     fetchImage(imageUrl, setErrorPage);
                  } else {
                      log.trace("No last saved image");
                      setErrorPage();
