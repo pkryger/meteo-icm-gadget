@@ -467,7 +467,7 @@
              
              var IMAGE_CACHE_TIME = 60 * 60 * 24;
              var PAGE_CACHE_TIME = 20 * 2;
-             var BASE_URL = "http://umold.meteo.pl/";
+             var BASE_URL = "http://1umold.meteo.pl/";
              var IMAGE_URL = BASE_URL + "gpp/data/";
              var LINK_URL = BASE_URL + "java/mgram.php";
 
