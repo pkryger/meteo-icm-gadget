@@ -1001,7 +1001,7 @@
              function createErrorMessage() {
                  log.trace("Enter createErrorMessage()");
                  var message = document.createElement("span");
-                 message.style.font-size = "9pt";
+                 //message.style.font-size = "9pt";
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  message.innerHTML = prefs.getMsg("error_cannot_load");
                  log.trace("Exit createErrorMessage(): " + message);
@@ -1011,7 +1011,7 @@
              function createRefreshButton() {
                  log.trace("Enter createRefreshButton()");
                  var buttonSpan = document.createElement("span");
-                 buttonSpan.style.font-size = "9pt";
+                 //buttonSpan.style.font-size = "9pt";
                  var button = document.createElement("button");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  button.innerHTML = prefs.getMsg("refresh_button_text");
