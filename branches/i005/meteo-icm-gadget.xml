@@ -1149,7 +1149,7 @@
                  log.trace("Enter setInitPage()");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var mainDiv = _gel("meteogram_div");
-                 removeAllChildren(div);
+                 removeAllChildren(mainDiv);
                  var message = document.createElement("span");
                  message.setAttribute("style", "font-size: 9pt");
                  message.innerHTML = prefs.getMsg("loading_data");
