@@ -12,8 +12,8 @@
                scaling="true"
                height="340"
                scrolling="true">
-    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
-    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i005/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i005/pl_ALL.xml"/>
     <Require feature="setprefs"/>
   </ModulePrefs>
   <UserPref name="cityName"
@@ -931,21 +931,29 @@
                  var titleAlt = prefs.getMsg("forecast_for")
                      + ' '
                      + cityName;
-                 _img.setAttribute("border", 0);
-                 _img.setAttribute("height", height);
-                 _img.setAttribute("width", width);
-                 _img.setAttribute("title", titleAlt);
-                 _img.setAttribute("alt", titleAlt);
+                 //_img.setAttribute("border", 0);
+                 //_img.setAttribute("height", height);
+                 //_img.setAttribute("width", width);
+                 //_img.setAttribute("title", titleAlt);
+                 //_img.setAttribute("alt", titleAlt);
+                 _img.style.border = "0";
+                 _img.style.height = height;
+                 _img.style.width = width;
+                 _img.title = titleAlt;
+                 _img.alt = titleAlt;
                  
-                 var linkName = getLinkUrl(cityName, plotLanguage);
+                 var linkUrl = getLinkUrl(cityName, plotLanguage);
                  var link = document.createElement("a");
-                 link.setAttribute("target", "_blank");
-                 link.setAttribute("href", linkName);
+                 //link.setAttribute("target", "_blank");
+                 //link.setAttribute("href", linkUrl);
+                 link.taget = "_blank";
+                 link.href = linkUrl;
                  link.appendChild(_img);
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
                  div.appendChild(link);
-                 div.setAttribute("style", "width: 100%; height: auto");
+                 div.style.width = "100%";
+                 div.style.height = "auto";
                  log.trace("Exit setImage()");
              }
 
@@ -982,17 +990,40 @@
                  return url;
              }
 
-             function setError() {
-                 log.trace("Enter setError()");
+             function setErrorPage() {
+                 log.trace("Enter setErrorPage()");
                  setProgress(TOTAL_PROGRESS);
-                 var error = document.createElement("span");
-                 error.setAttribute("style", "font-size:9pt");
-                 var prefs = new _IG_Prefs(__MODULE_ID__);
-                 error.innerHTML = prefs.getMsg("error_cannot_load");
+                 var errorMessage = createErrorMessage(); 
+                 var refreshButton = createRefreshButton();
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
-                 div.appendChild(error);
-                 log.trace("Exit setError()");
+                 div.appendChild(errorMessage);
+                 div.appendChild(refreshButton);
+                 log.trace("Exit setErrorPage()");
+             }
+
+             function createErrorMessage() {
+                 log.trace("Enter createErrorMessage()");
+                 var message = document.createElement("span");
+                 message.style.font-size = "9pt";
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 message.innerHTML = prefs.getMsg("error_cannot_load");
+                 log.trace("Exit createErrorMessage(): " + message);
+                 return message;
+             }
+
+             function createRefreshButton() {
+                 log.trace("Enter createRefreshButton()");
+                 var buttonSpan = document.createElement("span");
+                 buttonSpan.style.font-size = "9pt";
+                 var button = document.createElement("button");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 button.innerHTML = prefs.getMsg("refresh_button_text");
+                 button.title = prefs.getMsg("refresh_button_tooltip");
+                 button.onclick = "main();";
+                 buttonSpan.appendChild(button);
+                 log.exit("Exit createRefreshButton(): " + buttonSpan);
+                 return buttonSpan;
              }
 
              function fetchImage(_imageUrl, _failureCallback) {
@@ -1018,10 +1049,10 @@
                  var imageUrl = prefs.getString("lastImageUrl");
                  if (undefined != imageUrl && imageUrl != "") {
                      // Fallback to error message
-                     fetchImage(imageUrl, setError);
+                     fetchImage(imageUrl, setErrorPage);
                  } else {
                      log.trace("No last saved image");
-                     setError();
+                     setErrorPage();
                  }
                  log.trace("Exit fetchLastSavedImage()");
              }
@@ -1125,8 +1156,27 @@
                  log.trace("Exit checkIfResponseParsed()");
              }
 
+             function setInitPage() {
+                 log.trace("Enter setInitPage()");
+                 var prefs = new _IG_Prefs(__MODULE_ID__);
+                 var div = _gel("meteogram_div");
+                 removeAllChildren(div);
+                 var message = document.createElement("span");
+                 message.style.font-size = "9pt";
+                 message.innerHTML = prefs.getMsg("loading_data");
+                 div.appendChild(message);
+                 var progressIn = document.createElement("div");
+                 progressIn.id = "progressIn";
+                 var progressOut = document.createElement("div");
+                 progressOut.calss = "progressOut";
+                 progressOut.appendChild(progressIn);
+                 div.appendChils("progressOut");
+                 log.trace("Exit setInitPage()");
+             }
+
              function main() {
                  log.trace("Enter main()");
+                 setInitPage();
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
                  var plotLanguage = prefs.getString("plotLanguage");         
