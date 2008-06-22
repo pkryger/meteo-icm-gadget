@@ -1155,11 +1155,10 @@
                  message.innerHTML = prefs.getMsg("loading_data");
                  mainDiv.appendChild(message);
                  var progressOut = document.createElement("div");
-                 //progressOut.class = "progressOut";
-                 
-mainDiv.appendChild("progressOut");
+                 progressOut.class = "progressOut";
+                 mainDiv.appendChild(progressOut);
                  var progressIn = document.createElement("div");
-                 //progressIn.id = "progressIn";
+                 progressIn.id = "progressIn";
                  progressOut.appendChild(progressIn);
                  log.trace("Exit setInitPage()");
              }
