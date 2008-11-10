@@ -350,7 +350,7 @@
                  resetTimeoutParams();
                  setInitPage();
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(BASE_URL, fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
+                 _IG_FetchContent("blablabla", fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
