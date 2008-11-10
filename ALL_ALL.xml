@@ -2,7 +2,7 @@
   <msg name="title">ICM Weather Forecast for</msg>
   <msg name="description">
     Displays the weather forecast for a given city in a form of a meteorograms. Meteorograms comes from the http://new.meteo.pl.
-    To set up the gadget go to the site and pick up the meteogram you are interested in, displaye it and pick up the 'x' and 'y' coordinates.
+    To set up the gadget go to the site, pick up the meteogram you are interested in, display it and pick up the 'x' and 'y' coordinates.
   </msg>
   <msg name="directory_title">ICM Weather Forecast</msg>
   <msg name="city">City Name</msg>
