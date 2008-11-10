@@ -153,7 +153,7 @@
                      + "&lang=" + sPlotLanguage
                      + "&cname=" + sCityName;
                  log.trace("Exit getLinkUrl(): " + sUrl);
-                 return url;
+                 return sUrl;
              }
 
              function setErrorPage() {
