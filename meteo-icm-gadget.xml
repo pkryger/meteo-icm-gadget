@@ -164,7 +164,7 @@
                  var sCol = prefs.getString("x"); //TODO
                  var sRow = prefs.getString("y"); //TODO
                  var sPlotLanguage = prefs.getString("plotLanguage");
-                 //var sCityName prefs.getString("cityName");
+                 var sCityName = prefs.getString("cityName");
                  var sUrl = BASE_URL
                      + "/php/meteorogram_list_coamps.php?ntype=2n&fdate="
                      + sYear
@@ -316,6 +316,7 @@
                      + "&col=" + sCol
                      + "&lang=" + sPlotLanguage;
                  // Fallback to the manual approach
+                 log.trace("sImageUrl = " + sImageUrl);
                  fetchImage(sImageUrl, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
              }
