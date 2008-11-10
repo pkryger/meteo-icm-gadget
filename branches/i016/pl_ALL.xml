@@ -1,7 +1,8 @@
 <messagebundle>
   <msg name="title">Prognoza Pogody ICM:</msg>
   <msg name="description">
-    Wyświetla prognozę pogody w formie meteorogrmów. Wykresy pochodzą ze strony http://meteo.icm.edu.pl.
+    Wyświetla prognozę pogody w formie meteorogrmów. Wykresy pochodzą ze strony http://new.meteo.pl. Aby ustalić współrzędne 'x' i 'y' należy
+    udać się na stronę i wyświetlić interesujący meteorogram.
   </msg>
   <msg name="directory_title">Prognoza Pogody ICM</msg>
   <msg name="city">Nazwa miasta</msg>

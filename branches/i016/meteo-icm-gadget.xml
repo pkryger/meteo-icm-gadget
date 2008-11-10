@@ -12,7 +12,7 @@
                scaling="true"
                height="340"
                scrolling="true">
-    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/branches/i016/ALL_ALL.xml"/> 
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
     <Require feature="setprefs"/>
   </ModulePrefs>
@@ -107,7 +107,7 @@
                  log.trace("Exit setProgress()");
              }
 
-             function setImage(_img) {
+             function setImage(_img, _startData) {
                  log.trace("Enter setImage()");
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
@@ -125,7 +125,7 @@
                  _img.setAttribute("width", width);
                  _img.setAttribute("title", titleAlt);
                  _img.setAttribute("alt", titleAlt);
-                 var linkUrl = BASE_URL;
+                 var linkUrl = getLinkUrl(_startData);
                  var link = document.createElement("a");
                  link.setAttribute("target", "_blank");
                  link.setAttribute("href", linkUrl);
@@ -138,26 +138,8 @@
                  log.trace("Exit setImage()");
              }
 
-             function getColumnUrl(_cityName) {
-                 log.trace("Enter getColumnUrl()", {"_cityName":_cityName});
-                 var sColumn = "_col" + CITY_X[_cityName];
-                 log.trace("Exit getColumnUrl()");
-                 return sColumn;
-             }
-
-             function getRowUrl(_cityName) {
-                 log.trace("Enter getRowUrl()", {"_cityName":_cityName});
-                 var nRow = 43 - CITY_Y[_cityName];
-                 if (nRow < 10) {
-                     nRow = "0" + nRow;
-                 }
-                 var sRow = "_row" + nRow;                 
-                 log.trace("Exit getRowUrl()");
-                 return sRow;
-             }
-
-             function getLinkUrl() {
-                 log.trace("Enter getLinkUrl()");
+             function getLinkUrl(_startData) {
+                 log.trace("Enter getLinkUrl()", {"_startData":_startData});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCol = prefs.getString("x"); //TODO
                  var sRow = prefs.getString("y"); //TODO
@@ -165,10 +147,7 @@
                  var sCityName = prefs.getString("cityName");
                  var sUrl = BASE_URL
                      + "/php/meteorogram_list_coamps.php?ntype=2n&fdate="
-                     + sYear
-                     + sMonth
-                     + sDay
-                     + sStartTime
+                     + _startData
                      + "&row=" + sRow
                      + "&col=" + sCol
                      + "&lang=" + sPlotLanguage
@@ -215,15 +194,16 @@
                  return buttonSpan;
              }
 
-             function fetchImage(_imageUrl, _failureCallback) {
+             function fetchImage(_imageUrl, _startData, _failureCallback) {
                  log.trace("Enter fetchImage()",
-                     {"_imageUrl":_imageUrl, "_failureCallback":_failureCallback});
+                     {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var img = _IG_GetImage(_imageUrl, {refreshInterval:IMAGE_CACHE_TIME});
                  // TODO image checking is needed for more realiability: if (true == img.complete) {
                  if (true) {
                     prefs.set("lastImageUrl", _imageUrl);
-                    setImage(img);
+                    prefs.set("lastStartData", _startData);
+                    setImage(img, _startData);
                  } else {
                     log.trace("Cannot load the image: " + _imageUrl);
                     _failureCallback();
@@ -236,9 +216,10 @@
                  setProgress(LAST_SAVED_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var imageUrl = prefs.getString("lastImageUrl");
+                 var startData = prefs.getString("lastStartData");
                  if (undefined != imageUrl && imageUrl != "") {
                      // Fallback to error message
-                     fetchImage(imageUrl, setErrorPage);
+                     fetchImage(imageUrl, startData, setErrorPage);
                  } else {
                      log.trace("No last saved image");
                      setErrorPage();
@@ -273,19 +254,17 @@
                  } else {
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
-                 var sCol = getColumnUrl(cityName);
-                 var sRow = getRowUrl(cityName);
+                 var sCol = prefs.getString("x"); //TODO
+                 var sRow = prefs.getString("y"); //TODO
+                 var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = BASE_URL
                      + "metco/mgram_pict.php?ntype=2n&fdate="
-                     + sYear
-                     + sMonth
-                     + sDay
-                     + sStartTime
+                     + sStartData
                      + "&row=" + sRow
                      + "&col=" + sCol
                      + "&lang=" + sPlotLanguage;
                  // Fallback to the last successfully loaded image
-                 fetchImage(sImageUrl, fetchLastSavedImage);
+                 fetchImage(sImageUrl, sStartData, fetchLastSavedImage);
                  log.trace("Exit fetchImageManually()");
              }
              
@@ -304,18 +283,16 @@
                  var sCol = prefs.getString("x"); //TODO
                  var sRow = prefs.getString("y"); //TODO
                  var sPlotLanguage = prefs.getString("plotLanguage");
+                 var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = BASE_URL
                      + "metco/mgram_pict.php?ntype=2n&fdate="
-                     + sYear
-                     + sMonth
-                     + sDay
-                     + sStartTime
+                     + sStartData
                      + "&row=" + sRow
                      + "&col=" + sCol
                      + "&lang=" + sPlotLanguage;
                  // Fallback to the manual approach
                  log.trace("sImageUrl = " + sImageUrl)
-                 fetchImage(sImageUrl, fetchImageManually);
+                 fetchImage(sImageUrl, sStartData, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
              }
 
