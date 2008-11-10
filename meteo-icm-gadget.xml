@@ -164,7 +164,7 @@
                  var sCol = prefs.getString("x"); //TODO
                  var sRow = prefs.getString("y"); //TODO
                  var sPlotLanguage = prefs.getString("plotLanguage");
-                 var sCityName prefs.getString("cityName");
+                 //var sCityName prefs.getString("cityName");
                  var sUrl = BASE_URL
                      + "/php/meteorogram_list_coamps.php?ntype=2n&fdate="
                      + sYear
