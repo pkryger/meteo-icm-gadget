@@ -278,7 +278,7 @@
                  var sCol = getColumnUrl(cityName);
                  var sRow = getRowUrl(cityName);
                  var sImageUrl = BASE_URL
-                     + "metco/mgram_pict.php??ntype=2n&fdate="
+                     + "metco/mgram_pict.php?ntype=2n&fdate="
                      + sYear
                      + sMonth
                      + sDay
@@ -307,7 +307,7 @@
                  var sRow = prefs.getString("y"); //TODO
                  var sPlotLanguage = prefs.getString("plotLanguage");
                  var sImageUrl = BASE_URL
-                     + "metco/mgram_pict.php??ntype=2n&fdate="
+                     + "metco/mgram_pict.php?ntype=2n&fdate="
                      + sYear
                      + sMonth
                      + sDay
@@ -316,7 +316,7 @@
                      + "&col=" + sCol
                      + "&lang=" + sPlotLanguage;
                  // Fallback to the manual approach
-                 log.trace("sImageUrl = " + sImageUrl);
+                 log.trace("sImageUrl = " + sImageUrl)
                  fetchImage(sImageUrl, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
              }
