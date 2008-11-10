@@ -158,9 +158,8 @@
                  return sRow;
              }
 
-             function getLinkUrl(_cityName, _plotLanguage) {
-                 log.trace("Enter getLinkUrl()",
-                       {"cityName":_cityName, "plotLanguage":_plotLanguage});
+             function getLinkUrl() {
+                 log.trace("Enter getLinkUrl()");
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCol = prefs.getString("x"); //TODO
                  var sRow = prefs.getString("y"); //TODO
