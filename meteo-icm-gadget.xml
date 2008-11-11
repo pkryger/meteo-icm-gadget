@@ -15,6 +15,7 @@
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
     <Require feature="setprefs"/>
+    <Require feature="views"/>
   </ModulePrefs>
   <UserPref name="cityName"
             display_name="__MSG_city__"
@@ -51,7 +52,7 @@
   <UserPref name="lastImageUrl"
             default_value=""
             datatype="hidden"/>
-  <Content type="html">
+  <Content type="html" view="home,canvas">
     <![CDATA[
              <style type="text/css">
                  .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:10px}
@@ -108,7 +109,7 @@
              }
 
              function setImage(_img, _startData) {
-                 log.trace("Enter setImage()");
+                 log.trace("Enter setImage()", {"_img":_img, "_startData":_startData});
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var cityName = prefs.getString("cityName");
