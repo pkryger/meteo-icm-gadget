@@ -15,6 +15,7 @@
     <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
     <Require feature="setprefs"/>
+    <Require feature="views"/>
   </ModulePrefs>
   <UserPref name="cityName"
             display_name="__MSG_city__"
@@ -51,7 +52,7 @@
   <UserPref name="lastImageUrl"
             default_value=""
             datatype="hidden"/>
-  <Content type="html">
+  <Content type="html" view="home,canvas">
     <![CDATA[
              <style type="text/css">
                  .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:10px}
@@ -108,30 +109,47 @@
              }
 
              function setImage(_img, _startData) {
-                 log.trace("Enter setImage()");
+                 log.trace("Enter setImage()", {"_img":_img, "_startData":_startData});
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
-                 var cityName = prefs.getString("cityName");
-                 var plotLanguage = prefs.getString("plotLanguage");
-                 var scaleHeight = prefs.getString("scaleHeight");
-                 var scaleWidth = prefs.getString("scaleWidth");
-                 var height = true == scaleHeight ? "340" : "660";
-                 var width = true == scaleWidth ? "100%" : "660";
+                 var sCityName = prefs.getString("cityName");
+                 var view = gadgets.views.getCurrentView().getName();
+                 // scale height and width only for HOME view
+                 var sHeight = "660";
+                 var sWidth = "660";
+                 if (view == "home") {
+                     var bScaleHeight = prefs.getBool("scaleHeight");
+                     var bScaleWidth = prefs.getBool("scaleWidth");
+                     sHeight = true == bScaleHeight ? "340" : sHeight;
+                     sWidth = true == bScaleWidth ? "100%" : sWidth;
+                 }
                  var titleAlt = prefs.getMsg("forecast_for")
                      + ' '
-                     + cityName;
+                     + sCityName;
                  _img.setAttribute("border", 0);
-                 _img.setAttribute("height", height);
-                 _img.setAttribute("width", width);
+                 _img.setAttribute("height", sHeight);
+                 _img.setAttribute("width", sWidth);
                  _img.setAttribute("title", titleAlt);
                  _img.setAttribute("alt", titleAlt);
-                 var linkUrl = getLinkUrl(_startData);
+                 var sLinkUrl = getLinkUrl(_startData);
                  var link = document.createElement("a");
                  link.setAttribute("target", "_blank");
-                 link.setAttribute("href", linkUrl);
+                 link.setAttribute("href", sLinkUrl);
                  link.appendChild(_img);
+                 var legend = undefined;
+                 if (view == "canvas") {
+                     var sPlotLanguage = prefs.getString("plotLanguage");
+                     var sLegendUrl = BASE_URL
+                         + "/metco/legenda_"
+                         + sPlotLanguage
+                         + "_2.png";
+                     legend = _IG_GetImage(sLegendUrl, {refreshInterval:IMAGE_CACHE_TIME});
+                 }
                  var div = _gel("meteogram_div");
                  removeAllChildren(div);
+                 if (undefined != legend) {
+                     div.appendChild(legend);
+                 }
                  div.appendChild(link);
                  div.style.width = "100%";
                  div.style.height = "auto";
