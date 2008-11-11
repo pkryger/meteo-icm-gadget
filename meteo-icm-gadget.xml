@@ -142,7 +142,7 @@
                      var sLegendUrl = BASE_URL
                          + "/metco/legenda_"
                          + sPlotLanguage
-                         + "_en_2.png";
+                         + "_2.png";
                      legend = _IG_GetImage(sLegendUrl, {refreshInterval:IMAGE_CACHE_TIME});
                  }
                  var div = _gel("meteogram_div");
