@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-  <ModulePrefs title="__MSG_title__ __UP_cityName__"
+  <ModulePrefs title="__UP_cityName__ __MSG_title__"
                title_url="http://meteo.icm.edu.pl"
                description="__MSG_description__"
                author="Przemysław Kryger"
@@ -141,10 +141,10 @@
              function getLinkUrl(_startData) {
                  log.trace("Enter getLinkUrl()", {"_startData":_startData});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
-                 var sCol = prefs.getString("x"); //TODO
-                 var sRow = prefs.getString("y"); //TODO
+                 var sCol = prefs.getInt("x"); //TODO
+                 var sRow = prefs.getInt("y"); //TODO
                  var sPlotLanguage = prefs.getString("plotLanguage");
-                 var sCityName = prefs.getString("cityName");
+                 var sCityName = escape(prefs.getString("cityName"));
                  var sUrl = BASE_URL
                      + "/php/meteorogram_list_coamps.php?ntype=2n&fdate="
                      + _startData
@@ -254,8 +254,8 @@
                  } else {
                      log.error("Cannot determine sHour!", {"sHour":sHour});
                  }
-                 var sCol = prefs.getString("x"); //TODO
-                 var sRow = prefs.getString("y"); //TODO
+                 var sCol = prefs.getInt("x"); //TODO
+                 var sRow = prefs.getInt("y"); //TODO
                  var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = BASE_URL
                      + "metco/mgram_pict.php?ntype=2n&fdate="
