@@ -208,7 +208,7 @@
                  button.innerHTML = prefs.getMsg("refresh_button_text");
                  var tooltip = prefs.getMsg("refresh_button_tooltip");
                  button.setAttribute("title", tooltip);
-                 button.onclick = new Function("main()");
+                 button.onclick = new Function("reload()");
                  buttonSpan.appendChild(button);
                  log.trace("Exit createRefreshButton(): " + buttonSpan);
                  return buttonSpan;
@@ -340,6 +340,13 @@
                  }
                  log.trace("Exit checkIfResponseParsed()");
              }
+             
+             function reload() {
+                 log.trace("Enter reload()");
+                 setInitPage();
+                 main();
+                 log.trace("Exit reload()");
+             }
 
              function setInitPage() {
                  log.trace("Enter setInitPage()");
@@ -367,7 +374,6 @@
              function main() {
                  log.trace("Enter main()");
                  resetTimeoutParams();
-                 setInitPage();
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
                  _IG_FetchContent(BASE_URL, fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
                  log.trace("Exit main()");
