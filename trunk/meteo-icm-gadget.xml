@@ -77,7 +77,7 @@
              
              var IMAGE_CACHE_TIME = 60 * 60 * 24;
              var PAGE_CACHE_TIME = 20 * 2;
-             var BASE_URL = "http://new.meteo.pl/";
+             var BASE_URL = "http://new.meteo.pl";
 
              var responseParsed__MODULE_ID__ = false;
              var checkTimeout__MODULE_ID__ = undefined;
@@ -283,7 +283,7 @@
                  var sRow = prefs.getInt("y"); //TODO
                  var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = BASE_URL
-                     + "metco/mgram_pict.php?ntype=2n&fdate="
+                     + "/metco/mgram_pict.php?ntype=2n&fdate="
                      + sStartData
                      + "&row=" + sRow
                      + "&col=" + sCol
@@ -310,7 +310,7 @@
                  var sPlotLanguage = prefs.getString("plotLanguage");
                  var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = BASE_URL
-                     + "metco/mgram_pict.php?ntype=2n&fdate="
+                     + "/metco/mgram_pict.php?ntype=2n&fdate="
                      + sStartData
                      + "&row=" + sRow
                      + "&col=" + sCol
@@ -380,7 +380,7 @@
                  log.trace("Enter main()");
                  resetTimeoutParams();
                  checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-                 _IG_FetchContent(BASE_URL, fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
+                 _IG_FetchContent(BASE_URL + "/info_coamps.php", fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
                  log.trace("Exit main()");
              }
              _IG_RegisterOnloadHandler(main);
