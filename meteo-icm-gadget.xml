@@ -139,7 +139,7 @@
                  link.setAttribute("href", sLinkUrl);
                  link.appendChild(_img);
                  var legend = undefined;
-                 if (view == "CANVAS") {
+                 if (view == "canvas") {
                      var sPlotLanguage = prefs.getString("plotLanguage");
                      var sLegendUrl = BASE_URL
                          + "/metco/legenda_"
