@@ -142,9 +142,9 @@
                  if (view == "canvas") {
                      var sPlotLanguage = prefs.getString("plotLanguage");
                      var sLegendUrl = [BASE_URL,
-                         "/metco/legenda_",
+                         '/metco/legenda_',
                          sPlotLanguage,
-                         "_2.png"].join();
+                         '_2.png'].join();
                      legend = _IG_GetImage(sLegendUrl, {refreshInterval:IMAGE_CACHE_TIME});
                  }
                  var div = _gel("meteogram_div");
@@ -166,12 +166,12 @@
                  var sPlotLanguage = prefs.getString("plotLanguage");
                  var sCityName = escape(prefs.getString("cityName"));
                  var sUrl = [BASE_URL,
-                     "/php/meteorogram_list_coamps.php?ntype=2n&fdate=",
+                     '/php/meteorogram_list_coamps.php?ntype=2n&fdate=',
                      _startData,
-                     "&row=", sRow,
-                     "&col=", sCol,
-                     "&lang=", sPlotLanguage,
-                     "&cname=", sCityName].join();
+                     '&row=', sRow,
+                     '&col=', sCol,
+                     '&lang=', sPlotLanguage,
+                     '&cname=', sCityName].join();
                  log.trace("Exit getLinkUrl(): " + sUrl);
                  return sUrl;
              }
@@ -278,11 +278,11 @@
                  var sRow = prefs.getInt("y"); //TODO
                  var sStartData = [sYear, sMonth, sDay, sStartTime].join();
                  var sImageUrl = [BASE_URL,
-                     "/metco/mgram_pict.php?ntype=2n&fdate=",
+                     '/metco/mgram_pict.php?ntype=2n&fdate=',
                      sStartData,
-                     "&row=", sRow,
-                     "&col=", sCol,
-                     "&lang=", sPlotLanguage].join();
+                     '&row=', sRow,
+                     '&col=', sCol,
+                     '&lang=', sPlotLanguage].join();
                  // Fallback to the last successfully loaded image
                  fetchImage(sImageUrl, sStartData, fetchLastSavedImage);
                  log.trace("Exit fetchImageManually()");
@@ -305,11 +305,11 @@
                  var sPlotLanguage = prefs.getString("plotLanguage");
                  var sStartData = sYear + sMonth + sDay + sStartTime;
                  var sImageUrl = [BASE_URL,
-                     "/metco/mgram_pict.php?ntype=2n&fdate=",
+                     '/metco/mgram_pict.php?ntype=2n&fdate=',
                      sStartData,
-                     "&row=", sRow,
-                     "&col=", sCol,
-                     "&lang=", sPlotLanguage].join();
+                     '&row=', sRow,
+                     '&col=', sCol,
+                     '&lang=', sPlotLanguage].join();
                  // Fallback to the manual approach
                  fetchImage(sImageUrl, sStartData, fetchImageManually);
                  log.trace("Exit fetchImageFromResponse()");
