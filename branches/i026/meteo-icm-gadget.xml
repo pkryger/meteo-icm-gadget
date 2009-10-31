@@ -124,7 +124,7 @@
                  if (view == null) {
                     log.info("view is null");
                  } else if (view == gadgets.views.ViewType.HOME) {
-                    log.inf("view is HOME");
+                    log.info("view is HOME");
                  }
 
                  // scale height and width only for HOME view
