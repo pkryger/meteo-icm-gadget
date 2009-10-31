@@ -117,7 +117,7 @@
                  var sCityName = prefs.getString("cityName");
                  var view = "home";
                  try {
-                     view = gadgets.views.getCurrentView().getName();
+                     view = gadgets.views.getCurrentView();
                  } catch (error) {
                      log.warning("Cannot get view name");
                  }
