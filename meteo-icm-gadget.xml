@@ -118,11 +118,15 @@
                  var view = "home";
                  try {
                      view = gadgets.views.getCurrentView().getName();
-                     log.info("view name: " + view);
                  } catch (error) {
                      log.warning("Cannot get view name");
-                     log.info("view name: " + view);
                  }
+                 if (view == null) {
+                    log.info("view is null");
+                 } else if (view == gadgets.views.ViewType.HOME) {
+                    log.inf("view is HOME");
+                 }
+
                  // scale height and width only for HOME view
                  var sHeight = "660";
                  var sWidth = "660";
