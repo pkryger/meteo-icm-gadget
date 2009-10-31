@@ -73,7 +73,7 @@
              // Uncoment the following line to see logging messages
              Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
              // Uncomment the following line to perform the logging module tests
-             _testLogger(_gel("logging_div"));
+             //_testLogger(_gel("logging_div"));
              
              var IMAGE_CACHE_TIME = 60 * 60 * 24;
              var PAGE_CACHE_TIME = 20 * 2;
@@ -115,10 +115,9 @@
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCityName = prefs.getString("cityName");
-                 var view = "home"
                  try {
-                     view = gadgets.views.getCurrentView().getName();
-                     log.info("view name: " + view);
+                     var view = gadgets.views.getCurrentView().getName();
+                     log.info("view name: " + view.getName());
                  } catch (error) {
                      log.warning("Cannot get view name");
                  }
