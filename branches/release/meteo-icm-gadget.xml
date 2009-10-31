@@ -127,7 +127,7 @@
                  }
                  var titleAlt = [prefs.getMsg("forecast_for"),
                      ' ',
-                     ,sCityName].join('');
+                     sCityName].join('');
                  _img.setAttribute("border", 0);
                  _img.setAttribute("height", sHeight);
                  _img.setAttribute("width", sWidth);
