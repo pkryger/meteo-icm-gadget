@@ -55,11 +55,11 @@
   <Content type="html" view="home,canvas">
     <![CDATA[
              <style type="text/css">
-                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:10px}
-                 #progressIn{background:#00d200;width:0;height:100%}
+                 .progressOut{margin:2px 0;border:1px solid #008000;width:200px;height:10px;}
+                 #progressIn{background:#00d200;width:0;height:100%;}
              </style>
              <div id="meteogram_div">
-                 <span style="font-size: 9pt">__MSG_loading_data__</span>
+                 <span style="font-size: 9pt;">__MSG_loading_data__</span>
                  <div><div class="progressOut"><div id="progressIn"></div></div></div>
              </div>
              <!-- Uncoment the following line to see logging messages -->
@@ -88,7 +88,7 @@
              var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
              function removeAllChildren(_node) {
-                 log.trace("Enter removeAllChildren()", {"_node":_node});
+                 log.trace("Enter removeAllChildren()", {"_node": _node});
                  if (undefined != _node) {
                      while (_node.hasChildNodes()) {
                          _node.removeChild(_node.firstChild);
@@ -100,7 +100,7 @@
              }
 
              function setProgress(_progress) {
-                 log.trace("Enter setProgress()", {"_progress":_progress});
+                 log.trace("Enter setProgress()", {"_progress": _progress});
                  var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
                  var width = percent + "%";
                  var bar = _gel("progressIn");
@@ -111,7 +111,7 @@
              }
 
              function setImage(_img, _startData) {
-                 log.trace("Enter setImage()", {"_img":_img, "_startData":_startData});
+                 log.trace("Enter setImage()", {"_img": _img, "_startData": _startData});
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCityName = prefs.getString("cityName");
@@ -125,9 +125,9 @@
                      sHeight = true == bScaleHeight ? "340" : sHeight;
                      sWidth = true == bScaleWidth ? "100%" : sWidth;
                  }
-                 var titleAlt = prefs.getMsg("forecast_for")
-                     + ' '
-                     + sCityName;
+                 var titleAlt = [prefs.getMsg("forecast_for"),
+                     ' ',
+                     ,sCityName].join('');
                  _img.setAttribute("border", 0);
                  _img.setAttribute("height", sHeight);
                  _img.setAttribute("width", sWidth);
@@ -159,7 +159,7 @@
              }
 
              function getLinkUrl(_startData) {
-                 log.trace("Enter getLinkUrl()", {"_startData":_startData});
+                 log.trace("Enter getLinkUrl()", {"_startData": _startData});
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCol = prefs.getInt("x"); //TODO
                  var sRow = prefs.getInt("y"); //TODO
