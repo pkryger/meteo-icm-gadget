@@ -115,11 +115,13 @@
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCityName = prefs.getString("cityName");
+                 var view = "home";
                  try {
-                     var view = gadgets.views.getCurrentView().getName();
-                     log.info("view name: " + view.getName());
+                     view = gadgets.views.getCurrentView().getName();
+                     log.info("view name: " + view);
                  } catch (error) {
                      log.warning("Cannot get view name");
+                     log.info("view name: " + view);
                  }
                  // scale height and width only for HOME view
                  var sHeight = "660";
