@@ -115,12 +115,7 @@
                  setProgress(TOTAL_PROGRESS);
                  var prefs = new _IG_Prefs(__MODULE_ID__);
                  var sCityName = prefs.getString("cityName");
-                 var view = "HOME";
-                 try {
-                     view = gadgets.views.getCurrentView().getName();
-                 } catch (error) {
-                     log.warning("Cannot get view name");
-                 }
+                 var view = gadgets.views.getCurrentView().getName();
                  // scale height and width only for HOME view
                  var sHeight = "660";
                  var sWidth = "660";
@@ -144,7 +139,7 @@
                  link.setAttribute("href", sLinkUrl);
                  link.appendChild(_img);
                  var legend = undefined;
-                 if (view == "canvas") {
+                 if (view == "CANVAS") {
                      var sPlotLanguage = prefs.getString("plotLanguage");
                      var sLegendUrl = BASE_URL
                          + "/metco/legenda_"
