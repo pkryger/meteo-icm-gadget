@@ -239,14 +239,15 @@ function fetchImageManually() {
 function fetchImageFromResponse(_response) {
     log.trace("Enter fetchImageFromResponse()");
     // Mark we already parsed the response, so no other will set up the image
+    var response = _response.text;
     responeParsed__MODULE_ID__ = true;
     clearTimeout(checkTimeout__MODULE_ID__);
     // Set progress bar
     setProgress(RESPONSE_PARSED_PROGRESS);
-    var sStartTime = _response.substr(_response.indexOf('var SST="') + 9, 2);
-    var sDay = _response.substr(_response.indexOf('var SDD="') + 9, 2);
-    var sMonth = _response.substr(_response.indexOf('var SMM="') + 9, 2);
-    var sYear = _response.substr(_response.indexOf('var SYYYY="') + 11, 4);
+    var sStartTime = response.substr(response.indexOf('var SSTxyz="') + 9, 2);
+    var sDay = response.substr(response.indexOf('var SDD="') + 9, 2);
+    var sMonth = response.substr(response.indexOf('var SMM="') + 9, 2);
+    var sYear = response.substr(response.indexOf('var SYYYY="') + 11, 4);
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getString("x"); //TODO
     var sRow = prefs.getString("y"); //TODO
@@ -324,7 +325,7 @@ function main() {
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
     var params = {};
-    params["CONTENT_TYPE"] = gadgets.io.ContentType.TEXT;
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
     gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", fetchImageFromResponse, params);
     log.trace("Exit main()");
