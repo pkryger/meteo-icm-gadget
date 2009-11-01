@@ -244,10 +244,10 @@ function fetchImageFromResponse(_response) {
     clearTimeout(checkTimeout__MODULE_ID__);
     // Set progress bar
     setProgress(RESPONSE_PARSED_PROGRESS);
-    var sStartTime = response.substr(response.indexOf('var SSTxyz="') + 9, 2);
-    var sDay = response.substr(response.indexOf('var SDD="') + 9, 2);
-    var sMonth = response.substr(response.indexOf('var SMM="') + 9, 2);
-    var sYear = response.substr(response.indexOf('var SYYYY="') + 11, 4);
+    var sStartTime = response.substr(response.indexOf('var SSTdupa="') + 9, 2);
+    var sDay = response.substr(response.indexOf('var SDDdupa="') + 9, 2);
+    var sMonth = response.substr(response.indexOf('var SMMdupa="') + 9, 2);
+    var sYear = response.substr(response.indexOf('var SYYYYdupa="') + 11, 4);
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getString("x"); //TODO
     var sRow = prefs.getString("y"); //TODO
