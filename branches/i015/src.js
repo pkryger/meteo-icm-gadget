@@ -162,7 +162,7 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    if (_imageUra != undefined && _startData != _undefined) {
+    if (_imageUrl != undefined && "" != _imageUrl && _startData != _undefined && "" != _startData) {
         var prefs = new gadgets.Prefs(__MODULE_ID__);
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
@@ -257,6 +257,7 @@ function parseResponse(_response) {
         clearTimeout(checkTimeout__MODULE_ID__);
         // Set progress bar
         setProgress(RESPONSE_PARSED_PROGRESS);
+
         var sStartTime = response.substr(iStartTime + 9, 2);
         var sDay = response.substr(iDay + 9, 2);
         var sMonth = response.substr(iMonth + 9, 2);
@@ -272,9 +273,9 @@ function parseResponse(_response) {
             '&row=', sRow,
             '&col=', sCol,
             '&lang=', sPlotLanguage].join('');
+        // Fetch the image
+        fetchImage(sImageUrl, sStartData, fetchImageManually);
     }
-    // Fetch the image
-    fetchImage(sImageUrl, sStartData, fetchImageManually);
     log.trace("Exit parseResponse()");
 }
 
