@@ -89,7 +89,7 @@ function setImage(_img, _startData) {
             sPlotLanguage,
             '_2.png'].join('');
         var params = {};
-        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
         legend.src = gadgets.io.getProxyUrl(sLegendUrl, params);
     }
@@ -164,7 +164,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var params = {};
-    params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+    //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
     var img = document.createElement("img");
     img.src = gadgets.io.getProxyUrl(_imageUrl, params);
     // TODO image checking is needed for more realiability: if (true == img.complete) {
@@ -323,8 +323,11 @@ function main() {
     log.trace("Enter main()");
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-    _IG_FetchContent(BASE_URL + "/info_coamps.php", fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
+    var params = {};
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
+    gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", fetchImageFromResponse, params);
     log.trace("Exit main()");
 }
-_IG_RegisterOnloadHandler(main);
+gadgets.util.registerOnLoadHandler(main);
 </script>
