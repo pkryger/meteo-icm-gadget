@@ -245,8 +245,6 @@ function fetchImageManually() {
 function parseResponse(_response) {
     log.trace("Enter parseResponse()");
     var response = _response.text;
-    var sStartData = udefined;
-    var sImageUrl = undefined;
     var iStartTime = response.indexOf('var SST="');
     var iDay = response.indexOf('var SDD="');
     var iMonth = response.indexOf('var SMM="');
@@ -266,8 +264,8 @@ function parseResponse(_response) {
         var sCol = prefs.getString("x"); //TODO
         var sRow = prefs.getString("y"); //TODO
         var sPlotLanguage = prefs.getString("plotLanguage");
-        sStartData = sYear + sMonth + sDay + sStartTime;
-        sImageUrl = [BASE_URL,
+        var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
+        var sImageUrl = [BASE_URL,
             '/metco/mgram_pict.php?ntype=2n&fdate=',
             sStartData,
             '&row=', sRow,
