@@ -8,6 +8,7 @@ else
     grep -v '<!\-\-.*\-\->' src.js | \
         grep -v 'script.*logging.js' | \
         grep -v 'Logger\.getLogger' | \
+        grep -v 'logging_div' | \
         grep -v '\blog\.' | \
         ./jsmin.exe >> $OUT
 fi
