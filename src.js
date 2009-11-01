@@ -11,7 +11,7 @@
 
 <script type="text/javascript" src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
 <script type="text/javascript">
-    use strict;
+
 // The logging stuff
 var log = Logger.getLogger("meteo-icm-main");
 // Uncoment the following line to see logging messages
