@@ -165,7 +165,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var params = [];
     params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
-    img = document.createElement("img");
+    var img = document.createElement("img");
     img.src = gadgets.io.getProxyUrl(_imageUrl, params);
     // TODO image checking is needed for more realiability: if (true == img.complete) {
     if (true) {
