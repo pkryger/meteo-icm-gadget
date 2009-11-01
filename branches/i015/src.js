@@ -190,7 +190,8 @@ function fetchLastSavedImage() {
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
-    if (undefined != imageUrl && imageUrl != "") {
+    if (undefined != imageUrl && imageUrl != ""
+       && undefined != startData && startData != "") {
         // Fallback to error message
         fetchImage(imageUrl, startData, setErrorPage);
     } else {
