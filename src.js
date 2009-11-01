@@ -7,14 +7,14 @@
     <div><div class="progressOut"><div id="progressIn"></div></div></div>
 </div>
 <!-- Uncoment the following line to see logging messages -->
-<!-- <div id="logging_div" style="font-size:8pt; padding:5px;"></div> -->
+<div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
 <script type="text/javascript" src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
 <script type="text/javascript">
 // The logging stuff
 var log = Logger.getLogger("meteo-icm-main");
 // Uncoment the following line to see logging messages
-//Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("logging_div")), Logger.LEVEL_ALL);
+Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("logging_div")), Logger.LEVEL_ALL);
 // Uncomment the following line to perform the logging module tests
 //_testLogger(document.getElementById("logging_div"));
 
