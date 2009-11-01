@@ -218,20 +218,25 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var params = {};
-    //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
-    var img = document.createElement("img");
-    img.src = gadgets.io.getProxyUrl(_imageUrl, params);
-    // TODO image checking is needed for more realiability: if (true == img.complete) {
-    if (true) {
-       prefs.set("lastImageUrl", _imageUrl);
-       prefs.set("lastStartData", _startData);
-       setImage(img, _startData);
+    if (_imageUra != undefined && _startData != _undefined) {
+        var prefs = new gadgets.Prefs(__MODULE_ID__);
+        var params = {};
+        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        var img = document.createElement("img");
+        img.src = gadgets.io.getProxyUrl(_imageUrl, params);
+        //@todo image checking is needed for more realiability: if (true == img.complete) {
+        if (true) {
+            prefs.set("lastImageUrl", _imageUrl);
+            prefs.set("lastStartData", _startData);
+            setImage(img, _startData);
+        } else {
+            log.trace("Cannot load the image: " + _imageUrl);
+            _failureCallback();
+        }
     } else {
-       log.trace("Cannot load the image: " + _imageUrl);
-       _failureCallback();
-    }
+        log.trace("No data to download image!");
+        _failureCallback();
+    }    
     log.trace("Exit fetchImage()");
 }
 
@@ -292,33 +297,40 @@ function fetchImageManually() {
     log.trace("Exit fetchImageManually()");
 }
 
-function fetchImageFromResponse(_response) {
-    log.trace("Enter fetchImageFromResponse()");
-    // Mark we already parsed the response, so no other will set up the image
+function parseResponse(_response) {
+    log.trace("Enter parseResponse()");
     var response = _response.text;
-    responeParsed__MODULE_ID__ = true;
-    clearTimeout(checkTimeout__MODULE_ID__);
-    // Set progress bar
-    setProgress(RESPONSE_PARSED_PROGRESS);
-    var iStartTime = response.indexOf('var SSTdupa="');
-    var sStartTime = response.substr(response.indexOf('var SST="') + 9, 2);
-    var sDay = response.substr(response.indexOf('var SDD="') + 9, 2);
-    var sMonth = response.substr(response.indexOf('var SMM="') + 9, 2);
-    var sYear = response.substr(response.indexOf('var SYYYY="') + 11, 4);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var sCol = prefs.getString("x"); //TODO
-    var sRow = prefs.getString("y"); //TODO
-    var sPlotLanguage = prefs.getString("plotLanguage");
-    var sStartData = sYear + sMonth + sDay + sStartTime;
-    var sImageUrl = [BASE_URL,
-        '/metco/mgram_pict.php?ntype=2n&fdate=',
-        sStartData,
-        '&row=', sRow,
-        '&col=', sCol,
-        '&lang=', sPlotLanguage].join('');
-    // Fallback to the manual approach
+    var sStartData = udefined;
+    var sImageUrl = undefined;
+    var iStartTime = response.indexOf('var SST="');
+    var iDay = response.indexOf('var SDD="');
+    var iMonth = response.indexOf('var SMM="');
+    var iYear = response.indexOf('var SYYYY="');
+    if (iStartTime != -1 && iDay != -1 && iMonth != -1 && iYear != -1 && !responseParsed__MODULE_ID__) {
+        // Mark we already parsed the response, so no other will set up the image
+        responseParsed__MODULE_ID__ = true;
+        clearTimeout(checkTimeout__MODULE_ID__);
+        // Set progress bar
+        setProgress(RESPONSE_PARSED_PROGRESS);
+        var sStartTime = response.substr(iStartTime + 9, 2);
+        var sDay = response.substr(iDay + 9, 2);
+        var sMonth = response.substr(iMonth + 9, 2);
+        var sYear = response.substr(iYear + 11, 4);
+        var prefs = new gadgets.Prefs(__MODULE_ID__);
+        var sCol = prefs.getString("x"); //TODO
+        var sRow = prefs.getString("y"); //TODO
+        var sPlotLanguage = prefs.getString("plotLanguage");
+        sStartData = sYear + sMonth + sDay + sStartTime;
+        sImageUrl = [BASE_URL,
+            '/metco/mgram_pict.php?ntype=2n&fdate=',
+            sStartData,
+            '&row=', sRow,
+            '&col=', sCol,
+            '&lang=', sPlotLanguage].join('');
+    }
+    // Fetch the image
     fetchImage(sImageUrl, sStartData, fetchImageManually);
-    log.trace("Exit fetchImageFromResponse()");
+    log.trace("Exit parseResponse()");
 }
 
 function checkIfResponseParsed() {
@@ -335,9 +347,11 @@ function checkIfResponseParsed() {
                     }
                 } else {
                     if (false == responseParsed__MODULE_ID__) {
-                        //TODO since error checking doesn't work
+                        responseParsed__MODULE_ID__ = true;
+                        //@todo since error checking doesn't work
                         // fallback to last successfully loaded image
                         // rather than: fetchImageManually();
+                        // should be fixed when fetchImage knows whether it donwloaded the image
                         fetchLastSavedImage();
                     }
                 }
@@ -384,7 +398,7 @@ function main() {
     var params = {};
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
-    gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", fetchImageFromResponse, params);
+    gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", parseResponse, params);
     log.trace("Exit main()");
 }
 gadgets.util.registerOnLoadHandler(main);
