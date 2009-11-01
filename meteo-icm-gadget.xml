@@ -219,8 +219,8 @@ function createRefreshButton() {
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var params = [];
-    params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+    //var params = [];
+    //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
     log.info("imageURL: " + _imageUrl);
     var img = document.createElement("img");
     img.src = gadgets.io.getProxyUrl(_imageUrl);
