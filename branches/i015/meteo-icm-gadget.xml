@@ -67,6 +67,7 @@
 
 <script type="text/javascript" src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
 <script type="text/javascript">
+    use strict;
 // The logging stuff
 var log = Logger.getLogger("meteo-icm-main");
 // Uncoment the following line to see logging messages
@@ -218,7 +219,7 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    if (_imageUrl != undefined && _imageUrl != "" && _startData != _undefined && _startData != "") {
+    if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
         var prefs = new gadgets.Prefs(__MODULE_ID__);
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
