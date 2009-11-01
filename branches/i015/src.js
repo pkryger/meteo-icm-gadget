@@ -18,7 +18,7 @@ Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("loggin
 // Uncomment the following line to perform the logging module tests
 //_testLogger(document.getElementById("logging_div"));
 
-var IMAGE_CACHE_TIME = 60 * 60 * 24;
+var IMAGE_CACHE_TIME = "" + (60 * 60 * 24);
 var PAGE_CACHE_TIME = 20 * 2;
 var BASE_URL = 'http://new.meteo.pl';
 
