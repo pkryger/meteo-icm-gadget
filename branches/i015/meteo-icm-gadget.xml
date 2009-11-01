@@ -218,7 +218,7 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    if (_imageUrl != undefined && "" != _imageUrl && _startData != _undefined && "" != _startData) {
+    if (_imageUrl != undefined && _imageUrl != "" && _startData != _undefined && _startData != "") {
         var prefs = new gadgets.Prefs(__MODULE_ID__);
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
