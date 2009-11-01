@@ -164,7 +164,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     var prefs = new gadgets.Prefs(__MODULE_ID__);
     var params = [];
-    params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+    //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
     var img = document.createElement("img");
     img.src = gadgets.io.getProxyUrl(_imageUrl);
     // TODO image checking is needed for more realiability: if (true == img.complete) {
