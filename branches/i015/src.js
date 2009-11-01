@@ -14,9 +14,9 @@
 // The logging stuff
 var log = Logger.getLogger("meteo-icm-main");
 // Uncoment the following line to see logging messages
-//Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+//Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("logging_div")), Logger.LEVEL_ALL);
 // Uncomment the following line to perform the logging module tests
-//_testLogger(_gel("logging_div"));
+//_testLogger(document.getElementById("logging_div"));
 
 var IMAGE_CACHE_TIME = 60 * 60 * 24;
 var PAGE_CACHE_TIME = 20 * 2;
@@ -46,7 +46,7 @@ function setProgress(_progress) {
     log.trace("Enter setProgress()", {"_progress": _progress});
     var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
     var width = percent + "%";
-    var bar = _gel("progressIn");
+    var bar = document.getElementById("progressIn");
     if (undefined != bar) {
         bar.style.width = width;
     }
@@ -56,7 +56,7 @@ function setProgress(_progress) {
 function setImage(_img, _startData) {
     log.trace("Enter setImage()", {"_img": _img, "_startData": _startData});
     setProgress(TOTAL_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCityName = prefs.getString("cityName");
     var view = gadgets.views.getCurrentView().getName();
     // scale height and width only for HOME view
@@ -88,9 +88,12 @@ function setImage(_img, _startData) {
             '/metco/legenda_',
             sPlotLanguage,
             '_2.png'].join('');
-        legend = _IG_GetImage(sLegendUrl, {refreshInterval:IMAGE_CACHE_TIME});
+        var params = [];
+        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        legend = document.createElement("img");
+        legend.src = gadgets.io.getProxyUrl(sLegendUrl, params);
     }
-    var div = _gel("meteogram_div");
+    var div = document.getElementById("meteogram_div");
     removeAllChildren(div);
     if (undefined != legend) {
         div.appendChild(legend);
@@ -103,7 +106,7 @@ function setImage(_img, _startData) {
 
 function getLinkUrl(_startData) {
     log.trace("Enter getLinkUrl()", {"_startData": _startData});
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getInt("x"); //TODO
     var sRow = prefs.getInt("y"); //TODO
     var sPlotLanguage = prefs.getString("plotLanguage");
@@ -124,7 +127,7 @@ function setErrorPage() {
     setProgress(TOTAL_PROGRESS);
     var errorMessage = createErrorMessage(); 
     var refreshButton = createRefreshButton();
-    var div = _gel("meteogram_div");
+    var div = document.getElementById("meteogram_div");
     removeAllChildren(div);
     div.appendChild(errorMessage);
     div.appendChild(document.createElement("br"));
@@ -136,7 +139,7 @@ function createErrorMessage() {
     log.trace("Enter createErrorMessage()");
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     message.innerHTML = prefs.getMsg("error_cannot_load");
     log.trace("Exit createErrorMessage(): " + message);
     return message;
@@ -147,7 +150,7 @@ function createRefreshButton() {
     var buttonSpan = document.createElement("span");
     buttonSpan.setAttribute("style", "font-size: 9pt;margin:2px");
     var button = document.createElement("button");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     button.innerHTML = prefs.getMsg("refresh_button_text");
     var tooltip = prefs.getMsg("refresh_button_tooltip");
     button.setAttribute("title", tooltip);
@@ -159,8 +162,11 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    var prefs = new _IG_Prefs(__MODULE_ID__);
-    var img = _IG_GetImage(_imageUrl, {refreshInterval:IMAGE_CACHE_TIME});
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
+    var params = [];
+    params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+    img = document.createElement("img");
+    img.src = gadgets.io.getProxyUrl(_imageUrl, params);
     // TODO image checking is needed for more realiability: if (true == img.complete) {
     if (true) {
        prefs.set("lastImageUrl", _imageUrl);
@@ -176,7 +182,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
     setProgress(LAST_SAVED_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
     if (undefined != imageUrl && imageUrl != "") {
@@ -192,7 +198,7 @@ function fetchLastSavedImage() {
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
     setProgress(MANUAL_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
     var sYear = now.getUTCFullYear();
@@ -241,7 +247,7 @@ function fetchImageFromResponse(_response) {
     var sDay = _response.substr(_response.indexOf('var SDD="') + 9, 2);
     var sMonth = _response.substr(_response.indexOf('var SMM="') + 9, 2);
     var sYear = _response.substr(_response.indexOf('var SYYYY="') + 11, 4);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getString("x"); //TODO
     var sRow = prefs.getString("y"); //TODO
     var sPlotLanguage = prefs.getString("plotLanguage");
@@ -292,8 +298,8 @@ function reload() {
 
 function setInitPage() {
     log.trace("Enter setInitPage()");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
-    var mainDiv = _gel("meteogram_div");
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
+    var mainDiv = document.getElementById("meteogram_div");
     removeAllChildren(mainDiv);
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
