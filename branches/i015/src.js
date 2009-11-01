@@ -324,7 +324,7 @@ function main() {
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
     var params = {};
-    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    params["CONTENT_TYPE"] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
     gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", fetchImageFromResponse, params);
     log.trace("Exit main()");
