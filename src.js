@@ -7,16 +7,17 @@
     <div><div class="progressOut"><div id="progressIn"></div></div></div>
 </div>
 <!-- Uncoment the following line to see logging messages -->
-<!-- <div id="logging_div" style="font-size:8pt; padding:5px;"></div> -->
+<div id="logging_div" style="font-size:8pt; padding:5px;"></div>
 
 <script type="text/javascript" src="http://meteo-icm-gadget.googlecode.com/svn/trunk/logging.js"></script>
 <script type="text/javascript">
+
 // The logging stuff
 var log = Logger.getLogger("meteo-icm-main");
 // Uncoment the following line to see logging messages
-//Logger.addLoggerOutput(new ColorHTMLLoggerOutput(_gel("logging_div")), Logger.LEVEL_ALL);
+Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("logging_div")), Logger.LEVEL_ALL);
 // Uncomment the following line to perform the logging module tests
-//_testLogger(_gel("logging_div"));
+//_testLogger(document.getElementById("logging_div"));
 
 var IMAGE_CACHE_TIME = 60 * 60 * 24;
 var PAGE_CACHE_TIME = 20 * 2;
@@ -46,7 +47,7 @@ function setProgress(_progress) {
     log.trace("Enter setProgress()", {"_progress": _progress});
     var percent = _progress * (1 / TOTAL_PROGRESS) * 100;
     var width = percent + "%";
-    var bar = _gel("progressIn");
+    var bar = document.getElementById("progressIn");
     if (undefined != bar) {
         bar.style.width = width;
     }
@@ -56,7 +57,7 @@ function setProgress(_progress) {
 function setImage(_img, _startData) {
     log.trace("Enter setImage()", {"_img": _img, "_startData": _startData});
     setProgress(TOTAL_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCityName = prefs.getString("cityName");
     var view = gadgets.views.getCurrentView().getName();
     // scale height and width only for HOME view
@@ -88,9 +89,12 @@ function setImage(_img, _startData) {
             '/metco/legenda_',
             sPlotLanguage,
             '_2.png'].join('');
-        legend = _IG_GetImage(sLegendUrl, {refreshInterval:IMAGE_CACHE_TIME});
+        var params = {};
+        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        legend = document.createElement("img");
+        legend.src = gadgets.io.getProxyUrl(sLegendUrl, params);
     }
-    var div = _gel("meteogram_div");
+    var div = document.getElementById("meteogram_div");
     removeAllChildren(div);
     if (undefined != legend) {
         div.appendChild(legend);
@@ -103,7 +107,7 @@ function setImage(_img, _startData) {
 
 function getLinkUrl(_startData) {
     log.trace("Enter getLinkUrl()", {"_startData": _startData});
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getInt("x"); //TODO
     var sRow = prefs.getInt("y"); //TODO
     var sPlotLanguage = prefs.getString("plotLanguage");
@@ -124,7 +128,7 @@ function setErrorPage() {
     setProgress(TOTAL_PROGRESS);
     var errorMessage = createErrorMessage(); 
     var refreshButton = createRefreshButton();
-    var div = _gel("meteogram_div");
+    var div = document.getElementById("meteogram_div");
     removeAllChildren(div);
     div.appendChild(errorMessage);
     div.appendChild(document.createElement("br"));
@@ -136,7 +140,7 @@ function createErrorMessage() {
     log.trace("Enter createErrorMessage()");
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     message.innerHTML = prefs.getMsg("error_cannot_load");
     log.trace("Exit createErrorMessage(): " + message);
     return message;
@@ -147,7 +151,7 @@ function createRefreshButton() {
     var buttonSpan = document.createElement("span");
     buttonSpan.setAttribute("style", "font-size: 9pt;margin:2px");
     var button = document.createElement("button");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     button.innerHTML = prefs.getMsg("refresh_button_text");
     var tooltip = prefs.getMsg("refresh_button_tooltip");
     button.setAttribute("title", tooltip);
@@ -159,27 +163,36 @@ function createRefreshButton() {
 
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
-    var prefs = new _IG_Prefs(__MODULE_ID__);
-    var img = _IG_GetImage(_imageUrl, {refreshInterval:IMAGE_CACHE_TIME});
-    // TODO image checking is needed for more realiability: if (true == img.complete) {
-    if (true) {
-       prefs.set("lastImageUrl", _imageUrl);
-       prefs.set("lastStartData", _startData);
-       setImage(img, _startData);
+    if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
+        var prefs = new gadgets.Prefs(__MODULE_ID__);
+        var params = {};
+        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        var img = document.createElement("img");
+        img.src = gadgets.io.getProxyUrl(_imageUrl, params);
+        //@todo image checking is needed for more realiability: if (true == img.complete) {
+        if (true) {
+            prefs.set("lastImageUrl", _imageUrl);
+            prefs.set("lastStartData", _startData);
+            setImage(img, _startData);
+        } else {
+            log.trace("Cannot load the image: " + _imageUrl);
+            _failureCallback();
+        }
     } else {
-       log.trace("Cannot load the image: " + _imageUrl);
-       _failureCallback();
-    }
+        log.trace("No data to download image!");
+        _failureCallback();
+    }    
     log.trace("Exit fetchImage()");
 }
 
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
     setProgress(LAST_SAVED_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
-    if (undefined != imageUrl && imageUrl != "") {
+    if (undefined != imageUrl && imageUrl != ""
+       && undefined != startData && startData != "") {
         // Fallback to error message
         fetchImage(imageUrl, startData, setErrorPage);
     } else {
@@ -192,7 +205,7 @@ function fetchLastSavedImage() {
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
     setProgress(MANUAL_PROGRESS);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
     var sYear = now.getUTCFullYear();
@@ -230,31 +243,39 @@ function fetchImageManually() {
     log.trace("Exit fetchImageManually()");
 }
 
-function fetchImageFromResponse(_response) {
-    log.trace("Enter fetchImageFromResponse()");
-    // Mark we already parsed the response, so no other will set up the image
-    responeParsed__MODULE_ID__ = true;
-    clearTimeout(checkTimeout__MODULE_ID__);
-    // Set progress bar
-    setProgress(RESPONSE_PARSED_PROGRESS);
-    var sStartTime = _response.substr(_response.indexOf('var SST="') + 9, 2);
-    var sDay = _response.substr(_response.indexOf('var SDD="') + 9, 2);
-    var sMonth = _response.substr(_response.indexOf('var SMM="') + 9, 2);
-    var sYear = _response.substr(_response.indexOf('var SYYYY="') + 11, 4);
-    var prefs = new _IG_Prefs(__MODULE_ID__);
-    var sCol = prefs.getString("x"); //TODO
-    var sRow = prefs.getString("y"); //TODO
-    var sPlotLanguage = prefs.getString("plotLanguage");
-    var sStartData = sYear + sMonth + sDay + sStartTime;
-    var sImageUrl = [BASE_URL,
-        '/metco/mgram_pict.php?ntype=2n&fdate=',
-        sStartData,
-        '&row=', sRow,
-        '&col=', sCol,
-        '&lang=', sPlotLanguage].join('');
-    // Fallback to the manual approach
-    fetchImage(sImageUrl, sStartData, fetchImageManually);
-    log.trace("Exit fetchImageFromResponse()");
+function parseResponse(_response) {
+    log.trace("Enter parseResponse()");
+    var response = _response.text;
+    var iStartTime = response.indexOf('var SST="');
+    var iDay = response.indexOf('var SDD="');
+    var iMonth = response.indexOf('var SMM="');
+    var iYear = response.indexOf('var SYYYY="');
+    if (iStartTime != -1 && iDay != -1 && iMonth != -1 && iYear != -1 && !responseParsed__MODULE_ID__) {
+        // Mark we already parsed the response, so no other will set up the image
+        responseParsed__MODULE_ID__ = true;
+        clearTimeout(checkTimeout__MODULE_ID__);
+        // Set progress bar
+        setProgress(RESPONSE_PARSED_PROGRESS);
+
+        var sStartTime = response.substr(iStartTime + 9, 2);
+        var sDay = response.substr(iDay + 9, 2);
+        var sMonth = response.substr(iMonth + 9, 2);
+        var sYear = response.substr(iYear + 11, 4);
+        var prefs = new gadgets.Prefs(__MODULE_ID__);
+        var sCol = prefs.getString("x"); //TODO
+        var sRow = prefs.getString("y"); //TODO
+        var sPlotLanguage = prefs.getString("plotLanguage");
+        var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
+        var sImageUrl = [BASE_URL,
+            '/metco/mgram_pict.php?ntype=2n&fdate=',
+            sStartData,
+            '&row=', sRow,
+            '&col=', sCol,
+            '&lang=', sPlotLanguage].join('');
+        // Fetch the image
+        fetchImage(sImageUrl, sStartData, fetchImageManually);
+    }
+    log.trace("Exit parseResponse()");
 }
 
 function checkIfResponseParsed() {
@@ -271,9 +292,11 @@ function checkIfResponseParsed() {
                     }
                 } else {
                     if (false == responseParsed__MODULE_ID__) {
-                        //TODO since error checking doesn't work
+                        responseParsed__MODULE_ID__ = true;
+                        //@todo since error checking doesn't work
                         // fallback to last successfully loaded image
                         // rather than: fetchImageManually();
+                        // should be fixed when fetchImage knows whether it donwloaded the image
                         fetchLastSavedImage();
                     }
                 }
@@ -292,8 +315,8 @@ function reload() {
 
 function setInitPage() {
     log.trace("Enter setInitPage()");
-    var prefs = new _IG_Prefs(__MODULE_ID__);
-    var mainDiv = _gel("meteogram_div");
+    var prefs = new gadgets.Prefs(__MODULE_ID__);
+    var mainDiv = document.getElementById("meteogram_div");
     removeAllChildren(mainDiv);
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
@@ -317,8 +340,11 @@ function main() {
     log.trace("Enter main()");
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-    _IG_FetchContent(BASE_URL + "/info_coamps.php", fetchImageFromResponse, { refreshInterval: PAGE_CACHE_TIME });
+    var params = {};
+    params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
+    //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
+    gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", parseResponse, params);
     log.trace("Exit main()");
 }
-_IG_RegisterOnloadHandler(main);
+gadgets.util.registerOnLoadHandler(main);
 </script>
