@@ -274,6 +274,15 @@ function parseResponse(_response) {
             '&lang=', sPlotLanguage].join('');
         // Fetch the image
         fetchImage(sImageUrl, sStartData, fetchImageManually);
+    } else if (!responseParsed__MODULE_ID__) {
+        // Mark we already parsed the response, so no other will set up the image
+        responseParsed__MODULE_ID__ = true;
+        clearTimeout(checkTimeout__MODULE_ID__);
+        // Set progress bar
+        setProgress(RESPONSE_PARSED_PROGRESS);
+
+        log.warning("Cannot parse response");
+        fetchImageManually();
     }
     log.trace("Exit parseResponse()");
 }
