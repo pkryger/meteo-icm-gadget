@@ -74,7 +74,7 @@ Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("loggin
 // Uncomment the following line to perform the logging module tests
 //_testLogger(document.getElementById("logging_div"));
 
-var IMAGE_CACHE_TIME = "" + (60 * 60 * 24);
+var IMAGE_CACHE_TIME = 60 * 60 * 24;
 var PAGE_CACHE_TIME = 20 * 2;
 var BASE_URL = 'http://new.meteo.pl';
 
@@ -144,7 +144,7 @@ function setImage(_img, _startData) {
             '/metco/legenda_',
             sPlotLanguage,
             '_2.png'].join('');
-        var params = [];
+        var params = {};
         params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
         legend.src = gadgets.io.getProxyUrl(sLegendUrl, params);
@@ -219,10 +219,10 @@ function createRefreshButton() {
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var params = [];
+    var params = {};
     params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
     var img = document.createElement("img");
-    img.src = gadgets.io.getProxyUrl(_imageUrl);
+    img.src = gadgets.io.getProxyUrl(_imageUrl, params);
     // TODO image checking is needed for more realiability: if (true == img.complete) {
     if (true) {
        prefs.set("lastImageUrl", _imageUrl);
