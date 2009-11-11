@@ -42,7 +42,9 @@ var COAMPS = {
     'parse_year' : 'var SYYYY="',
     'legend_url' : [BASE_URL, '/metco/legenda_', prefs.getString("plotLanguage"), '_2.png'].join(''),
     'image_infix' : '/metco/mgram_pict.php?ntype=2n&fdate=',
-    'link_url_infix' : '/php/meteorogram_list_coamps.php?ntype=2n&fdate='
+    'link_url_infix' : '/php/meteorogram_list_coamps.php?ntype=2n&fdate=',
+    'image_width' : '660',
+    'image_height' : '660'    
 };
 var UM = {
     "request_page" : "/meteorogram_um_js.php",
@@ -50,9 +52,12 @@ var UM = {
     'parse_day' : 'var UM_SDD="',
     'parse_month' : 'var UM_SMM="',
     'parse_year' : 'var UM_SYYYY="',
-    'legend_url' : [BASE_URL, '/um/leg_um_', prefs.getString("plotLanguage"), '.png'].join(''),
+    'legend_url' : [BASE_URL, '/um/metco/leg_um_', prefs.getString("plotLanguage"), '.png'].join(''),
     'image_infix' : '/um/metco/mgram_pict.php?ntype=0u&fdate=',
-    'link_url_infix' : '/um/php/meteorogram_list.php?ntype=0u&fdate='
+    'link_url_infix' : '/um/php/meteorogram_list.php?ntype=0u&fdate=',
+    'image_width' : '540',
+    'image_height' : '660'
+
 };
 
 function removeAllChildren(_node) {
@@ -83,8 +88,8 @@ function setImage(_img, _startData) {
     setProgress(TOTAL_PROGRESS);
     var view = gadgets.views.getCurrentView().getName();
     // scale height and width only for HOME view
-    var sHeight = "660";
-    var sWidth = "660";
+    var sHeight = model['image_height'];
+    var sWidth = model['image_width'];
     if (view == "HOME") {
         var bScaleHeight = prefs.getBool("scaleHeight");
         var bScaleWidth = prefs.getBool("scaleWidth");
