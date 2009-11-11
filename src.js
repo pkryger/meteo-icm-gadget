@@ -57,7 +57,6 @@ var UM = {
     'link_url_infix' : '/um/php/meteorogram_list.php?ntype=0u&fdate=',
     'image_width' : '540',
     'image_height' : '660'
-
 };
 
 function removeAllChildren(_node) {
@@ -364,7 +363,15 @@ function main() {
     log.trace("Enter main()");
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
-    model = UM; //@todo
+    var sModel = prefs.getString("modelName");
+    if (sModel == "COAMPS") {
+        model = COAMPS;
+    } else if (sModel == "UM") {
+        model = UM;
+    } else {
+        log.error("Don't know model name: " + sModel);
+        return;
+    }
     var params = {};
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
