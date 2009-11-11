@@ -40,7 +40,7 @@ var COAMPS = {
     'parse_day' : 'var SDD="',
     'parse_month' : 'var SMM="',
     'parse_year' : 'var SYYYY="',
-    'legend_url' : [BASE_URL, 'metco/legenda_', prefs.getString("plotLanguage"), '_2.png'].join(''),
+    'legend_url' : [BASE_URL, '/metco/legenda_', prefs.getString("plotLanguage"), '_2.png'].join(''),
     'image_infix' : '/metco/mgram_pict.php?ntype=2n&fdate=',
     'link_url_infix' : '/php/meteorogram_list_coamps.php?ntype=2n&fdate='
 };
@@ -50,7 +50,7 @@ var UM = {
     'parse_day' : 'var UM_SDD="',
     'parse_month' : 'var UM_SMM="',
     'parse_year' : 'var UM_SYYYY="',
-    'legend_url' : [BASE_URL, 'um/leg_um_', prefs.getString("plotLanguage"), '.png'].join(''),
+    'legend_url' : [BASE_URL, '/um/leg_um_', prefs.getString("plotLanguage"), '.png'].join(''),
     'image_infix' : '/um/metco/mgram_pict.php?ntype=0u&fdate=',
     'link_url_infix' : '/um/php/meteorogram_list.php?ntype=0u&fdate='
 };
