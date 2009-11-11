@@ -269,10 +269,10 @@ function parseResponse(_response) {
         // Set progress bar
         setProgress(RESPONSE_PARSED_PROGRESS);
 
-        var sStartTime = response.substr(iStartTime + model['parse_sst'].length(), 2);
-        var sDay = response.substr(iDay + model['parse_day'].length(), 2);
-        var sMonth = response.substr(iMonth + model['parse_month'].length(), 2);
-        var sYear = response.substr(iYear + model['parse_year'].length(), 4);
+        var sStartTime = response.substr(iStartTime + model['parse_sst'].length, 2);
+        var sDay = response.substr(iDay + model['parse_day'].length, 2);
+        var sMonth = response.substr(iMonth + model['parse_month'].length, 2);
+        var sYear = response.substr(iYear + model['parse_year'].length, 4);
         var sCol = prefs.getString("x"); //@todo
         var sRow = prefs.getString("y"); //@todo
         var sPlotLanguage = prefs.getString("plotLanguage");
