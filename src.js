@@ -146,6 +146,9 @@ function getLinkUrl(_startData) {
 
 function setErrorPage() {
     log.trace("Enter setErrorPage()");
+    // Mark we are no longer interested in timer method
+    responseParsed__MODULE_ID__ = true;
+    clearTimeout(checkTimeout__MODULE_ID__);
     setProgress(TOTAL_PROGRESS);
     var errorMessage = createErrorMessage(); 
     var refreshButton = createRefreshButton();
@@ -370,6 +373,7 @@ function main() {
         model = UM;
     } else {
         log.error("Don't know model name: " + sModel);
+        setErrorPage();
         return;
     }
     var params = {};
