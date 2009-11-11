@@ -31,6 +31,8 @@ var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
 var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
 var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
+var prefs = new gadgets.Prefs(__MODULE_ID__);
+
 function removeAllChildren(_node) {
     log.trace("Enter removeAllChildren()", {"_node": _node});
     if (undefined != _node) {
@@ -57,8 +59,6 @@ function setProgress(_progress) {
 function setImage(_img, _startData) {
     log.trace("Enter setImage()", {"_img": _img, "_startData": _startData});
     setProgress(TOTAL_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var sCityName = prefs.getString("cityName");
     var view = gadgets.views.getCurrentView().getName();
     // scale height and width only for HOME view
     var sHeight = "660";
@@ -107,7 +107,6 @@ function setImage(_img, _startData) {
 
 function getLinkUrl(_startData) {
     log.trace("Enter getLinkUrl()", {"_startData": _startData});
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sCol = prefs.getInt("x"); //TODO
     var sRow = prefs.getInt("y"); //TODO
     var sPlotLanguage = prefs.getString("plotLanguage");
@@ -140,7 +139,6 @@ function createErrorMessage() {
     log.trace("Enter createErrorMessage()");
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     message.innerHTML = prefs.getMsg("error_cannot_load");
     log.trace("Exit createErrorMessage(): " + message);
     return message;
@@ -151,7 +149,6 @@ function createRefreshButton() {
     var buttonSpan = document.createElement("span");
     buttonSpan.setAttribute("style", "font-size: 9pt;margin:2px");
     var button = document.createElement("button");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     button.innerHTML = prefs.getMsg("refresh_button_text");
     var tooltip = prefs.getMsg("refresh_button_tooltip");
     button.setAttribute("title", tooltip);
@@ -164,7 +161,6 @@ function createRefreshButton() {
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
-        var prefs = new gadgets.Prefs(__MODULE_ID__);
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         var img = document.createElement("img");
@@ -188,7 +184,6 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
     setProgress(LAST_SAVED_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
     if (undefined != imageUrl && imageUrl != ""
@@ -205,7 +200,6 @@ function fetchLastSavedImage() {
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
     setProgress(MANUAL_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
     var sYear = now.getUTCFullYear();
@@ -261,7 +255,6 @@ function parseResponse(_response) {
         var sDay = response.substr(iDay + 9, 2);
         var sMonth = response.substr(iMonth + 9, 2);
         var sYear = response.substr(iYear + 11, 4);
-        var prefs = new gadgets.Prefs(__MODULE_ID__);
         var sCol = prefs.getString("x"); //TODO
         var sRow = prefs.getString("y"); //TODO
         var sPlotLanguage = prefs.getString("plotLanguage");
@@ -324,7 +317,6 @@ function reload() {
 
 function setInitPage() {
     log.trace("Enter setInitPage()");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var mainDiv = document.getElementById("meteogram_div");
     removeAllChildren(mainDiv);
     var message = document.createElement("span");
