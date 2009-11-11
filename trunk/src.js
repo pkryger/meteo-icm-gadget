@@ -31,6 +31,34 @@ var MANUAL_PROGRESS = RESPONSE_PARSED_PROGRESS + 1;
 var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
 var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
+var prefs = new gadgets.Prefs(__MODULE_ID__);
+
+var model = undefined;
+var COAMPS = {
+    'request_page' : '/meteorogram_coamps_js.php',
+    'parse_sst' : 'var SST="',
+    'parse_day' : 'var SDD="',
+    'parse_month' : 'var SMM="',
+    'parse_year' : 'var SYYYY="',
+    'legend_url' : [BASE_URL, '/metco/legenda_', prefs.getString("plotLanguage"), '_2.png'].join(''),
+    'image_infix' : '/metco/mgram_pict.php?ntype=2n&fdate=',
+    'link_url_infix' : '/php/meteorogram_list_coamps.php?ntype=2n&fdate=',
+    'image_width' : '660',
+    'image_height' : '660'    
+};
+var UM = {
+    "request_page" : "/meteorogram_um_js.php",
+    'parse_sst' : 'var UM_SST="',
+    'parse_day' : 'var UM_SDD="',
+    'parse_month' : 'var UM_SMM="',
+    'parse_year' : 'var UM_SYYYY="',
+    'legend_url' : [BASE_URL, '/um/metco/leg_um_', prefs.getString("plotLanguage"), '.png'].join(''),
+    'image_infix' : '/um/metco/mgram_pict.php?ntype=0u&fdate=',
+    'link_url_infix' : '/um/php/meteorogram_list.php?ntype=0u&fdate=',
+    'image_width' : '540',
+    'image_height' : '660'
+};
+
 function removeAllChildren(_node) {
     log.trace("Enter removeAllChildren()", {"_node": _node});
     if (undefined != _node) {
@@ -57,12 +85,10 @@ function setProgress(_progress) {
 function setImage(_img, _startData) {
     log.trace("Enter setImage()", {"_img": _img, "_startData": _startData});
     setProgress(TOTAL_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var sCityName = prefs.getString("cityName");
     var view = gadgets.views.getCurrentView().getName();
     // scale height and width only for HOME view
-    var sHeight = "660";
-    var sWidth = "660";
+    var sHeight = model['image_height'];
+    var sWidth = model['image_width'];
     if (view == "HOME") {
         var bScaleHeight = prefs.getBool("scaleHeight");
         var bScaleWidth = prefs.getBool("scaleWidth");
@@ -71,7 +97,7 @@ function setImage(_img, _startData) {
     }
     var titleAlt = [prefs.getMsg("forecast_for"),
         ' ',
-        sCityName].join('');
+        prefs.getString("cityName")].join('');
     _img.setAttribute("border", 0);
     _img.setAttribute("height", sHeight);
     _img.setAttribute("width", sWidth);
@@ -85,14 +111,10 @@ function setImage(_img, _startData) {
     var legend = undefined;
     if (view == "canvas") {
         var sPlotLanguage = prefs.getString("plotLanguage");
-        var sLegendUrl = [BASE_URL,
-            '/metco/legenda_',
-            sPlotLanguage,
-            '_2.png'].join('');
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
-        legend.src = gadgets.io.getProxyUrl(sLegendUrl, params);
+        legend.src = gadgets.io.getProxyUrl(model['legend_url'], params);
     }
     var div = document.getElementById("meteogram_div");
     removeAllChildren(div);
@@ -107,13 +129,12 @@ function setImage(_img, _startData) {
 
 function getLinkUrl(_startData) {
     log.trace("Enter getLinkUrl()", {"_startData": _startData});
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
-    var sCol = prefs.getInt("x"); //TODO
-    var sRow = prefs.getInt("y"); //TODO
+    var sCol = prefs.getInt("x"); //@todo
+    var sRow = prefs.getInt("y"); //@todo
     var sPlotLanguage = prefs.getString("plotLanguage");
     var sCityName = escape(prefs.getString("cityName"));
     var sUrl = [BASE_URL,
-        '/php/meteorogram_list_coamps.php?ntype=2n&fdate=',
+        model['link_url_infix'],
         _startData,
         '&row=', sRow,
         '&col=', sCol,
@@ -125,6 +146,9 @@ function getLinkUrl(_startData) {
 
 function setErrorPage() {
     log.trace("Enter setErrorPage()");
+    // Mark we are no longer interested in timer method
+    responseParsed__MODULE_ID__ = true;
+    clearTimeout(checkTimeout__MODULE_ID__);
     setProgress(TOTAL_PROGRESS);
     var errorMessage = createErrorMessage(); 
     var refreshButton = createRefreshButton();
@@ -140,7 +164,6 @@ function createErrorMessage() {
     log.trace("Enter createErrorMessage()");
     var message = document.createElement("span");
     message.setAttribute("style", "font-size: 9pt");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     message.innerHTML = prefs.getMsg("error_cannot_load");
     log.trace("Exit createErrorMessage(): " + message);
     return message;
@@ -151,7 +174,6 @@ function createRefreshButton() {
     var buttonSpan = document.createElement("span");
     buttonSpan.setAttribute("style", "font-size: 9pt;margin:2px");
     var button = document.createElement("button");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     button.innerHTML = prefs.getMsg("refresh_button_text");
     var tooltip = prefs.getMsg("refresh_button_tooltip");
     button.setAttribute("title", tooltip);
@@ -164,7 +186,6 @@ function createRefreshButton() {
 function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
-        var prefs = new gadgets.Prefs(__MODULE_ID__);
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         var img = document.createElement("img");
@@ -188,7 +209,6 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
     setProgress(LAST_SAVED_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
     if (undefined != imageUrl && imageUrl != ""
@@ -205,7 +225,6 @@ function fetchLastSavedImage() {
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
     setProgress(MANUAL_PROGRESS);
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
     var sYear = now.getUTCFullYear();
@@ -233,7 +252,7 @@ function fetchImageManually() {
     var sRow = prefs.getInt("y"); //TODO
     var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
     var sImageUrl = [BASE_URL,
-        '/metco/mgram_pict.php?ntype=2n&fdate=',
+        model['image_infix'],
         sStartData,
         '&row=', sRow,
         '&col=', sCol,
@@ -246,10 +265,10 @@ function fetchImageManually() {
 function parseResponse(_response) {
     log.trace("Enter parseResponse()");
     var response = _response.text;
-    var iStartTime = response.indexOf('var SST="');
-    var iDay = response.indexOf('var SDD="');
-    var iMonth = response.indexOf('var SMM="');
-    var iYear = response.indexOf('var SYYYY="');
+    var iStartTime = response.indexOf(model['parse_sst']);
+    var iDay = response.indexOf(model['parse_day']);
+    var iMonth = response.indexOf(model['parse_month']);
+    var iYear = response.indexOf(model['parse_year']);
     if (iStartTime != -1 && iDay != -1 && iMonth != -1 && iYear != -1 && !responseParsed__MODULE_ID__) {
         // Mark we already parsed the response, so no other will set up the image
         responseParsed__MODULE_ID__ = true;
@@ -257,17 +276,16 @@ function parseResponse(_response) {
         // Set progress bar
         setProgress(RESPONSE_PARSED_PROGRESS);
 
-        var sStartTime = response.substr(iStartTime + 9, 2);
-        var sDay = response.substr(iDay + 9, 2);
-        var sMonth = response.substr(iMonth + 9, 2);
-        var sYear = response.substr(iYear + 11, 4);
-        var prefs = new gadgets.Prefs(__MODULE_ID__);
-        var sCol = prefs.getString("x"); //TODO
-        var sRow = prefs.getString("y"); //TODO
+        var sStartTime = response.substr(iStartTime + model['parse_sst'].length, 2);
+        var sDay = response.substr(iDay + model['parse_day'].length, 2);
+        var sMonth = response.substr(iMonth + model['parse_month'].length, 2);
+        var sYear = response.substr(iYear + model['parse_year'].length, 4);
+        var sCol = prefs.getString("x"); //@todo
+        var sRow = prefs.getString("y"); //@todo
         var sPlotLanguage = prefs.getString("plotLanguage");
         var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
         var sImageUrl = [BASE_URL,
-            '/metco/mgram_pict.php?ntype=2n&fdate=',
+            model['image_infix'],
             sStartData,
             '&row=', sRow,
             '&col=', sCol,
@@ -324,7 +342,6 @@ function reload() {
 
 function setInitPage() {
     log.trace("Enter setInitPage()");
-    var prefs = new gadgets.Prefs(__MODULE_ID__);
     var mainDiv = document.getElementById("meteogram_div");
     removeAllChildren(mainDiv);
     var message = document.createElement("span");
@@ -349,10 +366,20 @@ function main() {
     log.trace("Enter main()");
     resetTimeoutParams();
     checkTimeout__MODULE_ID__ = setTimeout(checkIfResponseParsed, 1000);
+    var sModel = prefs.getString("modelName");
+    if (sModel == "COAMPS") {
+        model = COAMPS;
+    } else if (sModel == "UM") {
+        model = UM;
+    } else {
+        log.error("Don't know model name: " + sModel);
+        setErrorPage();
+        return;
+    }
     var params = {};
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
-    gadgets.io.makeRequest(BASE_URL + "/info_coamps.php", parseResponse, params);
+    gadgets.io.makeRequest(BASE_URL + model['request_page'], parseResponse, params);
     log.trace("Exit main()");
 }
 gadgets.util.registerOnLoadHandler(main);

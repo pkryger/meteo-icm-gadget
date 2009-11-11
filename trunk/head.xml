@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-  <ModulePrefs title="__UP_cityName__ __MSG_title__"
+  <ModulePrefs title="__UP_modelName__ __UP_cityName__ __MSG_title__"
                title_url="http://meteo.icm.edu.pl"
                description="__MSG_description__"
                author="Przemysław Kryger"
@@ -17,6 +17,13 @@
     <Require feature="setprefs"/>
     <Require feature="views"/>
   </ModulePrefs>
+  <UserPref name="modelName"
+            display_name="__MSG_model_name__"
+            default_value="COAMPS"
+            datatype="enum">
+    <EnumValue value="COAMPS" />
+    <EnumValue value="UM" />
+  </UserPref>
   <UserPref name="cityName"
             display_name="__MSG_city__"
             default_value="Kraków"
