@@ -36,7 +36,7 @@ var prefs = new gadgets.Prefs(__MODULE_ID__);
 var model = undefined;
 var COAMPS = {
     'request_page' : '/meteorogram_coamps_js.php',
-    'parse_year' : 'var SST="',
+    'parse_sst' : 'var SST="',
     'parse_day' : 'var SDD="',
     'parse_month' : 'var SMM="',
     'parse_year' : 'var SYYYY="',
@@ -46,7 +46,7 @@ var COAMPS = {
 };
 var UM = {
     "request_page" : "/meteorogram_um_js.php",
-    'parse_year' : 'var UM_SST="',
+    'parse_sst' : 'var UM_SST="',
     'parse_day' : 'var UM_SDD="',
     'parse_month' : 'var UM_SMM="',
     'parse_year' : 'var UM_SYYYY="',
@@ -258,7 +258,7 @@ function fetchImageManually() {
 function parseResponse(_response) {
     log.trace("Enter parseResponse()");
     var response = _response.text;
-    var iStartTime = response.indexOf(model['parse_year']);
+    var iStartTime = response.indexOf(model['parse_sst']);
     var iDay = response.indexOf(model['parse_day']);
     var iMonth = response.indexOf(model['parse_month']);
     var iYear = response.indexOf(model['parse_year']);
