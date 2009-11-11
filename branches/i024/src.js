@@ -71,7 +71,7 @@ function setImage(_img, _startData) {
     }
     var titleAlt = [prefs.getMsg("forecast_for"),
         ' ',
-        prefs.getString("cityName");].join('');
+        prefs.getString("cityName")].join('');
     _img.setAttribute("border", 0);
     _img.setAttribute("height", sHeight);
     _img.setAttribute("width", sWidth);
