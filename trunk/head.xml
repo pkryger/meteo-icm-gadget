@@ -16,6 +16,7 @@
     <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
     <Require feature="setprefs"/>
     <Require feature="views"/>
+    <Require feature="com.google.gadgets.analytics"/>
   </ModulePrefs>
   <UserPref name="modelName"
             display_name="__MSG_model_name__"
@@ -57,6 +58,9 @@
             default_value="false"
             datatype="bool"/>
   <UserPref name="lastImageUrl"
+            default_value=""
+            datatype="hidden"/>
+  <UserPref name="lastStartData"
             default_value=""
             datatype="hidden"/>
   <Content type="html" view="home,canvas">

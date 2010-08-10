@@ -32,6 +32,8 @@ var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
 var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
 var prefs = new gadgets.Prefs(__MODULE_ID__);
+var ga = new _IG_GA("UA-17869623-2");
+ga.reportPageview('/view/counterGadget');
 
 var model = undefined;
 var COAMPS = {
@@ -92,8 +94,18 @@ function setImage(_img, _startData) {
     if (view == "HOME") {
         var bScaleHeight = prefs.getBool("scaleHeight");
         var bScaleWidth = prefs.getBool("scaleWidth");
-        sHeight = true == bScaleHeight ? "340" : sHeight;
-        sWidth = true == bScaleWidth ? "100%" : sWidth;
+        if (true == bScaleHeight) {
+            ga.reportPageview('/view/counterScaleHeight');
+            sHeight = "340";
+        } else {
+            ga.reportPageview('/view/counterOriginalHeight');
+        }
+        if (true == bScaleWidth) {
+            ga.reportPageview('/view/counterScaleWidth');
+            sWidth = "100%";
+        } else {
+            ga.reportPageview('/view/counterOriginalHeight');
+        }
     }
     var titleAlt = [prefs.getMsg("forecast_for"),
         ' ',
@@ -110,6 +122,7 @@ function setImage(_img, _startData) {
     link.appendChild(_img);
     var legend = undefined;
     if (view == "canvas") {
+        ga.reportPageview('/view/counterFullScreen');
         var sPlotLanguage = prefs.getString("plotLanguage");
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
@@ -146,6 +159,7 @@ function getLinkUrl(_startData) {
 
 function setErrorPage() {
     log.trace("Enter setErrorPage()");
+    ga.reportPageview('/view/counterError');
     // Mark we are no longer interested in timer method
     responseParsed__MODULE_ID__ = true;
     clearTimeout(checkTimeout__MODULE_ID__);
@@ -208,6 +222,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
 
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
+    ga.reportPageview('/view/counterLastSaved');
     setProgress(LAST_SAVED_PROGRESS);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
@@ -224,6 +239,7 @@ function fetchLastSavedImage() {
 
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
+    ga.reportPageview('/view/counterManually');
     setProgress(MANUAL_PROGRESS);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
@@ -283,6 +299,10 @@ function parseResponse(_response) {
         var sCol = prefs.getString("x"); //@todo
         var sRow = prefs.getString("y"); //@todo
         var sPlotLanguage = prefs.getString("plotLanguage");
+        var sModel = prefs.getString("modelName");
+        ga.reportPageview(['/view/counter', sModel].join(''));
+        ga.reportPageview(['/view/counter', sPlotLanguage].join(''));
+        ga.reportPageview(['/view/counter', sModel, '/col/', sCol, '/row/', sRow].join(''));
         var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
         var sImageUrl = [BASE_URL,
             model['image_infix'],
