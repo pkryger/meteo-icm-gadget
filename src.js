@@ -32,8 +32,8 @@ var LAST_SAVED_PROGRESS = MANUAL_PROGRESS + 1;
 var TOTAL_PROGRESS = LAST_SAVED_PROGRESS + 1;
 
 var prefs = new gadgets.Prefs(__MODULE_ID__);
-var ga = new _IG_GA("UA-17869623-2");
-ga.reportPageview('/view/counterGadget');
+var ga = new _IG_GA("UA-17869623-4");
+ga.reportPageview('/gadget');
 
 var model = undefined;
 var COAMPS = {
@@ -95,16 +95,16 @@ function setImage(_img, _startData) {
         var bScaleHeight = prefs.getBool("scaleHeight");
         var bScaleWidth = prefs.getBool("scaleWidth");
         if (true == bScaleHeight) {
-            ga.reportPageview('/view/counterScaleHeight');
+            ga.reportPageview('/scale/height/yes');
             sHeight = "340";
         } else {
-            ga.reportPageview('/view/counterOriginalHeight');
+            ga.reportPageview('/scale/height/no');
         }
         if (true == bScaleWidth) {
-            ga.reportPageview('/view/counterScaleWidth');
+            ga.reportPageview('/scale/width/yes');
             sWidth = "100%";
         } else {
-            ga.reportPageview('/view/counterOriginalHeight');
+            ga.reportPageview('/scale/width/no');
         }
     }
     var titleAlt = [prefs.getMsg("forecast_for"),
@@ -122,7 +122,6 @@ function setImage(_img, _startData) {
     link.appendChild(_img);
     var legend = undefined;
     if (view == "canvas") {
-        ga.reportPageview('/view/counterFullScreen');
         var sPlotLanguage = prefs.getString("plotLanguage");
         var params = {};
         //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
@@ -159,7 +158,7 @@ function getLinkUrl(_startData) {
 
 function setErrorPage() {
     log.trace("Enter setErrorPage()");
-    ga.reportPageview('/view/counterError');
+    ga.reportPageview('/method/error');
     // Mark we are no longer interested in timer method
     responseParsed__MODULE_ID__ = true;
     clearTimeout(checkTimeout__MODULE_ID__);
@@ -206,6 +205,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
         img.src = gadgets.io.getProxyUrl(_imageUrl, params);
         //@todo image checking is needed for more realiability: if (true == img.complete) {
         if (true) {
+            ga.reportPageview('/method/download');
             prefs.set("lastImageUrl", _imageUrl);
             prefs.set("lastStartData", _startData);
             setImage(img, _startData);
@@ -222,7 +222,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
 
 function fetchLastSavedImage() {
     log.trace("Enter fetchLastSavedImage()");
-    ga.reportPageview('/view/counterLastSaved');
+    ga.reportPageview('/method/lastSaved');
     setProgress(LAST_SAVED_PROGRESS);
     var imageUrl = prefs.getString("lastImageUrl");
     var startData = prefs.getString("lastStartData");
@@ -239,7 +239,7 @@ function fetchLastSavedImage() {
 
 function fetchImageManually() {
     log.trace("Enter fetchImageManually()");
-    ga.reportPageview('/view/counterManually');
+    ga.reportPageview('/method/manually');
     setProgress(MANUAL_PROGRESS);
     var sPlotLanguage = prefs.getString("plotLanguage");
     var now = new Date();
@@ -300,9 +300,9 @@ function parseResponse(_response) {
         var sRow = prefs.getString("y"); //@todo
         var sPlotLanguage = prefs.getString("plotLanguage");
         var sModel = prefs.getString("modelName");
-        ga.reportPageview(['/view/counter', sModel].join(''));
-        ga.reportPageview(['/view/counter', sPlotLanguage].join(''));
-        ga.reportPageview(['/view/counter', sModel, '/col/', sCol, '/row/', sRow].join(''));
+        ga.reportPageview(['/model/', sModel].join(''));
+        ga.reportPageview(['/lang/', sPlotLanguage].join(''));
+        ga.reportPageview(['/coordinates/', sModel, '/col/', sCol, '/row/', sRow].join(''));
         var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
         var sImageUrl = [BASE_URL,
             model['image_infix'],
