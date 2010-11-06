@@ -408,7 +408,7 @@ function main() {
         sep = '?';
     }
     ts = Math.floor(ts / (PAGE_CACHE_TIME * 1000));
-    var url = [BASE_URL, model['request_page'], sep, 'nocache=', ts].join('');    
+    var url = [BASE_URL, model['request_page']].join(''); //, sep, 'nocache=', ts].join('');    
     gadgets.io.makeRequest(url, parseResponse, params);
     log.trace("Exit main()");
 }
