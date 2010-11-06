@@ -125,7 +125,7 @@ function setImage(_img, _startData) {
         var sPlotLanguage = prefs.getString("plotLanguage");
         var params = {};
         //@todo wait for google fix
-        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
         legend.src = gadgets.io.getProxyUrl(model['legend_url'], params);
     }
@@ -201,7 +201,8 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
     log.trace("Enter fetchImage()", {"_imageUrl":_imageUrl, "_startData":_startData, "_failureCallback":_failureCallback});
     if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
         var params = {};
-        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        //@todo wait for google fix
+        //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         var img = document.createElement("img");
         img.src = gadgets.io.getProxyUrl(_imageUrl, params);
         //@todo image checking is needed for more realiability: if (true == img.complete) {
