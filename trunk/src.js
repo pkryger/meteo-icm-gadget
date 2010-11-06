@@ -125,7 +125,7 @@ function setImage(_img, _startData) {
         var sPlotLanguage = prefs.getString("plotLanguage");
         var params = {};
         //@todo wait for google fix
-        //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
         legend.src = gadgets.io.getProxyUrl(model['legend_url'], params);
     }
@@ -202,7 +202,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
     if (_imageUrl != undefined && _imageUrl != "" && _startData != undefined && _startData != "") {
         var params = {};
         //@todo wait for google fix
-        //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         var img = document.createElement("img");
         img.src = gadgets.io.getProxyUrl(_imageUrl, params);
         //@todo image checking is needed for more realiability: if (true == img.complete) {
@@ -268,7 +268,7 @@ function fetchImageManually() {
     }
     var sCol = prefs.getInt("x"); //TODO
     var sRow = prefs.getInt("y"); //TODO
-    var sStartData = [sYear, sMonth, sDay, sStartTime].join('');
+    var sStartData = [sYear, sMonth, sDay, sHour].join('');
     var sImageUrl = [BASE_URL,
         model['image_infix'],
         sStartData,
@@ -402,13 +402,13 @@ function main() {
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
     var ts = new Date().getTime();
-    var sep = "&";
-    if (BASE_URL.indexOf("&") > -1
-        || model['request_page'].indexOf("&") > -1) {
-        sep = "?";
+    var sep = '&';
+    if (BASE_URL.indexOf('&') > -1
+        || model['request_page'].indexOf('&') > -1) {
+        sep = '?';
     }
     ts = Math.floor(ts / (PAGE_CACHE_TIME * 1000));
-    var url = [BASE_URL, model['request_page'], sep, "nocache=", ts].join("");    
+    var url = [BASE_URL, model['request_page'], sep, 'nocache=', ts].join('');    
     gadgets.io.makeRequest(url, parseResponse, params);
     log.trace("Exit main()");
 }
