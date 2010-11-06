@@ -19,8 +19,8 @@ Logger.addLoggerOutput(new ColorHTMLLoggerOutput(document.getElementById("loggin
 // Uncomment the following line to perform the logging module tests
 //_testLogger(document.getElementById("logging_div"));
 
-var IMAGE_CACHE_TIME = 60 * 60 * 24;
-var PAGE_CACHE_TIME = 20 * 2;
+var IMAGE_CACHE_TIME = 60 * 60 * 24; // in seconds
+var PAGE_CACHE_TIME = 5 * 60; //in seconds
 var BASE_URL = 'http://new.meteo.pl';
 
 var responseParsed__MODULE_ID__ = false;
@@ -124,7 +124,8 @@ function setImage(_img, _startData) {
     if (view == "canvas") {
         var sPlotLanguage = prefs.getString("plotLanguage");
         var params = {};
-        //@todo wait for google fix params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
+        //@todo wait for google fix
+        params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         legend = document.createElement("img");
         legend.src = gadgets.io.getProxyUrl(model['legend_url'], params);
     }
@@ -399,7 +400,15 @@ function main() {
     var params = {};
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
-    gadgets.io.makeRequest(BASE_URL + model['request_page'], parseResponse, params);
+    var ts = new Date().getTime();
+    var sep = "&";
+    if (BASE_URL.indexOf("&") > -1
+        || model['request_page'].indexOf("&") > -1) {
+        sep = "?";
+    }
+    ts = Math.floor(ts / (PAGE_CACHE_TIME * 1000));
+    var url = [BASE_URL, model['request_page'], sep, "nocache=", ts].join("");    
+    gadgets.io.makeRequest(url, parseResponse, params);
     log.trace("Exit main()");
 }
 gadgets.util.registerOnLoadHandler(main);
