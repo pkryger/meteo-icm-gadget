@@ -402,13 +402,14 @@ function main() {
     params[gadgets.io.RequestParameters.CONTENT_TYPE] = gadgets.io.ContentType.TEXT;
     //@todo wait for google fix params[gadgets.io.RequestParameters.REFRESH_INTERVAL] = PAGE_CACHE_TIME;
     var ts = new Date().getTime();
-    var sep = '&';
-    if (BASE_URL.indexOf('&') > -1
-        || model['request_page'].indexOf('&') > -1) {
-        sep = '?';
+    var sep = '?';
+    if (BASE_URL.indexOf('?') > -1
+        || model['request_page'].indexOf('?') > -1) {
+        sep = '&';
     }
     ts = Math.floor(ts / (PAGE_CACHE_TIME * 1000));
-    var url = [BASE_URL, model['request_page']].join(''); //, sep, 'nocache=', ts].join('');    
+    var url = [BASE_URL, model['request_page'], sep, 'nocache=', ts].join('');
+    log.debug("Use url = " + url)
     gadgets.io.makeRequest(url, parseResponse, params);
     log.trace("Exit main()");
 }
