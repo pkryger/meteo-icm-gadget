@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+  <ModulePrefs title="__UP_modelName__ __UP_cityName__ __MSG_title__"
+               title_url="http://meteo.icm.edu.pl"
+               description="__MSG_description__"
+               author="Przemysław Kryger"
+               author_email="pkryger+icmweatherforecast@gmail.com"
+               directory_title="__MSG_directory_title__"
+               screenshot="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-screenshot.png"
+               thumbnail="http://meteo-icm-gadget.googlecode.com/svn/trunk/meteo-icm-gadget-thumbnail.png"
+               author_location="Kraków, Poland"
+               scaling="true"
+               height="340"
+               scrolling="true">
+    <Locale messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/ALL_ALL.xml"/> 
+    <Locale lang="pl" messages="http://meteo-icm-gadget.googlecode.com/svn/trunk/pl_ALL.xml"/>
+    <Require feature="setprefs"/>
+    <Require feature="views"/>
+    <Require feature="com.google.gadgets.analytics"/>
+  </ModulePrefs>
+  <UserPref name="modelName"
+            display_name="__MSG_model_name__"
+            default_value="COAMPS"
+            datatype="enum">
+    <EnumValue value="COAMPS" />
+    <EnumValue value="UM" />
+  </UserPref>
+  <UserPref name="cityName"
+            display_name="__MSG_city__"
+            default_value="Kraków"
+            datatype="string">
+  </UserPref>
+  <UserPref name="x"
+            display_name="__MSG_x__"
+            default_value="91"
+            datatype="string">
+  </UserPref>
+  <UserPref name="y"
+            display_name="__MSG_y__"
+            default_value="151"
+            datatype="string">
+  </UserPref>
+  <UserPref name="plotLanguage"
+            display_name="__MSG_plot_language__"
+            default_value="en"
+            datatype="enum">
+    <EnumValue value="pl"
+               display_value="__MSG_plot_language_polish__" />
+    <EnumValue value="en"
+               display_value="__MSG_plot_language_english__" />
+  </UserPref>
+  <UserPref name="scaleHeight"
+            display_name="__MSG_scale_height__"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="scaleWidth"
+            display_name="__MSG_scale_width__"
+            default_value="false"
+            datatype="bool"/>
+  <UserPref name="lastImageUrl"
+            default_value=""
+            datatype="hidden"/>
+  <UserPref name="lastStartData"
+            default_value=""
+            datatype="hidden"/>
+  <Content type="html" view="home,canvas">
+    <![CDATA[
+<style type="text/css">.progressOut{margin:2px 0;border:1px solid#008000;width:200px;height:10px;}#progressIn{background:#00d200;width:0;height:100%;}</style><div id="meteogram_div"><span style="font-size: 9pt;">__MSG_loading_data__</span><div><div class="progressOut"><div id="progressIn"></div></div></div></div><script type="text/javascript">var IMAGE_CACHE_TIME=60*60*24;var PAGE_CACHE_TIME=5*60;var BASE_URL='http://new.meteo.pl';var responseParsed__MODULE_ID__=false;var checkTimeout__MODULE_ID__=undefined;var checkAttempt__MODULE_ID__=0;var RESPONSE_PARSED_PROGRESS=10;var MANUAL_PROGRESS=RESPONSE_PARSED_PROGRESS+1;var LAST_SAVED_PROGRESS=MANUAL_PROGRESS+1;var TOTAL_PROGRESS=LAST_SAVED_PROGRESS+1;var prefs=new gadgets.Prefs(__MODULE_ID__);var ga=new _IG_GA("UA-17869623-4");ga.reportPageview('/gadget');var model=undefined;var COAMPS={'request_page':'/meteorogram_coamps_js.php','parse_sst':'var SST="','parse_day':'var SDD="','parse_month':'var SMM="','parse_year':'var SYYYY="','legend_url':[BASE_URL,'/metco/legenda_',prefs.getString("plotLanguage"),'_2.png'].join(''),'image_infix':'/metco/mgram_pict.php?ntype=2n&fdate=','link_url_infix':'/php/meteorogram_list_coamps.php?ntype=2n&fdate=','image_width':'660','image_height':'660'};var UM={"request_page":"/meteorogram_um_js.php",'parse_sst':'var UM_SST="','parse_day':'var UM_SDD="','parse_month':'var UM_SMM="','parse_year':'var UM_SYYYY="','legend_url':[BASE_URL,'/um/metco/leg_um_',prefs.getString("plotLanguage"),'.png'].join(''),'image_infix':'/um/metco/mgram_pict.php?ntype=0u&fdate=','link_url_infix':'/um/php/meteorogram_list.php?ntype=0u&fdate=','image_width':'540','image_height':'660'};function removeAllChildren(_node){if(undefined!=_node){while(_node.hasChildNodes()){_node.removeChild(_node.firstChild);}}else{}}
+function setProgress(_progress){var percent=_progress*(1/TOTAL_PROGRESS)*100;var width=percent+"%";var bar=document.getElementById("progressIn");if(undefined!=bar){bar.style.width=width;}}
+function setImage(_img,_startData){setProgress(TOTAL_PROGRESS);var view=gadgets.views.getCurrentView().getName();var sHeight=model['image_height'];var sWidth=model['image_width'];if(view=="HOME"){var bScaleHeight=prefs.getBool("scaleHeight");var bScaleWidth=prefs.getBool("scaleWidth");if(true==bScaleHeight){ga.reportPageview('/scale/height/yes');sHeight="340";}else{ga.reportPageview('/scale/height/no');}
+if(true==bScaleWidth){ga.reportPageview('/scale/width/yes');sWidth="100%";}else{ga.reportPageview('/scale/width/no');}}
+var titleAlt=[prefs.getMsg("forecast_for"),' ',prefs.getString("cityName")].join('');_img.setAttribute("border",0);_img.setAttribute("height",sHeight);_img.setAttribute("width",sWidth);_img.setAttribute("title",titleAlt);_img.setAttribute("alt",titleAlt);var sLinkUrl=getLinkUrl(_startData);var link=document.createElement("a");link.setAttribute("target","_blank");link.setAttribute("href",sLinkUrl);link.appendChild(_img);var legend=undefined;if(view=="canvas"){var sPlotLanguage=prefs.getString("plotLanguage");var params={};legend=document.createElement("img");legend.src=gadgets.io.getProxyUrl(model['legend_url'],params);}
+var div=document.getElementById("meteogram_div");removeAllChildren(div);if(undefined!=legend){div.appendChild(legend);}
+div.appendChild(link);div.style.width="100%";div.style.height="auto";}
+function getLinkUrl(_startData){var sCol=prefs.getInt("x");var sRow=prefs.getInt("y");var sPlotLanguage=prefs.getString("plotLanguage");var sCityName=escape(prefs.getString("cityName"));var sUrl=[BASE_URL,model['link_url_infix'],_startData,'&row=',sRow,'&col=',sCol,'&lang=',sPlotLanguage,'&cname=',sCityName].join('');return sUrl;}
+function setErrorPage(){ga.reportPageview('/method/error');responseParsed__MODULE_ID__=true;clearTimeout(checkTimeout__MODULE_ID__);setProgress(TOTAL_PROGRESS);var errorMessage=createErrorMessage();var refreshButton=createRefreshButton();var div=document.getElementById("meteogram_div");removeAllChildren(div);div.appendChild(errorMessage);div.appendChild(document.createElement("br"));div.appendChild(refreshButton);}
+function createErrorMessage(){var message=document.createElement("span");message.setAttribute("style","font-size: 9pt");message.innerHTML=prefs.getMsg("error_cannot_load");return message;}
+function createRefreshButton(){var buttonSpan=document.createElement("span");buttonSpan.setAttribute("style","font-size: 9pt;margin:2px");var button=document.createElement("button");button.innerHTML=prefs.getMsg("refresh_button_text");var tooltip=prefs.getMsg("refresh_button_tooltip");button.setAttribute("title",tooltip);button.onclick=new Function("reload()");buttonSpan.appendChild(button);return buttonSpan;}
+function fetchImage(_imageUrl,_startData,_failureCallback){if(_imageUrl!=undefined&&_imageUrl!=""&&_startData!=undefined&&_startData!=""){var params={};var img=document.createElement("img");img.src=gadgets.io.getProxyUrl(_imageUrl,params);if(true){ga.reportPageview('/method/download');prefs.set("lastImageUrl",_imageUrl);prefs.set("lastStartData",_startData);setImage(img,_startData);}else{_failureCallback();}}else{_failureCallback();}}
+function fetchLastSavedImage(){ga.reportPageview('/method/lastSaved');setProgress(LAST_SAVED_PROGRESS);var imageUrl=prefs.getString("lastImageUrl");var startData=prefs.getString("lastStartData");if(undefined!=imageUrl&&imageUrl!=""&&undefined!=startData&&startData!=""){fetchImage(imageUrl,startData,setErrorPage);}else{setErrorPage();}}
+function fetchImageManually(){ga.reportPageview('/method/manually');setProgress(MANUAL_PROGRESS);var sPlotLanguage=prefs.getString("plotLanguage");var now=new Date();var sYear=now.getUTCFullYear();var nMonth=now.getUTCMonth();var sMonth=nMonth+1;var nDay=now.getUTCDate();var sDay=nDay;if(nDay<10){sDay="0"+nDay;}
+var nHour=now.getUTCHours();var sHour="00";if(nHour>21||nHour<4){sHour="18";}else if(nHour>3&&nHour<10){sHour="00";}else if(nHour>9&&nHour<16){sHour="06";}else if(nHour>15&&nHour<22){sHour="12";}else{}
+var sCol=prefs.getInt("x");var sRow=prefs.getInt("y");var sStartData=[sYear,sMonth,sDay,sHour].join('');var sImageUrl=[BASE_URL,model['image_infix'],sStartData,'&row=',sRow,'&col=',sCol,'&lang=',sPlotLanguage].join('');fetchImage(sImageUrl,sStartData,fetchLastSavedImage);}
+function parseResponse(_response){var response=_response.text;var iStartTime=response.indexOf(model['parse_sst']);var iDay=response.indexOf(model['parse_day']);var iMonth=response.indexOf(model['parse_month']);var iYear=response.indexOf(model['parse_year']);if(iStartTime!=-1&&iDay!=-1&&iMonth!=-1&&iYear!=-1&&!responseParsed__MODULE_ID__){responseParsed__MODULE_ID__=true;clearTimeout(checkTimeout__MODULE_ID__);setProgress(RESPONSE_PARSED_PROGRESS);var sStartTime=response.substr(iStartTime+model['parse_sst'].length,2);var sDay=response.substr(iDay+model['parse_day'].length,2);var sMonth=response.substr(iMonth+model['parse_month'].length,2);var sYear=response.substr(iYear+model['parse_year'].length,4);var sCol=prefs.getString("x");var sRow=prefs.getString("y");var sPlotLanguage=prefs.getString("plotLanguage");var sModel=prefs.getString("modelName");ga.reportPageview(['/model/',sModel].join(''));ga.reportPageview(['/lang/',sPlotLanguage].join(''));ga.reportPageview(['/coordinates/',sModel,'/col/',sCol,'/row/',sRow].join(''));var sStartData=[sYear,sMonth,sDay,sStartTime].join('');var sImageUrl=[BASE_URL,model['image_infix'],sStartData,'&row=',sRow,'&col=',sCol,'&lang=',sPlotLanguage].join('');fetchImage(sImageUrl,sStartData,fetchImageManually);}else if(!responseParsed__MODULE_ID__){responseParsed__MODULE_ID__=true;clearTimeout(checkTimeout__MODULE_ID__);setProgress(RESPONSE_PARSED_PROGRESS);fetchImageManually();}}
+function checkIfResponseParsed(){if(false==responseParsed__MODULE_ID__){checkAttempt__MODULE_ID__++;if(false==responseParsed__MODULE_ID__){setProgress(checkAttempt__MODULE_ID__);if(false==responseParsed__MODULE_ID__){if(checkAttempt__MODULE_ID__<=RESPONSE_PARSED_PROGRESS){if(false==responseParsed__MODULE_ID__){checkTimeout__MODULE_ID__=setTimeout(checkIfResponseParsed,1000);}}else{if(false==responseParsed__MODULE_ID__){responseParsed__MODULE_ID__=true;fetchLastSavedImage();}}}}}}
+function reload(){setInitPage();main();}
+function setInitPage(){var mainDiv=document.getElementById("meteogram_div");removeAllChildren(mainDiv);var message=document.createElement("span");message.setAttribute("style","font-size: 9pt");message.innerHTML=prefs.getMsg("loading_data");mainDiv.appendChild(message);var progressBar=document.createElement("div");progressBar.innerHTML="<div class=\"progressOut\"><div id=\"progressIn\"></div></div>";mainDiv.appendChild(progressBar);}
+function resetTimeoutParams(){responseParsed__MODULE_ID__=false;checkTimeout__MODULE_ID__=undefined;checkAttempt__MODULE_ID__=0;}
+function main(){resetTimeoutParams();checkTimeout__MODULE_ID__=setTimeout(checkIfResponseParsed,1000);var sModel=prefs.getString("modelName");if(sModel=="COAMPS"){model=COAMPS;}else if(sModel=="UM"){model=UM;}else{setErrorPage();return;}
+var params={};params[gadgets.io.RequestParameters.CONTENT_TYPE]=gadgets.io.ContentType.TEXT;var ts=new Date().getTime();var sep='?';if(BASE_URL.indexOf('?')>-1||model['request_page'].indexOf('?')>-1){sep='&';}
+ts=Math.floor(ts/(PAGE_CACHE_TIME*1000));var url=[BASE_URL,model['request_page'],sep,'nocache=',ts].join('');gadgets.io.makeRequest(url,parseResponse,params);}
+gadgets.util.registerOnLoadHandler(main);</script>    ]]> 
+  </Content> 
+</Module>
