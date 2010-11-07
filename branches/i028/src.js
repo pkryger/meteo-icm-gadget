@@ -204,6 +204,7 @@ function fetchImage(_imageUrl, _startData, _failureCallback) {
         //@todo wait for google fix
         //params[gadgets.io.ProxyUrlRequestParameters.REFRESH_INTERVAL] = IMAGE_CACHE_TIME;
         var img = document.createElement("img");
+        //@todo seems like the getProxyUrl return garbage too often. Let's use URL as is.
         img.src = _imageUrl; //gadgets.io.getProxyUrl(_imageUrl, params);
         //@todo image checking is needed for more realiability: if (true == img.complete) {
         if (true) {
