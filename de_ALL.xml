@@ -1,0 +1,22 @@
+<messagebundle>
+  <msg name="title">ICM Wettervorhersage</msg>
+  <msg name="description">
+    Zeigt die Wettervorhersage für einen bestimmten Ort in Form einer Meteorogrames. Meteorogrames kommt aus dem http://new.meteo.pl.
+    So richten Sie das Gadget auf die Website gehen und holen die Meteorogram Sie interessiert sind dann nehmen Sie den 'x' und 'y' Koordinaten entweder aus der Karte oder aus der angezeigten Meteorogram Website.
+  </msg>
+  <msg name="directory_title">ICM Wettervorhersage</msg>
+  <msg name="model_name">Modell</msg>
+  <msg name="city">Stadt Name</msg>
+  <msg name="x">x</msg>
+  <msg name="y">y</msg>
+  <msg name="plot_language">Meteorogram Sprache</msg>
+  <msg name="plot_language_polish">Polnisch</msg>
+  <msg name="plot_language_english">Englisch</msg>
+  <msg name="forecast_for">Wetterbericht für</msg>
+  <msg name="loading_data">Herunterladen Meteorgram...</msg>
+  <msg name="scale_height">Skale Höhe</msg>
+  <msg name="scale_width">Scale Breite</msg>
+  <msg name="error_cannot_load">Kann nicht downloaden Meteorogram.</msg>
+  <msg name="refresh_button_text">Aktualisieren Meteorogram</msg>
+  <msg name="refresh_button_tooltip">Klicken Sie zum Meteorogram aktualisieren.</msg>
+</messagebundle>

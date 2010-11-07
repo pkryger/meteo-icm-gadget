@@ -2,7 +2,7 @@
   <msg name="title">Prognoza Pogody ICM</msg>
   <msg name="description">
     Wyświetla prognozę pogody w formie meteorogrmów. Wykresy pochodzą ze strony http://new.meteo.pl. Aby ustalić współrzędne 'x' i 'y' należy
-    udać się na powyższą stronę i wybrać interesujący meteorogram. Współrzędne odczytujemy albo z mapki, albo ze strony z  meteorogramem.
+    udać się na powyższą stronę i wybrać interesujący meteorogram. Współrzędne odczytujemy albo z mapki, albo ze strony z meteorogramem.
   </msg>
   <msg name="directory_title">Prognoza Pogody ICM</msg>
   <msg name="model_name">Model</msg>

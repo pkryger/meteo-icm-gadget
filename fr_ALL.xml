@@ -1,0 +1,22 @@
+<messagebundle>
+  <msg name="title">ICM Prévisions Météorologiques</msg>
+  <msg name="description">
+    Affiche les prévisions météo pour une ville donnée dans une forme de météorogrammes. Météorogrammes vient du http://new.meteo.pl.
+    Pour configurer le gadget aller sur le site et ramassez le météorogram vous intéresse; ensuite, prendre le 'x' et 'y' soit coordonnées de la carte ou sur le site météorogram affiché.
+  </msg>
+  <msg name="directory_title">ICM Prévisions Météorologiques</msg>
+  <msg name="model_name">Modèle</msg>
+  <msg name="city">Nom De La Ville</msg>
+  <msg name="x">x</msg>
+  <msg name="y">y</msg>
+  <msg name="plot_language">Météorogram Langue</msg>
+  <msg name="plot_language_polish">Polonais</msg>
+  <msg name="plot_language_english">Anglais</msg>
+  <msg name="forecast_for">Prévisions météo pour les</msg>
+  <msg name="loading_data">Télécharger météorogram...</msg>
+  <msg name="scale_height">Scale Height</msg>
+  <msg name="scale_width">Échelle De La Largeur</msg>
+  <msg name="error_cannot_load">Ne Peut Pas Télécharger Météorogram.</msg>
+  <msg name="refresh_button_text">Rafraîchissement météorogram</msg>
+  <msg name="refresh_button_tooltip">Cliquez pour recharger météorogram.</msg>
+</messagebundle>
