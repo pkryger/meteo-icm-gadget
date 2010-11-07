@@ -2,7 +2,7 @@
   <msg name="title">ICM Prévisions Météorologiques</msg>
   <msg name="description">
     Affiche les prévisions météo pour une ville donnée dans une forme de météorogrammes. Météorogrammes vient du http://new.meteo.pl.
-    Pour configurer le gadget aller sur le site et ramassez le météorogram vous intéresse; ensuite, prendre le 'x' et 'y' soit coordonnées de la carte ou sur le site météorogram affiché.
+    Pour configurer le gadget d'aller sur le site et ramassez le météorogram vous intéresse; ensuite, prendre le 'x' et 'y' coordonnées soit à partir de la carte ou à partir du site meteorogram affiché.
   </msg>
   <msg name="directory_title">ICM Prévisions Météorologiques</msg>
   <msg name="model_name">Modèle</msg>
