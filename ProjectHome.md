@@ -1,0 +1,1 @@
+Displays the weather forecast for a given city in a form of a meteograms. Meteorograms comes from http://meteo.pl.
